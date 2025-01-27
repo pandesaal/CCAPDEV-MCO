@@ -1,0 +1,68 @@
+@import url("nav.css");
+
+main {
+
+    margin-top: 2em;
+
+    display: flex;
+    justify-content: center;
+    gap: 0.75em;
+
+    & .posts {
+
+        border: var(--border);
+        max-width: 50vw;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        gap: 0.75em;
+
+        & .post {
+
+            border: var(--border);
+            border-radius: 0.5em;
+            padding: 1em;
+
+            display: flex;
+            flex-direction: column;
+            gap: 0.75em;
+
+            & .header {
+                display: flex;
+                justify-content: space-between;
+
+                & .left {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75em;
+
+                    & .icon {
+                        display: flex;
+                        align-items: center;
+        
+                        & img {
+                            width: auto;
+                            height: auto;
+                            max-width: 3em;
+                            border-radius: 50%;
+                        }
+                    }
+                }
+
+                & .options {
+                    display: none;
+                }
+
+            }
+
+            
+        }
+    }
+
+    & aside {
+        border: var(--border);
+        max-height: fit-content;
+    }
+}

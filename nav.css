@@ -1,0 +1,66 @@
+@import url("default.css");
+
+nav {
+    border-bottom: var(--border);
+    padding: 1em;
+
+    display: flex;
+    justify-content: space-around;
+    gap: 0.5em;
+    align-items: center;
+
+    & .search {
+        & .query {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            border: var(--border);
+            padding: 0.3em 1em;
+            border-radius: 9999em;
+
+            & input {
+                width: 50em;
+            }
+
+            & button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+    
+    & .profile {
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-grow: 0;
+
+        & .loggedin {
+
+            display: flex;
+            align-items: center;
+            flex: 0 1 auto;
+            gap: 0.75em;
+
+            & .icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                & img {
+                    width: auto;
+                    height: auto;
+                    max-width: 3em;
+                    border-radius: 50%;
+                }
+            }
+
+            & .options ul {
+                display: none;
+            }
+        }
+    }
+}

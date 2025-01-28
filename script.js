@@ -19,6 +19,7 @@ function showSignup() {
     document.getElementById("login").style.display = "none";
 }
 
+// adding event listeners to the comment hyperlinks
 const commLinks = document.querySelectorAll(".buttons a");
 
 commLinks.forEach((link) => {
@@ -27,3 +28,18 @@ commLinks.forEach((link) => {
         openReg();
     })
 });
+
+function editProfile(e) {
+    if (e.target.innerText === "Edit Profile") {
+        e.target.innerText = "Save Changes";
+        bio.contentEditable = true;
+        profileImage.contentEditable = true;
+    }
+    else {
+        e.target.innerText = "Edit Profile";
+        bio.contentEditable = false;
+        profileImage.contentEditable = false;
+    }
+}
+
+document.getElementById("editButton").addEventListener("click", editProfile);

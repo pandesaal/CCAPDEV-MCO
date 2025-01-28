@@ -19,14 +19,6 @@ function showSignup() {
     document.getElementById("login").style.display = "none";
 }
 
-function openIframe() {
-    document.getElementById("regIframe").style.display = "block";
-}
-
-function closeIframe() {
-    document.getElementById("registerIframe").style.display = "none";
-}
-
 const commLinks = document.querySelectorAll(".buttons a");
 
 commLinks.forEach((link) => {

@@ -1,0 +1,64 @@
+#regWindow {
+    display: none;
+    width: 300px;
+    height: 300px;
+    padding: 10px;
+    border: 2px solid gray;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 2px 2px 5px;
+}
+
+.regContent {
+    display: grid;
+    justify-content: center;
+    padding-top: 10%;
+    margin: auto;
+}
+
+.regInput {
+    outline: 1px solid #32583f;
+    margin-bottom: 5px;
+}
+
+.regButton {
+    outline: 2px solid #32583f;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#signup {
+    display: none;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.2;
+    display: none;
+}
+
+.regClose {
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+    right: 15px;
+}
+
+.regClose:hover {
+    cursor: pointer;
+}
+
+a:hover {
+    cursor: pointer;
+}

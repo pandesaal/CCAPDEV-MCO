@@ -36,6 +36,8 @@ button, input {
     padding: 0;
     border: none;
     outline: none;
+    font-size: inherit;
+    cursor: pointer;
 }
 
 :focus {
@@ -48,12 +50,31 @@ img, video {
 }
 
 html, body {
-    background-color: var(--light);
+    background-color: var(--color-light);
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .icon img {
     border-radius: 50%;
 }
 
+.hide {
+    display: none;
+}
+
+.options {
+
+    position: relative;
+
+    ul {
+
+        border: var(--border);
+        min-width: max-content;
+
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+}

@@ -7,9 +7,10 @@
 
     --font-heading: 'Inter', sans-serif;
     --font-body: 'Inter', sans-serif;
-    --font-smaller: 0.9em;
+    --font-smaller: 0.85em;
 
-    --border: 0.15em solid var(--color-dark)
+    --border: 0.15rem solid var(--color-dark);
+    --border-small: 0.1rem solid var(--color-dark);
 }
 
 *,

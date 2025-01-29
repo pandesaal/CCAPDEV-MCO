@@ -25,13 +25,15 @@ nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            
+            width: 100%;
 
-            border: var(--border);
+            border: var(--border-small);
             padding: 0.3em 1em;
             border-radius: 9999em;
 
             input {
-                width: 50em;
+                flex: 1 1 50em;
                 font-size: var(--font-smaller);
             }
 
@@ -45,19 +47,19 @@ nav {
         #queryresults {
 
             display: block;
-            border: var(--border);
+            border: var(--border-small);
             border-radius: 0.5em;
             margin-top: 0.2em;
 
             overflow: hidden;
 
             width: 100%;
-            position: absolute;  /* Keeps it in a floating position */
+            position: absolute;
 
             li {
                 display: flex;
                 flex-direction: column;
-                border-bottom: var(--border);
+                border-bottom: var(--border-small);
                 overflow: hidden;
 
                 padding: 0.3em 1em;
@@ -88,7 +90,7 @@ nav {
             .newpost {
 
                 padding: 0.3em 1em;
-                border: var(--border);
+                border: var(--border-small);
                 border-radius: 9999em;
 
                 display: flex;

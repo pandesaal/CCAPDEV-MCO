@@ -1,1 +1,103 @@
 @import url("../components/nav.css");
+
+main {
+
+    display: flex;
+    justify-content: space-between;
+
+    gap: 0.75em;
+
+    #filters-wrapper {
+
+        border-right: var(--border-small);
+        padding-top: 1em;
+
+        display: flex;
+        flex-direction: column;
+        flex: 0 1 20%;
+        gap: 0.3em;
+
+        h4, h5 {
+            padding: 0.3em 1em;
+        }
+
+        #filters {
+
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+
+            .filter-groups {
+
+                display: flex;
+                flex-direction: column;
+                gap: 0.2em;
+
+                ul {
+
+                    padding: 0.15em 1em;
+                    
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5em;
+        
+                    li {
+        
+                        a {
+                            font-size: var(--font-smaller);
+                            font-weight: 500;
+                            padding: 0.3em 0.75em;
+        
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+        
+                            .labels {
+                                display: flex;
+                                justify-content: space-around;
+                                align-items: center;
+                                gap: 0.5em;
+                            }
+        
+                            .count {
+                                padding-right: 1em;
+                            }
+                        }
+        
+                        
+                    }
+                    
+                }
+            }
+        }
+        
+    }
+
+    .posts {
+
+        width: 100%;
+
+        padding-top: 1em;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        gap: 0.75em;
+
+        .post {
+
+            /*remove when actual post styling is made for placeholder lang to*/
+
+            border: var(--border);
+            border-radius: 0.5em;
+            padding: 1em;
+
+            width: 40em;
+            height: 10em;
+
+            
+        }
+    }
+}

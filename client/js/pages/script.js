@@ -1,22 +1,22 @@
-function openReg() {
-    document.getElementById("regWindow").style.display = "block";
-    document.getElementById("overlay").style.display = "block";
+function closeReg() {
+    document.getElementById("regWindow").classList.add("hide");
+    document.getElementById("overlay").classList.add("hide");
 }
 
-function closeReg() {
-    document.getElementById("regWindow").style.display = "none";
-    document.getElementById("overlay").style.display = "none";
-    closeIframe();
+function openReg() {
+    document.getElementById("regWindow").classList.remove("hide");
+    document.getElementById("overlay").classList.remove("hide");
+
 }
 
 function showLogin() {
-    document.getElementById("login").style.display = "grid";
-    document.getElementById("signup").style.display = "none";
+    document.getElementById("login").classList.remove("hide");
+    document.getElementById("signup").classList.add("hide");
 }
 
 function showSignup() {
-    document.getElementById("signup").style.display = "grid";
-    document.getElementById("login").style.display = "none";
+    document.getElementById("signup").classList.remove("hide");
+    document.getElementById("login").classList.add("hide");
 }
 
 const signUpButton = document.getElementById("signupbtn")

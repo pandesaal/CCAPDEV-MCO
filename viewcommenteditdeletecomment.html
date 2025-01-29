@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<head>
+    <title>Forum Web Application</title>
+    
+    <!-- CSS Import -->
+    <link rel="stylesheet" href="../base/default.css">
+    
+    <style>
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #28a745;
+            --text-color: #333;
+            --background-color: #f4f4f9;
+            --container-background: #fff;
+            --comment-background: #f9f9f9;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 50rem;
+            margin: 2rem auto;
+            background: var(--container-background);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+        }
+
+        .post {
+            margin-bottom: 2rem;
+        }
+
+        .post-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .post-title:hover {
+            text-decoration: underline;
+        }
+
+        .snippet {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .most-popular {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+        }
+
+        .comments {
+            margin-top: 2rem;
+        }
+
+        .comment {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--comment-background);
+            border-radius: 0.5rem;
+        }
+
+        .edit {
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-left: 1rem;
+        }
+
+        .delete {
+            color: var(--danger-color);
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-left: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1rem;
+            color: #fff;
+            background: var(--primary-color);
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .form {
+            margin-top: 2rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 4rem;
+            padding: 1rem;
+            border: 0.1rem solid #ccc;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar"></div> <!-- Navbar -->
+
+    <div id="app" class="container">
+        <!-- Home View -->
+        <div id="home-view">
+            <h1>Recent Posts</h1>
+            <div class="most-popular">Most Popular: <span id="most-popular-title">Post Title</span></div>
+            <div id="posts"></div>
+        </div>
+
+        <!-- Post View -->
+        <div id="post-view" style="display: none;">
+            <button id="backButton" class="btn">← Back</button> <!-- Back Button -->
+            <h1 id="post-title">Post Title</h1>
+            <p id="post-content">Post content...</p>
+
+            <div class="comments">
+                <h3>Comments</h3>
+                <div id="comments-container"></div>
+            </div>
+
+            <div class="form">
+                <textarea id="new-comment" placeholder="Write a comment..."></textarea>
+                <button class="btn" onclick="addComment()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPostId = null;
+
+        // Hardcoded Users
+        const users = ["Alice", "Bob", "Charlie", "David", "Eve"];
+
+        // Hardcoded Posts
+        const posts = [
+            { id: 1, title: "How to Learn JavaScript", snippet: "Tips and tricks for mastering JavaScript...", content: "JavaScript is a powerful language used for web development.", likes: 10 },
+            { id: 2, title: "Best Coding Practices", snippet: "Write clean and maintainable code...", content: "Always comment your code and follow proper indentation.", likes: 15 },
+            { id: 3, title: "Understanding Asynchronous Programming", snippet: "What is async and await?", content: "Asynchronous programming allows tasks to run in the background.", likes: 20 },
+            { id: 4, title: "React vs Vue: Which is Better?", snippet: "Comparison of the two leading front-end frameworks...", content: "Both React and Vue have their advantages...", likes: 8 },
+            { id: 5, title: "How to Ace Coding Interviews", snippet: "Top tips for technical interviews...", content: "Practice coding questions, understand algorithms...", likes: 12 },
+        ];
+
+        // Hardcoded Comments
+        const comments = {
+            1: ["This was super helpful, thanks!", "I struggled with closures, but this article made it clear."],
+            2: ["I follow these rules in my daily work."],
+            3: ["Async/Await changed my life!"],
+            4: ["React's ecosystem is just too big to ignore."],
+            5: ["Interview prep is so important!"],
+        };
+
+        function renderPosts() {
+            const postsContainer = document.getElementById("posts");
+            postsContainer.innerHTML = "";
+
+            posts.forEach(post => {
+                const postElement = document.createElement("div");
+                postElement.className = "post";
+                postElement.innerHTML = `
+                    <div class="post-title" onclick="viewPost(${post.id})">${post.title}</div>
+                    <div class="snippet">${post.snippet}</div>
+                `;
+                postsContainer.appendChild(postElement);
+            });
+
+            const mostPopular = posts.reduce((max, post) => (post.likes > max.likes ? post : max), posts[0]);
+            document.getElementById("most-popular-title").textContent = mostPopular.title;
+        }
+
+        function viewPost(postId) {
+            currentPostId = postId;
+            const post = posts.find(p => p.id === postId);
+            document.getElementById("home-view").style.display = "none";
+            document.getElementById("post-view").style.display = "block";
+            document.getElementById("post-title").textContent = post.title;
+            document.getElementById("post-content").textContent = post.content;
+            renderComments();
+        }
+
+        document.getElementById("backButton").addEventListener("click", function () {
+            document.getElementById("home-view").style.display = "block";
+            document.getElementById("post-view").style.display = "none";
+        });
+
+        function renderComments() {
+            const container = document.getElementById("comments-container");
+            container.innerHTML = "";
+            comments[currentPostId].forEach((comment, index) => {
+                const element = document.createElement("div");
+                element.className = "comment";
+                element.innerHTML = `<strong>User</strong>: ${comment}
+                    <span class="edit" onclick="editComment(${index})">Edit</span>
+                    <span class="delete" onclick="deleteComment(${index})">Delete</span>`;
+                container.appendChild(element);
+            });
+        }
+
+        function addComment() {
+            const content = document.getElementById("new-comment").value.trim();
+            if (content) {
+                comments[currentPostId].push(content);
+                document.getElementById("new-comment").value = "";
+                renderComments();
+            }
+        }
+
+        function editComment(index) {
+            const newContent = prompt("Edit your comment:", comments[currentPostId][index]);
+            if (newContent) {
+                comments[currentPostId][index] = newContent + " (edited)";
+                renderComments();
+            }
+        }
+
+        function deleteComment(index) {
+            comments[currentPostId].splice(index, 1);
+            renderComments();
+        }
+
+        renderPosts();
+    </script>
+
+    <script src="../../js/components/nav-injector.js"></script>
+</body>
+</html>

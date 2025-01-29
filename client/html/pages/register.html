@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- <link rel="stylesheet" href="default.css"> -->
-    <link rel="stylesheet" href="../../css/specific/register.css">
+    <link rel="stylesheet" href="../../css/pages/register.css" />
 
     <title>Register</title>
 </head>
@@ -13,8 +12,8 @@
     <button onclick="openReg()">Register</button>
 
     <!-- to copy paste in main html page -->
-    <div id="overlay" onclick="closeReg()"></div>
-    <div id="regWindow">
+    <div class="hide" id="overlay" onclick="closeReg()"></div>
+    <div class="hide" id="regWindow">
         <span class="regClose" onclick="closeReg()">&times;</span>
         <div class="regContent" id="login">
             <h2>Log In</h2>
@@ -28,7 +27,7 @@
             <p>Don't have an account? <a onclick="showSignup()">Sign up</a></p>
         </div>
 
-        <div class="regContent" id="signup">
+        <div class="regContent hide" id="signup">
             <h2>Sign Up</h2>
             <form id="signupForm">
                 <label for="signupUser">Username</label><br/>
@@ -42,7 +41,7 @@
     </div>
 
     <!-- importing javascript -->
-    <script src="../../js/specific/script.js"></script>
+    <script src="../../js/pages/script.js"></script>
 
 </body>
 </html>

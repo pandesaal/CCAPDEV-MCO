@@ -1,15 +1,17 @@
+@import url("../components/nav.css");
+
 #regWindow {
-    display: none;
-    width: 300px;
-    height: 300px;
-    padding: 10px;
-    border: 2px solid gray;
+    display: block;
+    width: 19.5em;
+    height: 20.5em;
+    padding: 0.8em;
+    border: var(--border);
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
-    box-shadow: 2px 2px 5px;
+    box-shadow: 4px 4px 5px;
 }
 
 .regContent {
@@ -17,23 +19,49 @@
     justify-content: center;
     padding-top: 10%;
     margin: auto;
+    gap: 1em;
+}
+
+.regContent a {
+    text-decoration: underline;
+}
+
+.regContent a:hover {
+    color: var(--color-accent);
+    cursor: pointer;
 }
 
 .regInput {
-    outline: 1px solid #32583f;
-    margin-bottom: 5px;
+    outline: 0.1em solid var(--color-dark);
+    border-radius: 0.05em;
+    margin: 0.2em;
+    padding: 0.2em 0em 0.2em 0.3em;
+}
+
+.regInput:hover {
+    cursor: text;
 }
 
 .regButton {
-    outline: 2px solid #32583f;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    padding: 5px;
-    border-radius: 10px;
+    outline: 0.2em solid var(--color-dark);
+    font-weight: bold;
+    margin-top: 1.2em;
+    margin-bottom: 1.2em;
+    padding: 0.2em 0.5em 0.2em 0.5em;
+    border-radius: 1em;
+}
+
+.regButton:hover {
+    color: var(--color-accent);
+    outline-color: var(--color-accent);
 }
 
 #signup {
-    display: none;
+    display: grid;
+}
+
+#login {
+    display: grid;
 }
 
 #overlay {
@@ -44,21 +72,18 @@
     height: 100%;
     background-color: black;
     opacity: 0.2;
-    display: none;
+    display: block;
 }
 
 .regClose {
-    font-size: 25px;
+    font-size: 1.7em;
     font-weight: bold;
     position: absolute;
-    top: 5px;
-    right: 15px;
+    top: 0.2em;
+    right: 0.6em;
 }
 
 .regClose:hover {
-    cursor: pointer;
-}
-
-a:hover {
+    color: var(--color-accent);
     cursor: pointer;
 }

@@ -18,18 +18,121 @@ main {
 
         gap: 0.75em;
 
+        /* replace/remove when actual post styling is made for placeholder lang to*/
         .post {
-
-            /*remove when actual post styling is made for placeholder lang to*/
 
             border: var(--border);
             border-radius: 0.5em;
             padding: 1em;
 
-            width: 40em;
-            height: 10em;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75em;
+            box-shadow: 0px 3px 6px #00000029;
 
-            
+            .header {
+                display: flex;
+                justify-content: space-between;
+
+                .left {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75em;
+
+                    .icon {
+                        display: flex;
+                        align-items: center;
+        
+                        img {
+                            width: auto;
+                            height: auto;
+                            max-width: 3em;
+                            border-radius: 50%;
+                        }
+                    }
+
+                    .username {
+                        display: flex;
+                        align-items: center;
+                        font-family: "Crimson Text-Regular", Helvetica;
+                        color: #000000;
+                        letter-spacing: 0;
+                        line-height: normal;
+                    }
+
+                    .date {
+                        display: flex;
+                        align-items: center;
+                        font-family: "Crimson Text-Regular", Helvetica;
+                        color: #636468;
+                        font-size: 12px;
+                        letter-spacing: 0;
+                        line-height: normal;
+                    }
+                }
+
+                .options {
+                    display: none;
+                }
+            }
+
+            .tags {
+                padding: 1em;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5em;
+    
+                .tag {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    border: var(--border);
+                    border-radius: 9999em;
+                    padding: 0.3em 1em;
+                    font-size: var(--font-smaller);
+                }
+            }
+    
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            }
+    
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto; /* 15% from the top and centered */
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%; /* Could be more or less, depending on screen size */
+                border-radius: 5px;
+            }
+    
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+    
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+    
+            .comments {
+                margin-top: 20px;
+            }
         }
     }
 

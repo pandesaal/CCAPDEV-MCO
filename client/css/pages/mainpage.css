@@ -18,18 +18,81 @@ main {
 
         gap: 0.75em;
 
+        /* replace/remove when actual post styling is made for placeholder lang to*/
         .post {
-
-            /*remove when actual post styling is made for placeholder lang to*/
 
             border: var(--border);
             border-radius: 0.5em;
             padding: 1em;
 
-            width: 40em;
-            height: 10em;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75em;
+            box-shadow: 0px 3px 6px #00000029;
 
-            
+            .header {
+                display: flex;
+                justify-content: space-between;
+
+                .left {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75em;
+
+                    .icon {
+                        display: flex;
+                        align-items: center;
+        
+                        img {
+                            width: auto;
+                            height: auto;
+                            max-width: 3em;
+                            border-radius: 50%;
+                        }
+                    }
+
+                    .username {
+                        display: flex;
+                        align-items: center;
+                        font-family: "Crimson Text-Regular", Helvetica;
+                        color: #000000;
+                        letter-spacing: 0;
+                        line-height: normal;
+                    }
+
+                    .date {
+                        display: flex;
+                        align-items: center;
+                        font-family: "Crimson Text-Regular", Helvetica;
+                        color: #636468;
+                        font-size: 12px;
+                        letter-spacing: 0;
+                        line-height: normal;
+                    }
+                }
+
+                .options {
+                    display: none;
+                }
+            }
+
+            .tags {
+                padding: 1em;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5em;
+    
+                .tag {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    border: var(--border);
+                    border-radius: 9999em;
+                    padding: 0.3em 1em;
+                    font-size: var(--font-smaller);
+                }
+            }
         }
     }
 

@@ -13,46 +13,7 @@
     <title>CCAPDEV MCO: Forum Site</title>
 </head>
 <body>
-    <nav>
-        <div class="title">
-            <span class="material-symbols-outlined">menu</span>
-            <h3>Site Name Here</h3>
-        </div>
-        <div class="search">
-            <div class="query">
-                <input id="searchbar" type="text" placeholder="Search the forums...">
-                <button id="search-button"><span class="material-symbols-outlined">search</span></button>
-                <button id="search-clear"><span class="material-symbols-outlined">close</span></button>
-            </div>
-            <ul id="queryresults" class="hide">
-            </ul>
-        </div>
-        <div class="account">
-            <div class="loggedin">
-                <button class="newpost">
-                    <span class="material-symbols-outlined">add</span> New Post
-                </button>
-                <div class="profile">
-                    <div class="icon">
-                        <img src="../../assets/defaulticon.png" alt="">
-                    </div>
-                    <p class="username">User12345</p>
-                    <div class="options">
-                        <span class="material-symbols-outlined">keyboard_arrow_down</span>
-                        <ul>
-                            <li><a href="#">View Profile</a></li>
-                            <li><a href="#">Settings</a></li>
-                            <li><a href="#">Logout</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="loggedout">
-                <button id="loginbtn">Log In</button>
-                <button id="signupbtn">Sign Up</button>
-            </div>
-        </div>
-    </nav>
+    <div id="navbar"></div>
 
     <main>
         <div class="posts">
@@ -125,6 +86,7 @@
     <!-- importing javascript -->
     <script src="../../js/pages/script.js"></script>
     <script src="../../js/pages/searching.js"></script>
+    <script src="../../js/components/nav-injector.js"></script>
 
 </body>
 </html>

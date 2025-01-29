@@ -56,6 +56,11 @@ html, body {
     min-height: 100vh;
 }
 
+#navbar {
+    position: sticky;
+    top: 0;
+}
+
 .icon img {
     border-radius: 50%;
 }

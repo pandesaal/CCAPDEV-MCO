@@ -1,3 +1,7 @@
+<head>
+    <link rel="stylesheet" href="../../css/components/nav.css">
+</head>
+
 <nav>
     <div class="title">
         <span class="material-symbols-outlined" id="sidebar-button">menu</span>
@@ -57,9 +61,39 @@
     </div>
     <div class="account">
         <div class="loggedin">
-            <button class="newpost">
+            <button id="createPostBtn" class="create-post-btn">
                 <span class="material-symbols-outlined">add</span> New Post
             </button>
+
+            <div id="postModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Create a New Post</h2>
+                    <div class="postText-title">
+                        <textarea id="postTextTitle" placeholder="Enter the title of your post." rows="2"></textarea>
+                    </div>
+                    <div class="postText-content">
+                        <textarea id="postTextContent" placeholder="What's on your mind?" rows="4"></textarea>
+                    </div>
+                    <div class="postText-tags">
+                        <textarea id="postTextTags" placeholder="Enter tags." rows="1"></textarea>
+                    </div>
+                    <div>
+                        <button id="uploadPostBtn">Upload</button>
+                        <button id="discardPostBtn">Discard</button>
+                    </div>
+                </div>
+            </div>
+        
+            <div id="editModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Edit Post</h2>
+                    <textarea id="editPostText" rows="4"></textarea>
+                    <button id="doneEditBtn">Done</button>
+                </div>
+            </div>
+
             <div class="profile">
                 <div class="icon">
                     <img src="../../assets/defaulticon.png" alt="">
@@ -75,9 +109,14 @@
                 </div>
             </div>
         </div>
+
         <div class="loggedout">
             <button id="loginbtn">Log In</button>
             <button id="signupbtn">Sign Up</button>
         </div>
     </div>
+
+    <!-- importing javascript -->
+    <script src="../../js/components/nav-injector.js"></script>
 </nav>
+

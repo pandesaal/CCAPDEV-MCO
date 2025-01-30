@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     createPostBtn.onclick = function() {
         postModal.style.display = "block";
+        console.log('hello')
     }
 
     closePostModal.onclick = function() {

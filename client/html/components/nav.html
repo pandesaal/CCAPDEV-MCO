@@ -1,13 +1,56 @@
 <nav>
     <div class="title">
-        <span class="material-symbols-outlined">menu</span>
-        <h3>Site Name Here</h3>
+        <span class="material-symbols-outlined" id="sidebar-button">menu</span>
+        <div id="sidebar-wrapper">
+            <div id="overlay"></div>
+            <div id="sidebar">
+                <ul>
+                    <li>
+                        <a href="#" id="filter-users">
+                            <div class="labels">
+                                <span class="material-symbols-outlined">person</span>
+                                <p>Users</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="filter-posts">
+                            <div class="labels">
+                                <span class="material-symbols-outlined">sticky_note_2</span>
+                                <p>Posts</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="filter-comments">
+                            <div class="labels">
+                                <span class="material-symbols-outlined">comment</span>
+                                <p>Comments</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="filter-tags">
+                            <div class="labels">
+                                <span class="material-symbols-outlined">tag</span>
+                                <p>Tags</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div> 
+        </div>
+        <h3><a href="/client/html/pages/">Site Name Here</a></h3>
     </div>
     <div class="search">
         <div class="query">
             <input id="searchbar" type="text" placeholder="Search the forums...">
-            <button id="search-button"><span class="material-symbols-outlined">search</span></button>
-            <button id="search-clear"><span class="material-symbols-outlined">close</span></button>
+            <button id="search-button">
+                <a href="../pages/search.html">
+                    <span class="material-symbols-outlined">search</span>
+                </a> <!--a tags to be removed, just for phase 1 to reach search page-->
+            </button>
+            <button id="search-clear" class="hide"><span class="material-symbols-outlined">close</span></button>
         </div>
         <ul id="queryresults" class="hide">
         </ul>

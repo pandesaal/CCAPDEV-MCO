@@ -1,153 +1,214 @@
 @import url("../base/default.css");
 
-nav {
-    border-bottom: var(--border);
-    padding: 1em 1.5em;
 
+#navbar {
     position: sticky;
     top: 0;
 
-    display: flex;
-    justify-content: space-between;
-    gap: 0.5em;
-    align-items: center;
-
-    .title {
-        display: flex;
-        align-items: center;
-        gap: 1.5em;
-    }
-
-    .search {
-        position: relative;
-
-        .query {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            
-            width: 100%;
-
-            border: var(--border-small);
-            padding: 0.3em 1em;
-            border-radius: 9999em;
-
-            input {
-                flex: 1 1 50em;
-                font-size: var(--font-smaller);
-            }
-
-            button {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-        }
-
-        #queryresults {
-
-            display: block;
-            border: var(--border-small);
-            border-radius: 0.5em;
-            margin-top: 0.2em;
-
-            overflow: hidden;
-
-            width: 100%;
-            position: absolute;
-
-            li {
-                display: flex;
-                flex-direction: column;
-                border-bottom: var(--border-small);
-                overflow: hidden;
-
-                padding: 0.3em 1em;
-
-                &:last-child {
-                    border-bottom: none;
-                }
-
-                a {
-                    padding: 0.3em 1em;
-                }
-            }
-        }
-    }
+    nav {
+        border-bottom: var(--border);
+        padding: 1em 1.5em;
     
-    .account {
-
+        position: sticky;
+        top: 0;
+    
         display: flex;
+        justify-content: space-between;
+        gap: 0.5em;
         align-items: center;
-        flex-grow: 0;
-
-        .loggedin {
-
+    
+        .title {
             display: flex;
             align-items: center;
-            gap: 2em;
+            gap: 1.5em;
 
-            .newpost {
-
-                padding: 0.3em 1em;
+            #sidebar-button {
+                padding: 0.2em;
                 border: var(--border-small);
-                border-radius: 9999em;
-
-                display: flex;
-                align-items: center;
-                gap: 0.25em;
-
-                font-size: var(--font-smaller);
+                border-radius: 0.3em;
+                font-weight: 600;
             }
 
-            .profile {
+            #sidebar-wrapper {
 
+                height: 100%;
+                width: 20%;
+
+                position: absolute;
+                left: 0;
+
+                #sidebar {
+                    border: var(--border);
+                    height: 100vh;
+
+                    display: flex;
+
+                    ul {
+
+                        padding: 0.15em 1em;
+                        
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.5em;
+            
+                        li {
+            
+                            a {
+                                font-size: var(--font-smaller);
+                                font-weight: 500;
+                                padding: 0.3em 0.75em;
+            
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+            
+                                .labels {
+                                    display: flex;
+                                    justify-content: space-around;
+                                    align-items: center;
+                                    gap: 0.5em;
+                                }
+                            }
+            
+                        }
+                        
+                    }
+                }
+            }
+        }
+    
+        .search {
+            position: relative;
+    
+            .query {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                flex-grow: 0;
-                gap: 0.5em;
-
-                .username {
+                
+                width: 100%;
+    
+                border: var(--border-small);
+                padding: 0.3em 1em;
+                border-radius: 9999em;
+    
+                input {
+                    flex: 1 1 50em;
                     font-size: var(--font-smaller);
                 }
-
-                .icon {
+    
+                button {
                     display: flex;
-                    align-items: center;
                     justify-content: center;
-
-                    img {
-                        width: auto;
-                        height: auto;
-                        max-width: 2em;
+                    align-items: center;
+                }
+            }
+    
+            #queryresults {
+    
+                display: block;
+                border: var(--border-small);
+                border-radius: 0.5em;
+                margin-top: 0.2em;
+    
+                overflow: hidden;
+    
+                width: 100%;
+                position: absolute;
+    
+                li {
+                    display: flex;
+                    flex-direction: column;
+                    border-bottom: var(--border-small);
+                    overflow: hidden;
+    
+                    padding: 0.3em 1em;
+    
+                    &:last-child {
+                        border-bottom: none;
+                    }
+    
+                    a {
+                        padding: 0.3em 1em;
                     }
                 }
-
-                .options ul {
-                    display: none;
-                }
-
             }
-            
         }
-
-        .loggedout {
-            display: none;
+        
+        .account {
+    
+            display: flex;
             align-items: center;
-            flex: 0 1 auto;
-            gap: 0.75em;
-
-            button {
-                padding: 0.4em 1em;
-                border: var(--border);
-                border-radius: 0.5em;
-
-                &#signupbtn {
-                    background-color: var(--color-dark);
-                    color: var(--color-light);
+            flex-grow: 0;
+    
+            .loggedin {
+    
+                display: flex;
+                align-items: center;
+                gap: 2em;
+    
+                .newpost {
+    
+                    padding: 0.3em 1em;
+                    border: var(--border-small);
+                    border-radius: 9999em;
+    
+                    display: flex;
+                    align-items: center;
+                    gap: 0.25em;
+    
+                    font-size: var(--font-smaller);
+                }
+    
+                .profile {
+    
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-grow: 0;
+                    gap: 0.5em;
+    
+                    .username {
+                        font-size: var(--font-smaller);
+                    }
+    
+                    .icon {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+    
+                        img {
+                            width: auto;
+                            height: auto;
+                            max-width: 2em;
+                        }
+                    }
+    
+                    .options ul {
+                        display: none;
+                    }
+    
+                }
+                
+            }
+    
+            .loggedout {
+                display: none;
+                align-items: center;
+                flex: 0 1 auto;
+                gap: 0.75em;
+    
+                button {
+                    padding: 0.4em 1em;
+                    border: var(--border);
+                    border-radius: 0.5em;
+    
+                    &#signupbtn {
+                        background-color: var(--color-dark);
+                        color: var(--color-light);
+                    }
                 }
             }
         }
     }
 }
+

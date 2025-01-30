@@ -49,6 +49,7 @@ button, input {
 img, video {
     max-width: 100%;
     height: auto;
+    border: var(--border-small);
 }
 
 html, body {
@@ -57,10 +58,6 @@ html, body {
     min-height: 100vh;
 }
 
-#navbar {
-    position: sticky;
-    top: 0;
-}
 
 .icon img {
     border-radius: 50%;

@@ -21,8 +21,8 @@ searchBar.addEventListener("input", () => {
     resultsHolder.innerHTML = ""
     if (searchBar.value) {
 
+        clearSearch.classList.remove("hide")
         const results = tags.filter(tag => tag.includes(searchBar.value.trim().toLowerCase())).slice(0, 5)
-        console.log(results)
 
         if (results.length > 0) {
             results.forEach((result) => {
@@ -49,4 +49,14 @@ clearSearch.addEventListener("click", () => {
     searchBar.value = ""
     resultsHolder.innerHTML = ""
     resultsHolder.classList.add("hide")
+
+    clearSearch.classList.add("hide")
 })
+
+const processSearch = () => {
+    const searchValue = searchBar.value
+    
+    
+}
+
+confirmSearch.addEventListener("click", processSearch)

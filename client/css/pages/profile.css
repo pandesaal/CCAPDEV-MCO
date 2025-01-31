@@ -1,7 +1,7 @@
 @import url("../components/nav.css");
 
 main {
-    margin-top: 110px;
+    margin-top: 3em;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -14,51 +14,54 @@ main {
     align-items: start;
     justify-content: center;
     width: 95%;
-    height: 300px;
-    padding-top: 25px;
-    margin-top: 0px;
-    border-bottom: 2px solid #32583f;
+    margin-top: 0;
+    padding-bottom: 3em;
+    border-bottom: var(--border);
 }
 
 #info {
     display: flex;
     flex-direction: column;
-    margin-right: 800px;
+    margin-right: 20em;
 }
 
-#icon {
-    margin-right: 50px;
+.icon {
+    width: 12em;
+    margin-right: 2em;
     box-shadow: 5px 5px 2px;
 }
 
 #username {
-    margin-bottom: 5px;
+    margin-bottom: 0.2em;
 }
 
 #editButton {
-    width: 200px;
-    font-size: 20px;
+    font-size: 1.2em;
     font-weight: bold;
-    outline: 4px solid #32583f;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-radius: 20px;
+    outline: 0.2em solid;
+    padding: 0.2em 0.8em 0.2em 0.8em;
+    border-radius: 5em;
     white-space: nowrap;
 }
 
 #editButton:hover {
     cursor: pointer;
+    color: var(--color-accent);
+    outline-color: var(--color-accent);
 }
 
 .post {
-    padding: 10px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #32583f;
+    padding: 2em;
+    padding-top: 1em;
+    border-bottom: var(--border-small);
+}
+
+#profilePosts {
+    margin-top: 1.3em;
+    width: 90%;
 }
 
 #recentLabel {
-    padding-bottom: 10px;
-    border-bottom: 2px dotted #32583f;
+    padding-bottom: 0.4em;
+    border-bottom: 0.15rem dotted #32583f;
 }

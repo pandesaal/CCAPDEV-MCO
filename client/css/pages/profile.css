@@ -25,7 +25,7 @@ main {
     margin-right: 20em;
 }
 
-.icon {
+#profilePic {
     width: 12em;
     margin-right: 2em;
     box-shadow: 5px 5px 2px;
@@ -54,6 +54,10 @@ main {
     padding: 2em;
     padding-top: 1em;
     border-bottom: var(--border-small);
+}
+
+.editable {
+    color: var(--color-accent) !important;
 }
 
 #profilePosts {

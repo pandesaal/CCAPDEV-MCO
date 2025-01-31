@@ -19,6 +19,34 @@ function showSignup() {
     document.getElementById("login").classList.add("hide");
 }
 
+// for editing profile page
+function editProfile(e) {
+    if (e.target.innerText === "Edit Profile") {
+        document.getElementById("profilePic").classList.add("editable");
+        document.getElementById("bio").classList.add("editable");
+        e.target.innerText = "Save Changes";
+        bio.contentEditable = true;
+        profileImage.contentEditable = true;
+    }
+    else {
+        document.getElementById("profilePic").classList.remove("editable");
+        document.getElementById("bio").classList.remove("editable");
+        e.target.innerText = "Edit Profile";
+        bio.contentEditable = false;
+        profileImage.contentEditable = false;
+    }
+}
+document.getElementById("editButton").addEventListener("click", editProfile);
+
+// navigates to profile page when an icon is clicked; not final
+// function toProfile() {
+//     window.location.href = "profile.html";
+// }
+// const icons = document.getElementsByClassName("icon");
+// for (let i = 0; i < icons.length; i++) {
+//     icons[i].addEventListener("click", toProfile);
+// }
+
 const signUpButton = document.getElementById("signupbtn")
 const loginButton = document.getElementById("loginbtn")
 
@@ -33,17 +61,3 @@ signUpButton.addEventListener("click", (e) => {
     openReg();
     showSignup();
 })
-
-function editProfile(e) {
-    if (e.target.innerText === "Edit Profile") {
-        e.target.innerText = "Save Changes";
-        bio.contentEditable = true;
-        profileImage.contentEditable = true;
-    }
-    else {
-        e.target.innerText = "Edit Profile";
-        bio.contentEditable = false;
-        profileImage.contentEditable = false;
-    }
-}
-document.getElementById("editButton").addEventListener("click", editProfile);

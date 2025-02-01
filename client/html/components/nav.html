@@ -1,44 +1,45 @@
 <nav>
     <div class="title">
         <span class="material-symbols-outlined" id="sidebar-button">menu</span>
-        <div id="sidebar-wrapper">
-            <div id="sidebar-overlay"></div>
+        <div id="sidebar-wrapper" class="hide">
             <div id="sidebar">
+                <div id="sidebar-top">
+                    <h3>Menu</h3>
+                    <span class="material-symbols-outlined" id="sidebar-close">close</span>
+                </div>
                 <ul>
                     <li>
-                        <a href="#" id="filter-users">
+                        <a href="../pages/profile.html" id="sidebar-profile">
                             <div class="labels">
                                 <span class="material-symbols-outlined">person</span>
-                                <p>Users</p>
+                                <p>Your Profile</p>
                             </div>
                         </a>
                     </li>
                     <li>
-                        <a href="#" id="filter-posts">
+                        <a href="#" id="sidebar-settings">
                             <div class="labels">
-                                <span class="material-symbols-outlined">sticky_note_2</span>
-                                <p>Posts</p>
+                                <span class="material-symbols-outlined">settings</span>
+                                <p>Settings</p>
                             </div>
                         </a>
                     </li>
                     <li>
-                        <a href="#" id="filter-comments">
+                        <a href="#" id="sidebar-logout">
                             <div class="labels">
-                                <span class="material-symbols-outlined">comment</span>
-                                <p>Comments</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" id="filter-tags">
-                            <div class="labels">
-                                <span class="material-symbols-outlined">tag</span>
-                                <p>Tags</p>
+                                <span class="material-symbols-outlined">logout</span>
+                                <p>Log Out</p>
                             </div>
                         </a>
                     </li>
                 </ul>
-            </div> 
+                <div id="footer">
+                    <ul>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="sidebar-overlay"></div>
         </div>
         <h3><a href="/client/html/pages/">Site Name Here</a></h3>
     </div>
@@ -90,20 +91,12 @@
                 </div>
             </div>
 
-            <div class="profile">
+            <a class="profile" href="../pages/profile.html">
                 <div class="icon">
                     <img src="../../assets/defaulticon.png" alt="">
                 </div>
                 <p class="username">User12345</p>
-                <div class="options">
-                    <span class="material-symbols-outlined">keyboard_arrow_down</span>
-                    <ul>
-                        <li><a href="#">View Profile</a></li>
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
+            </a>
         </div>
 
         <div class="loggedout">

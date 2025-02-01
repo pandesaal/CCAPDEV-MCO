@@ -5,11 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('navbar').innerHTML = data;
 
             const script = document.createElement("script")
-            script.src = "../../js/components/nav/searching.js"
+            script.src = "../../js/components/nav/navigation.js"
             document.getElementsByTagName("body")[0]
-            .appendChild(
-                script
-            )
+            .appendChild(script)
         })
         .catch(err => {
             console.error("Error loading navbar:", err);

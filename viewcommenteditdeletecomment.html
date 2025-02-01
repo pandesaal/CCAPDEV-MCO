@@ -14,6 +14,7 @@
             --container-background: #fff;
             --comment-background: #f9f9f9;
             --danger-color: #dc3545;
+            --border-color: #ddd;
         }
 
         body {
@@ -69,20 +70,34 @@
             padding: 1rem;
             background: var(--comment-background);
             border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .comment strong {
+            color: var(--primary-color);
+        }
+
+        .comment-actions {
+            margin-top: 0.5rem;
+            text-align: right;
+        }
+
+        .edit, .delete, .reply {
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-left: 1rem;
         }
 
         .edit {
             color: var(--primary-color);
-            cursor: pointer;
-            font-size: 0.9rem;
-            margin-left: 1rem;
         }
 
         .delete {
             color: var(--danger-color);
-            cursor: pointer;
-            font-size: 0.9rem;
-            margin-left: 1rem;
+        }
+
+        .reply {
+            color: var(--secondary-color);
         }
 
         .btn {
@@ -107,8 +122,33 @@
             width: 100%;
             height: 4rem;
             padding: 1rem;
-            border: 0.1rem solid #ccc;
+            border: 0.1rem solid var(--border-color);
             border-radius: 0.5rem;
+            font-family: Arial, sans-serif;
+            font-size: 0.9rem;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .filter-options {
+            margin-bottom: 1rem;
+        }
+
+        .filter-options select {
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        .nested-comments {
+            margin-left: 2rem;
+            border-left: 2px solid var(--border-color);
+            padding-left: 1rem;
         }
     </style>
 </head>
@@ -119,6 +159,23 @@
         <!-- Home View -->
         <div id="home-view">
             <h1>Recent Posts</h1>
+            <div class="filter-options">
+                <label for="tags">Filter by Tag:</label>
+                <select id="tags">
+                    <option value="">All</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="react">React</option>
+                    <option value="vue">Vue</option>
+                    <option value="interview">Interview</option>
+                </select>
+                <label for="communities">Filter by Community:</label>
+                <select id="communities">
+                    <option value="">All</option>
+                    <option value="frontend">Frontend</option>
+                    <option value="backend">Backend</option>
+                    <option value="fullstack">Fullstack</option>
+                </select>
+            </div>
             <div class="most-popular">Most Popular: <span id="most-popular-title">Post Title</span></div>
             <div id="posts"></div>
         </div>
@@ -143,33 +200,74 @@
 
     <script>
         let currentPostId = null;
+        let currentUser = "User"; // Current user submitting comments
 
-        // Hardcoded Users
-        const users = ["Alice", "Bob", "Charlie", "David", "Eve"];
-
-        // Hardcoded Posts
+        // Hardcoded Posts with Tags and Communities
         const posts = [
-            { id: 1, title: "How to Learn JavaScript", snippet: "Tips and tricks for mastering JavaScript...", content: "JavaScript is a powerful language used for web development.", likes: 10 },
-            { id: 2, title: "Best Coding Practices", snippet: "Write clean and maintainable code...", content: "Always comment your code and follow proper indentation.", likes: 15 },
-            { id: 3, title: "Understanding Asynchronous Programming", snippet: "What is async and await?", content: "Asynchronous programming allows tasks to run in the background.", likes: 20 },
-            { id: 4, title: "React vs Vue: Which is Better?", snippet: "Comparison of the two leading front-end frameworks...", content: "Both React and Vue have their advantages...", likes: 8 },
-            { id: 5, title: "How to Ace Coding Interviews", snippet: "Top tips for technical interviews...", content: "Practice coding questions, understand algorithms...", likes: 12 },
+            { id: 1, title: "How to Learn JavaScript", snippet: "Tips and tricks for mastering JavaScript...", content: "JavaScript is a powerful language used for web development.", likes: 10, tags: ["javascript"], community: "frontend" },
+            { id: 2, title: "Best Coding Practices", snippet: "Write clean and maintainable code...", content: "Always comment your code and follow proper indentation.", likes: 15, tags: ["general"], community: "backend" },
+            { id: 3, title: "Understanding Asynchronous Programming", snippet: "What is async and await?", content: "Asynchronous programming allows tasks to run in the background.", likes: 20, tags: ["javascript"], community: "frontend" },
+            { id: 4, title: "React vs Vue: Which is Better?", snippet: "Comparison of the two leading front-end frameworks...", content: "Both React and Vue have their advantages...", likes: 8, tags: ["react", "vue"], community: "frontend" },
+            { id: 5, title: "How to Ace Coding Interviews", snippet: "Top tips for technical interviews...", content: "Practice coding questions, understand algorithms...", likes: 12, tags: ["interview"], community: "fullstack" },
         ];
 
-        // Hardcoded Comments
+        // Hardcoded Comments with Nested Replies
         const comments = {
-            1: ["This was super helpful, thanks!", "I struggled with closures, but this article made it clear."],
-            2: ["I follow these rules in my daily work."],
-            3: ["Async/Await changed my life!"],
-            4: ["React's ecosystem is just too big to ignore."],
-            5: ["Interview prep is so important!"],
+            1: [
+                { id: 1, text: "This was super helpful, thanks!", user: "Alice", parentId: null },
+                { id: 2, text: "I struggled with closures, but this article made it clear.", user: "Bob", parentId: null },
+                { id: 3, text: "Glad it helped!", user: "Alice", parentId: 1 }, // Reply to comment 1
+                { id: 4, text: "I learned a lot from this post.", user: "Charlie", parentId: null },
+                { id: 5, text: "Great explanation of closures!", user: "David", parentId: 2 }, // Reply to comment 2
+            ],
+            2: [
+                { id: 6, text: "I follow these rules in my daily work.", user: "Charlie", parentId: null },
+                { id: 7, text: "Clean code is essential for maintainability.", user: "Alice", parentId: null },
+                { id: 8, text: "I agree with this post.", user: "Bob", parentId: null },
+                { id: 9, text: "What about using linters?", user: "David", parentId: 7 }, // Reply to comment 7
+                { id: 10, text: "Linters are a great tool!", user: "Eve", parentId: 9 }, // Reply to comment 9
+            ],
+            3: [
+                { id: 11, text: "Async/Await changed my life!", user: "Alice", parentId: null },
+                { id: 12, text: "I still prefer Promises.", user: "Bob", parentId: null },
+                { id: 13, text: "Why do you prefer Promises?", user: "Charlie", parentId: 12 }, // Reply to comment 12
+                { id: 14, text: "Async/Await is easier to read.", user: "David", parentId: null },
+                { id: 15, text: "I agree with David.", user: "Eve", parentId: 14 }, // Reply to comment 14
+            ],
+            4: [
+                { id: 16, text: "React's ecosystem is just too big to ignore.", user: "Alice", parentId: null },
+                { id: 17, text: "Vue is simpler to learn.", user: "Bob", parentId: null },
+                { id: 18, text: "I prefer React for large projects.", user: "Charlie", parentId: null },
+                { id: 19, text: "Vue is great for small projects.", user: "David", parentId: 17 }, // Reply to comment 17
+                { id: 20, text: "I agree with David.", user: "Eve", parentId: 19 }, // Reply to comment 19
+            ],
+            5: [
+                { id: 21, text: "Interview prep is so important!", user: "Alice", parentId: null },
+                { id: 22, text: "I need to practice more algorithms.", user: "Bob", parentId: null },
+                { id: 23, text: "What resources do you recommend?", user: "Charlie", parentId: 21 }, // Reply to comment 21
+                { id: 24, text: "LeetCode is a great resource.", user: "David", parentId: 23 }, // Reply to comment 23
+                { id: 25, text: "I also recommend HackerRank.", user: "Eve", parentId: 23 }, // Reply to comment 23
+            ],
         };
 
-        function renderPosts() {
+        // Function to get URL parameters
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Function to render posts based on filter
+        function renderPosts(filterTag = "", filterCommunity = "") {
             const postsContainer = document.getElementById("posts");
             postsContainer.innerHTML = "";
 
-            posts.forEach(post => {
+            const filteredPosts = posts.filter(post => {
+                const matchesTag = filterTag ? post.tags.includes(filterTag) : true;
+                const matchesCommunity = filterCommunity ? post.community === filterCommunity : true;
+                return matchesTag && matchesCommunity;
+            });
+
+            filteredPosts.forEach(post => {
                 const postElement = document.createElement("div");
                 postElement.className = "post";
                 postElement.innerHTML = `
@@ -183,6 +281,7 @@
             document.getElementById("most-popular-title").textContent = mostPopular.title;
         }
 
+        // Function to view a single post
         function viewPost(postId) {
             currentPostId = postId;
             const post = posts.find(p => p.id === postId);
@@ -190,50 +289,123 @@
             document.getElementById("post-view").style.display = "block";
             document.getElementById("post-title").textContent = post.title;
             document.getElementById("post-content").textContent = post.content;
-            renderComments();
+            renderComments(comments[postId]);
         }
 
+        // Back button functionality
         document.getElementById("backButton").addEventListener("click", function () {
             document.getElementById("home-view").style.display = "block";
             document.getElementById("post-view").style.display = "none";
+            window.history.pushState({}, "", "/"); // Reset URL
         });
 
-        function renderComments() {
-            const container = document.getElementById("comments-container");
+        // Function to render comments (with nesting)
+        function renderComments(comments, parentId = null, container = document.getElementById("comments-container")) {
             container.innerHTML = "";
-            comments[currentPostId].forEach((comment, index) => {
-                const element = document.createElement("div");
-                element.className = "comment";
-                element.innerHTML = `<strong>User</strong>: ${comment}
-                    <span class="edit" onclick="editComment(${index})">Edit</span>
-                    <span class="delete" onclick="deleteComment(${index})">Delete</span>`;
-                container.appendChild(element);
-            });
+
+            comments
+                .filter(comment => comment.parentId === parentId)
+                .forEach(comment => {
+                    const element = document.createElement("div");
+                    element.className = "comment";
+                    element.innerHTML = `
+                        <strong>${comment.user}</strong>: ${comment.text}
+                        <div class="comment-actions">
+                            ${comment.user === currentUser ? `<span class="edit" onclick="editComment(${comment.id})">Edit</span>` : ""}
+                            ${comment.user === currentUser ? `<span class="delete" onclick="deleteComment(${comment.id})">Delete</span>` : ""}
+                            <span class="reply" onclick="replyToComment(${comment.id})">Reply</span>
+                        </div>`;
+                    container.appendChild(element);
+
+                    // Render nested replies
+                    const replies = comments.filter(c => c.parentId === comment.id);
+                    if (replies.length > 0) {
+                        const nestedContainer = document.createElement("div");
+                        nestedContainer.className = "nested-comments";
+                        renderComments(replies, comment.id, nestedContainer);
+                        container.appendChild(nestedContainer);
+                    }
+                });
         }
 
-        function addComment() {
+        // Function to add a comment
+        function addComment(parentId = null) {
             const content = document.getElementById("new-comment").value.trim();
             if (content) {
-                comments[currentPostId].push(content);
+                const newComment = {
+                    id: Date.now(), // Unique ID
+                    text: content,
+                    user: currentUser,
+                    parentId: parentId, // Null for top-level comments
+                };
+                comments[currentPostId].push(newComment);
                 document.getElementById("new-comment").value = "";
-                renderComments();
+                renderComments(comments[currentPostId]);
             }
         }
 
-        function editComment(index) {
-            const newContent = prompt("Edit your comment:", comments[currentPostId][index]);
-            if (newContent) {
-                comments[currentPostId][index] = newContent + " (edited)";
-                renderComments();
+        // Function to edit a comment
+        function editComment(commentId) {
+            const comment = comments[currentPostId].find(c => c.id === commentId);
+            if (comment.user === currentUser) {
+                const newContent = prompt("Edit your comment:", comment.text);
+                if (newContent) {
+                    comment.text = newContent + " (edited)";
+                    renderComments(comments[currentPostId]);
+                }
+            } else {
+                alert("You can only edit your own comments.");
             }
         }
 
-        function deleteComment(index) {
-            comments[currentPostId].splice(index, 1);
-            renderComments();
+        // Function to delete a comment
+        function deleteComment(commentId) {
+            const comment = comments[currentPostId].find(c => c.id === commentId);
+            if (comment.user === currentUser) {
+                comments[currentPostId] = comments[currentPostId].filter(c => c.id !== commentId);
+                renderComments(comments[currentPostId]);
+            } else {
+                alert("You can only delete your own comments.");
+            }
         }
 
-        renderPosts();
+        // Function to reply to a comment
+        function replyToComment(parentId) {
+            const content = prompt("Write your reply:");
+            if (content) {
+                const newComment = {
+                    id: Date.now(), // Unique ID
+                    text: content,
+                    user: currentUser,
+                    parentId: parentId, // Set the parentId for nested replies
+                };
+                comments[currentPostId].push(newComment);
+                renderComments(comments[currentPostId]);
+            }
+        }
+
+        // Filter posts by tag or community
+        document.getElementById("tags").addEventListener("change", function () {
+            const selectedTag = this.value;
+            const selectedCommunity = document.getElementById("communities").value;
+            renderPosts(selectedTag, selectedCommunity);
+        });
+
+        document.getElementById("communities").addEventListener("change", function () {
+            const selectedCommunity = this.value;
+            const selectedTag = document.getElementById("tags").value;
+            renderPosts(selectedTag, selectedCommunity);
+        });
+
+        // On page load, check if a post ID is in the URL
+        window.onload = function () {
+            const postId = getQueryParam("id");
+            if (postId) {
+                viewPost(parseInt(postId));
+            } else {
+                renderPosts();
+            }
+        };
     </script>
 
     <script src="../../js/components/nav-injector.js"></script>

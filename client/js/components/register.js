@@ -6,7 +6,6 @@ function closeReg() {
 function openReg() {
     document.getElementById("regWindow").classList.remove("hide");
     document.getElementById("overlay").classList.remove("hide");
-
 }
 
 function showLogin() {
@@ -32,26 +31,35 @@ signUpButton.addEventListener("click", (e) => {
     e.preventDefault();
     openReg();
     showSignup();
+
 })
 
-// for editing profile page
-function editProfile(e) {
-    if (e.target.innerText === "Edit Profile") {
-        document.getElementById("profilePic").classList.add("editable");
-        document.getElementById("bio").classList.add("editable");
-        e.target.innerText = "Save Changes";
-        bio.contentEditable = true;
-        profileImage.contentEditable = true;
+document.getElementById('loginForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const username = document.querySelector('[name="username"]').value;
+    const password = document.querySelector('[name="password"]').value;
+
+    // Simple login check (add your validation logic)
+    if (username === 'user' && password === 'password') {
+        // Successful login: Store login state
+        sessionStorage.setItem('isLoggedIn', true);
+        window.location.reload(); // Reload the page to reflect the logged-in state
+    } else {
+        alert('Incorrect username or password');
     }
-    else {
-        document.getElementById("profilePic").classList.remove("editable");
-        document.getElementById("bio").classList.remove("editable");
-        e.target.innerText = "Edit Profile";
-        bio.contentEditable = false;
-        profileImage.contentEditable = false;
-    }
-}
-document.getElementById("editButton").addEventListener("click", editProfile);
+});
+
+document.querySelectorAll('.post-button').forEach(button => {
+    let isLoggedIn = sessionStorage.getItem('isLoggedIn')
+
+    button.addEventListener('click', () => {
+        if (!isLoggedIn) {
+            openReg();
+            showLogin();
+        }
+    })
+    
+});
 
 // navigates to profile page when an icon is clicked; not final
 // function toProfile() {

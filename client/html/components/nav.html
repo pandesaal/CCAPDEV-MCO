@@ -1,6 +1,6 @@
 <nav>
     <div class="title">
-        <span class="material-symbols-outlined" id="sidebar-button">menu</span>
+        <span class="material-symbols-outlined hide" id="sidebar-button">menu</span>
         <div id="sidebar-wrapper" class="hide">
             <div id="sidebar">
                 <div id="sidebar-top">
@@ -57,7 +57,7 @@
         </ul>
     </div>
     <div class="account">
-        <div class="loggedin hide">
+        <div class="hide" id="nav-loggedin">
             <button id="createPostBtn" class="create-post-btn">
                 <span class="material-symbols-outlined">add</span> New Post
             </button>
@@ -99,7 +99,7 @@
             </a>
         </div>
 
-        <div class="loggedout">
+        <div id="nav-loggedout">
             <button id="loginbtn">Log In</button>
             <button id="signupbtn">Sign Up</button>
         </div>

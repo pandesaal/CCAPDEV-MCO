@@ -1,0 +1,28 @@
+<div class="hide" id="overlay" onclick="closeReg()"></div>
+
+<div class="hide" id="regWindow">
+    <span class="regClose" onclick="closeReg()">&times;</span>
+    <div class="regContent" id="login">
+        <h2>Log In</h2>
+        <form id="loginForm">
+            <label for="loginUser">Username</label><br/>
+            <input type="text" id="loginUser" name="username" class="regInput" /><br/>
+            <label for="loginPass">Password</label><br/>
+            <input type="password" id="loginPass" name="password" class="regInput" /><br/>
+            <input type="submit" class="regButton" value="Log In">
+        </form>
+        <p>Don't have an account? <a onclick="showSignup()">Sign up</a></p>
+    </div>
+
+    <div class="regContent hide" id="signup">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <label for="signupUser">Username</label><br/>
+            <input type="text" id="signupUser" name="username" class="regInput" /><br/>
+            <label for="signupPass">Password</label><br/>
+            <input type="password" id="signupPass" name="password" class="regInput" /><br/>
+            <input type="submit" class="regButton" value="Sign Up">
+        </form>
+        <p>Already have an account? <a onclick="showLogin()">Log in</a></p>
+    </div>
+</div>

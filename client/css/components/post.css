@@ -72,13 +72,18 @@
     .post-buttons {
         display: flex;
         align-items: center;
-        gap: 0.8em;
+        gap: 0.2em;
 
         .post-button {
+
+            padding: 0 0.5em;
+
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.3em;
+
+            cursor: pointer;
 
             font-size: var(--font-smaller);
             .post-button-icon {

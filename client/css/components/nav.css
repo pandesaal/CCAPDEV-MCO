@@ -94,7 +94,7 @@
             align-items: center;
             flex-grow: 0;
 
-            .loggedin {
+            #nav-loggedin {
 
                 display: flex;
                 align-items: center;
@@ -149,7 +149,7 @@
                 
             }
 
-            .loggedout {
+            #nav-loggedout {
                 display: flex;
                 align-items: center;
                 flex: 0 1 auto;

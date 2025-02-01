@@ -4,8 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             document.getElementById('navbar').innerHTML = data;
 
-            
-
             const script = document.createElement("script")
             script.src = "../../js/components/nav/searching.js"
             document.getElementsByTagName("body")[0]

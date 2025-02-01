@@ -22,11 +22,22 @@
             display: flex;
             align-items: center;
             gap: 1.5em;
+            cursor: pointer;
 
+            #sidebar-button {
+                cursor: pointer;
+            }
         }
 
         .search {
             position: relative;
+
+            border: var(--border-small);
+            padding: 0.3em 1em;
+            border-radius: 9999em;
+
+            width: 100%;
+            max-width: 50em;
 
             .query {
                 display: flex;
@@ -34,12 +45,6 @@
                 align-items: center;
                 gap: 0.3em;
                 
-                width: 100%;
-
-                border: var(--border-small);
-                padding: 0.3em 1em;
-                border-radius: 9999em;
-
                 input {
                     flex: 1 1 50em;
                     font-size: var(--font-smaller);
@@ -145,7 +150,7 @@
             }
 
             .loggedout {
-                display: none;
+                display: flex;
                 align-items: center;
                 flex: 0 1 auto;
                 gap: 0.75em;
@@ -154,6 +159,7 @@
                     padding: 0.4em 1em;
                     border: var(--border);
                     border-radius: 0.5em;
+                    font-size: var(--font-smaller);
 
                     &#signupbtn {
                         background-color: var(--color-dark);

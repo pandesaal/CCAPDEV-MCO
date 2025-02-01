@@ -19,6 +19,21 @@ function showSignup() {
     document.getElementById("login").classList.add("hide");
 }
 
+const signUpButton = document.getElementById("signupbtn")
+const loginButton = document.getElementById("loginbtn")
+
+loginButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    openReg();
+    showLogin();
+})
+
+signUpButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    openReg();
+    showSignup();
+})
+
 // for editing profile page
 function editProfile(e) {
     if (e.target.innerText === "Edit Profile") {
@@ -47,17 +62,3 @@ document.getElementById("editButton").addEventListener("click", editProfile);
 //     icons[i].addEventListener("click", toProfile);
 // }
 
-const signUpButton = document.getElementById("signupbtn")
-const loginButton = document.getElementById("loginbtn")
-
-loginButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    openReg();
-    showLogin();
-})
-
-signUpButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    openReg();
-    showSignup();
-})

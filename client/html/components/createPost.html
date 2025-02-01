@@ -24,10 +24,35 @@
             <div class="postText-content">
                 <textarea id="postTextContent" placeholder="What's on your mind?" rows="4"></textarea>
             </div>
-            <div class="postText-tags">
-                <textarea id="postTextTags" placeholder="Enter tags." rows="1"></textarea>
+            
+            <div id="tag-area">
+                <div id="tag" class="tag">
+                  <span>CCAPDEV</span>
+                  <span><button><close>×</close></button></span>
+                </div>
+                <div id="tag" class="tag">
+                  <span>MCO1</span>
+                  <span><button><close>×</close></button></span>
+                </div>
+                <div id="tag" class="tag">
+                  <span>Famous</span>
+                  <span><button><close>×</close></button></span>
+                </div>
+                <div id="tag" class="tag">
+                  <span>Trending</span>
+                  <span><button><close>×</close></button></span>
+                </div>
+                <div id="tag" class="tag">
+                  <span>Application Development</span>
+                  <span><button><close>×</close></button></span>
+                </div>
             </div>
             <div>
+                <input type="text" id="new-tag-input" placeholder="Enter a tag">
+                <button id="add-tag-button">Add Tag</button>
+            </div>
+
+            <div class="postButtons">
                 <button id="uploadPostBtn">Upload</button>
                 <button id="discardPostBtn">Discard</button>
             </div>

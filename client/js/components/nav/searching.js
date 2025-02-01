@@ -11,10 +11,10 @@ const tags = [
 ]; //to be replaced with db simply for testing purposes
 
 
-const searchBar = document.getElementById("searchbar")
+const searchBar = document.getElementById("search-bar")
 const confirmSearch = document.getElementById("search-button")
 const clearSearch = document.getElementById("search-clear")
-const resultsHolder = document.getElementById("queryresults")
+const resultsHolder = document.getElementById("search-results")
 
 searchBar.addEventListener("input", () => {
 

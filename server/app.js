@@ -4,9 +4,7 @@ const fs = require('fs')
 const app = express();
 const PORT = 3000;
 
-app.use(express.static(path.join(__dirname, 'client'), { 
-    extensions: ['html', 'css']
-}));
+app.use(express.static(path.join(__dirname, '../client')));
 
 const htmlFolder = path.join(__dirname, "..", "client/html")
 const components = path.join(htmlFolder, "components")

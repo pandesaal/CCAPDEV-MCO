@@ -71,6 +71,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     button.closest('.post').querySelector('.post-menu').classList.toggle('hide')
                 })
             })
+
+            document.querySelectorAll('.post-content').forEach(post => {
+                const maxLength = 200;
+                const originalText = post.innerText;
+            
+                if (originalText.length > maxLength) {
+                    const truncatedText = originalText.substring(0, maxLength) + '... ';
+                    
+                    post.innerHTML = post.innerHTML.replace(post.innerText, truncatedText);
+            
+                    const readMore = post.querySelector('.content-readmore');
+                    if (readMore) {
+                        readMore.classList.remove('hide');
+                        
+                        readMore.addEventListener('click', () => {
+                            readMore.classList.add('hide')
+                            post.innerHTML = post.innerHTML.replace(truncatedText, originalText);
+                        });
+                    }
+                }
+            });
+            
+            
         })
         .catch(err => {
             console.error("Error loading post template:", err);

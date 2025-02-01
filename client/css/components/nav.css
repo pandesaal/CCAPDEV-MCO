@@ -5,7 +5,7 @@
 #navbar {
     position: sticky;
     top: 0;
-    z-index: 999999;
+    z-index: 999;
 
     nav {
         border-bottom: var(--border);
@@ -19,7 +19,7 @@
         gap: 0.5em;
         align-items: center;
 
-        .title {
+        #nav-title {
             display: flex;
             align-items: center;
             gap: 1.5em;
@@ -30,7 +30,7 @@
             }
         }
 
-        .search {
+        #nav-search {
             position: relative;
 
             border: var(--border-small);
@@ -40,7 +40,7 @@
             width: 100%;
             max-width: 50em;
 
-            .query {
+            #search-query {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -58,7 +58,7 @@
                 }
             }
 
-            #queryresults {
+            #search-results {
 
                 display: block;
                 border: var(--border-small);
@@ -69,6 +69,7 @@
 
                 width: 100%;
                 position: absolute;
+                left: 0;
 
                 li {
                     display: flex;
@@ -77,6 +78,7 @@
                     overflow: hidden;
 
                     padding: 0.3em 1em;
+                    font-size: var(--font-smaller);
 
                     &:last-child {
                         border-bottom: none;
@@ -89,7 +91,7 @@
             }
         }
         
-        .account {
+        #nav-account {
 
             display: flex;
             align-items: center;
@@ -118,7 +120,7 @@
                     background: #8a8a8a;
                 }
 
-                .profile {
+                #nav-profile {
 
                     display: flex;
                     justify-content: space-between;
@@ -126,11 +128,11 @@
                     flex-grow: 0;
                     gap: 0.5em;
 
-                    .username {
+                    #nav-username {
                         font-size: var(--font-smaller);
                     }
 
-                    .icon {
+                    #nav-icon {
                         display: flex;
                         align-items: center;
                         justify-content: center;
@@ -139,11 +141,8 @@
                             width: auto;
                             height: auto;
                             max-width: 2em;
+                            border-radius: 9999em;
                         }
-                    }
-
-                    .options ul {
-                        display: none;
                     }
 
                 }

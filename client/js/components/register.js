@@ -58,13 +58,15 @@ document.querySelectorAll('.post-button').forEach(button => {
             showLogin();
         }
     })
-    
 });
 
-document.getElementById('login-note-footer-button').addEventListener('click', () => {
-    openReg();
-    showLogin();
-})
+if (document.getElementById('login-note-footer-button')) {
+    document.getElementById('login-note-footer-button').addEventListener('click', () => {
+        openReg();
+        showLogin();
+    })
+}
+
 
 // navigates to profile page when an icon is clicked; not final
 // function toProfile() {

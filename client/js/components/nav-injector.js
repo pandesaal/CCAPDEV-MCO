@@ -20,7 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('nav-loggedin').classList.remove('hide')
                 document.getElementById('sidebar-button').classList.remove('hide')
                 document.getElementById('nav-loggedout').classList.add('hide')
-                document.getElementById('login-note-footer').classList.add('hide')
+
+                if (document.getElementById('login-note-footer'))
+                    document.getElementById('login-note-footer').classList.add('hide')
             }
 
             navRelatedScripts.forEach(scriptFile => {

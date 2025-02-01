@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ];
             
 
-            let allPostsHTML = posts.map(post => 
+            let allPostsString = posts.map(post => 
                 template
                     .replace('{{username}}', post.username)
                     .replace('{{date-posted}}', post.datePosted)
@@ -62,7 +62,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     }).join(''))
             ).join('');
 
-            document.getElementById('posts-wrapper').innerHTML = allPostsHTML;
+            const allPostsHTML = document.createRange().createContextualFragment(allPostsString);
+
+            document.getElementById('posts-wrapper').appendChild(allPostsHTML);
+
+            document.querySelectorAll('.post-options-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    button.closest('.post').querySelector('.post-menu').classList.toggle('hide')
+                })
+            })
         })
         .catch(err => {
             console.error("Error loading post template:", err);

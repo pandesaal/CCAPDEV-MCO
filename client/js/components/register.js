@@ -61,6 +61,11 @@ document.querySelectorAll('.post-button').forEach(button => {
     
 });
 
+document.getElementById('login-note-footer-button').addEventListener('click', () => {
+    openReg();
+    showLogin();
+})
+
 // navigates to profile page when an icon is clicked; not final
 // function toProfile() {
 //     window.location.href = "profile.html";

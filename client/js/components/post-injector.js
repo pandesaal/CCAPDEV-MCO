@@ -63,8 +63,36 @@ document.addEventListener('DOMContentLoaded', () => {
             ).join('');
 
             const allPostsHTML = document.createRange().createContextualFragment(allPostsString);
-
             document.getElementById('posts-wrapper').appendChild(allPostsHTML);
+
+            // Show modal on Edit button click
+            document.querySelectorAll('#editBtn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const post = button.closest('.post');
+                    const title = post.querySelector('.post-title h3').innerText;
+                    const content = post.querySelector('.post-content').innerText;
+
+                    document.getElementById('postTextTitle').value = title;
+                    document.getElementById('postTextContent').value = content;
+
+                    document.getElementById('editModal').style.display = 'block';
+                });
+            });
+
+            // Close modal when the close button is clicked
+            document.querySelector('.close').addEventListener('click', () => {
+                document.getElementById('editModal').style.display = 'none';
+            });
+
+            // Handle the upload button click
+            document.getElementById('uploadPostBtn').addEventListener('click', () => {
+                const newTitle = document.getElementById('postTextTitle').value;
+                const newContent = document.getElementById('postTextContent').value;
+                console.log('Updated Title:', newTitle);
+                console.log('Updated Content:', newContent);
+
+                document.getElementById('editModal').style.display = 'none';
+            });
 
             document.querySelectorAll('.post-options-button').forEach(button => {
                 button.addEventListener('click', () => {

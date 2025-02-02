@@ -66,28 +66,33 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('posts-wrapper').appendChild(allPostsHTML);
 
             // Show modal on Edit button click
-            document.querySelectorAll('#editBtn').forEach(button => {
+            document.querySelectorAll('.editBtn').forEach(button => {
                 button.addEventListener('click', () => {
                     const post = button.closest('.post');
                     const title = post.querySelector('.post-title h3').innerText;
                     const content = post.querySelector('.post-content').innerText;
 
-                    document.getElementById('postTextTitle').value = title;
-                    document.getElementById('postTextContent').value = content;
+                    document.getElementById('editPostTextTitle').innerText = title;
+                    document.getElementById('editPostTextContent').innerText = content;
+
+                    console.log("clicked edit")
 
                     document.getElementById('editModal').style.display = 'block';
                 });
             });
 
             // Close modal when the close button is clicked
-            document.querySelector('.close').addEventListener('click', () => {
-                document.getElementById('editModal').style.display = 'none';
+            document.querySelectorAll('.close').forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = button.closest('.modal');
+                    modal.style.display = 'none'
+                });
             });
 
             // Handle the upload button click
-            document.getElementById('uploadPostBtn').addEventListener('click', () => {
-                const newTitle = document.getElementById('postTextTitle').value;
-                const newContent = document.getElementById('postTextContent').value;
+            document.getElementById('editPostBtn').addEventListener('click', () => {
+                const newTitle = document.getElementById('editPostTextTitle').value;
+                const newContent = document.getElementById('editPostTextContent').value;
                 console.log('Updated Title:', newTitle);
                 console.log('Updated Content:', newContent);
 

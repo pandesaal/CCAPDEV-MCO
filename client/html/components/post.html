@@ -10,55 +10,11 @@
         <div class="post-options">
             <span class="material-symbols-outlined post-options-button">more_horiz</span>
             <ul class="post-menu hide">
-                <li id="editBtn" class="post-menu-options">Edit</li>
+                <li class="post-menu-options editBtn">Edit</li>
                 <li class="post-menu-options">Delete</li>
             </ul>
         </div>
 
-        <div id="editModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Edit Post</h2>
-                <div class="postText-title">
-                    <textarea id="postTextTitle" placeholder="Enter the title of your post." rows="2"></textarea>
-                </div>
-                <div class="postText-content">
-                    <textarea id="postTextContent" placeholder="What's on your mind?" rows="4"></textarea>
-                </div>
-                
-                <div id="tag-area">
-                    <div id="tag" class="tag">
-                      <span>CCAPDEV</span>
-                      <span><button><close>×</close></button></span>
-                    </div>
-                    <div id="tag" class="tag">
-                      <span>MCO1</span>
-                      <span><button><close>×</close></button></span>
-                    </div>
-                    <div id="tag" class="tag">
-                      <span>Famous</span>
-                      <span><button><close>×</close></button></span>
-                    </div>
-                    <div id="tag" class="tag">
-                      <span>Trending</span>
-                      <span><button><close>×</close></button></span>
-                    </div>
-                    <div id="tag" class="tag">
-                      <span>Application Development</span>
-                      <span><button><close>×</close></button></span>
-                    </div>
-                </div>
-                <div>
-                    <input type="text" id="new-tag-input" placeholder="Enter a tag">
-                    <button id="add-tag-button">Add Tag</button>
-                </div>
-    
-                <div class="postButtons">
-                    <button id="uploadPostBtn">Upload</button>
-                    <button id="discardPostBtn">Discard</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="post-body">

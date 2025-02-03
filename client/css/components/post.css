@@ -152,11 +152,19 @@
 }
 
 .postText-title{
-    margin: 1% auto;
-    textarea {
-        border: 1px solid #32583f;
+    margin: 3% auto;
+
+    #input {
+
+        font-size: 1em;
+
+        border-bottom: var(--border-small);
+        border-color: var(--color-accent);
+
         width: 100%;
-        height: 10% auto;
+        resize: none;
+
+        padding: 0.3em;
     }
 }
 

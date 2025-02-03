@@ -8,226 +8,159 @@ const getRandomDate = (startYear, endYear) => {
     });
 }
 
-export const posts = [
-    {
-        id: 1,
-        username: 'User12345',
-        title: "Stressed Over Finals",
-        content: "Feeling the pressure with finals coming up. Anyone else? How do you manage the stress?",
-        datePosted: getRandomDate(2020, 2025),
-        likes: 15,
-        tags: ["finals", "stress", "study"]
-    },
-    {
-        id: 2,
-        username: 'study_hard_24',
-        title: "Late-Night Study Sessions",
-        content: "Just pulled an all-nighter. I feel like I can't function properly without coffee now. Who else is on this grind?",
-        datePosted: getRandomDate(2020, 2025),
-        likes: 12,
-        tags: ["study", "coffee", "latenight"]
-    },
-    {
-        id: 3,
-        username: 'User12345',
-        title: "Group Projects Are the Worst",
-        content: "Why does it always feel like the workload is uneven in group projects? It's so frustrating when no one pulls their weight.",
-        datePosted: getRandomDate(2020, 2025),
-        likes: 22,
-        tags: ["group project", "frustration", "workload"]
-    },
-    {
-        id: 4,
-        username: 'artistic_angel',
-        title: "Stress Relief Through Art",
-        content: "Whenever I'm overwhelmed with school work, I turn to drawing. It helps me relax and recharge. Anyone else use art as an escape?",
-        datePosted: getRandomDate(2020, 2025),
-        likes: 18,
-        tags: ["art", "stress relief", "creativity"]
-    },
-    {
-        id: 5,
-        username: 'study_squad',
-        title: "Time Management Tips",
-        content: "Got any advice on how to balance school and personal life? I need a good routine to stick to.",
-        datePosted: getRandomDate(2020, 2025),
-        likes: 8,
-        tags: ["timemanagement", "schoollife", "routine"]
-    }
-];
-
-// ===== New: Comment Functionality Global Variables =====
-const currentUser = "User12345"; // Adjust as needed for the logged-in user
-let commentsByPost = {};       // Store comments for each post by post id
-
-/**
- * Recursively render comments (and nested replies) into a container.
- * @param {Array} comments - Array of comment objects.
- * @param {number|null} parentId - Parent comment's id (null for top-level).
- * @param {HTMLElement} container - Container to render comments into.
- */
-function renderComments(comments, parentId = null, container) {
-    container.innerHTML = "";
-    comments
-        .filter(comment => comment.parentId === parentId)
-        .forEach(comment => {
-            const commentDiv = document.createElement("div");
-            commentDiv.classList.add("comment");
-            commentDiv.dataset.commentId = comment.id;
-            commentDiv.innerHTML = `
-        <div class="comment-header">
-          <strong>${comment.user}</strong>
-          <span>${new Date(comment.timestamp).toLocaleString()}</span>
-        </div>
-        <div class="comment-body">${comment.text}${comment.edited ? " (edited)" : ""}</div>
-        <div class="comment-actions">
-          <button class="reply-btn">Reply</button>
-          ${comment.user === currentUser ? `
-            <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
-          ` : ""}
-        </div>
-        <div class="nested-comments"></div>
-      `;
-            container.appendChild(commentDiv);
-            const nestedContainer = commentDiv.querySelector(".nested-comments");
-            renderComments(comments, comment.id, nestedContainer);
-        });
-}
-
-export const postInjector = (postsArray = posts) => {
-    const postsContainer = document.getElementById('posts-wrapper');
-    postsContainer.innerHTML = "";
-
+document.addEventListener('DOMContentLoaded', () => {
     fetch('../../html/components/post.html')
         .then(response => response.text())
         .then(template => {
-            // Replace template placeholders with post data
-            let allPostsString = postsArray.map(post =>
+            const posts = [
+                {
+                    username: 'john_doe123',
+                    datePosted: getRandomDate(2020, 2025),
+                    postTitle: 'Exploring the great outdoors',
+                    postContent: "Had an amazing hike up the mountain this weekend! The weather was perfect, and the view from the top was breathtaking. Highly recommend it to anyone who loves nature.",
+                    postTags: ['hiking', 'outdoors', 'adventure']
+                },
+                {
+                    username: 'jane_smith456',
+                    datePosted: getRandomDate(2020, 2025),
+                    postTitle: 'My first cooking experience',
+                    postContent: "Tried my hand at cooking last night and made a delicious homemade pasta. It was surprisingly easy, and I can't wait to try more recipes. Any suggestions?",
+                    postTags: ['cooking', 'food', 'homemade']
+                },
+                {
+                    username: 'techguy789',
+                    datePosted: getRandomDate(2020, 2025),
+                    postTitle: 'The future of AI',
+                    postContent: "AI is rapidly changing the way we interact with technology. From smart assistants to autonomous vehicles, the possibilities are endless. Excited to see where this technology takes us.",
+                    postTags: ['AI', 'technology', 'future']
+                },
+                {
+                    username: 'artlover101',
+                    datePosted: getRandomDate(2020, 2025),
+                    postTitle: 'Art Exhibition Review: Van Gogh',
+                    postContent: "I visited the Van Gogh exhibition this weekend and was blown away by the detail and emotion in his paintings. Definitely a must-see for any art enthusiast.",
+                    postTags: ['art', 'Van Gogh', 'exhibition']
+                },
+                {
+                    username: 'musicman202',
+                    datePosted: getRandomDate(2020, 2025),
+                    postTitle: 'New Album Review: The Weeknd',
+                    postContent: "Just finished listening to The Weeknd's latest album, and it's amazing! The beats are on point, and his voice is as soulful as ever. Definitely worth checking out.",
+                    postTags: ['music', 'The Weeknd', 'album review']
+                },
+            ];
+
+
+            let allPostsString = posts.map(post =>
                 template
-                    .replace('{{post-id}}', post.id)
                     .replace('{{username}}', post.username)
                     .replace('{{date-posted}}', post.datePosted)
-                    .replace('{{post-title}}', post.title)
-                    .replace('{{post-content}}', post.content)
-                    .replace('{{post-tags}}', post.tags.map(tag => {
-                        return `<a href="#" class="post-tag">${tag}</a>`;
+                    .replace('{{post-title}}', post.postTitle)
+                    .replace('{{post-content}}', post.postContent)
+                    .replace('{{post-tags}}', post.postTags.map(tag => {
+                        return <a href="#" class="post-tag">${tag}</a>;
                     }).join(''))
             ).join('');
 
-            // Create a DocumentFragment from the template string and append it
             const allPostsHTML = document.createRange().createContextualFragment(allPostsString);
-            postsContainer.appendChild(allPostsHTML);
+            document.getElementById('posts-wrapper').appendChild(allPostsHTML);
 
-            // Attach event listeners for post options (unchanged)
             document.querySelectorAll('.post-options-button').forEach(button => {
                 button.addEventListener('click', () => {
-                    button.closest('.post').querySelector('.post-menu').classList.toggle('hide');
-                });
-            });
+                    button.closest('.post').querySelector('.post-menu').classList.toggle('hide')
+                })
+            })
 
-            // Truncate post content if needed
             document.querySelectorAll('.post-content').forEach(post => {
                 const maxLength = 200;
                 const originalText = post.innerText;
+
                 if (originalText.length > maxLength) {
                     const truncatedText = originalText.substring(0, maxLength) + '... ';
+
                     post.innerHTML = post.innerHTML.replace(post.innerText, truncatedText);
+
                     const readMore = post.querySelector('.content-readmore');
                     if (readMore) {
                         readMore.classList.remove('hide');
+
                         readMore.addEventListener('click', () => {
-                            readMore.classList.add('hide');
+                            readMore.classList.add('hide')
                             post.innerHTML = post.innerHTML.replace(truncatedText, originalText);
                         });
                     }
                 }
             });
 
-            // Attach event listeners for toggling each post's comment section
-            document.querySelectorAll('.comment-btn').forEach(button => {
+            // Show modal on Edit button click
+            document.querySelectorAll('.editBtn').forEach(button => {
                 button.addEventListener('click', () => {
-                    // Find the parent .post element, then the comment section inside it
-                    const postElem = button.closest('.post');
-                    const commentSection = postElem.querySelector('.comments-wrapper');
-                    commentSection.classList.toggle('hide');
+                    const post = button.closest('.post');
+                    const title = post.querySelector('.post-title h3').innerText;
+                    const content = post.querySelector('.post-content').innerText;
+
+                    document.getElementById('editPostTextTitle').innerText = title;
+                    document.getElementById('editPostTextContent').innerText = content;
+
+                    console.log("clicked edit")
+
+                    document.getElementById('editModal').style.display = 'block';
                 });
             });
 
-            // Attach event listener for comment form submission for each post
-            document.querySelectorAll('.comment-form').forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const postElem = form.closest('.post');
-                    const postId = postElem.getAttribute('data-post-id');
-                    // Initialize comments array for this post if not present
-                    if (!commentsByPost[postId]) {
-                        commentsByPost[postId] = [];
-                    }
-                    const commentInput = form.querySelector('.comment-input');
-                    const text = commentInput.value.trim();
-                    if (text !== "") {
-                        const newComment = {
-                            id: Date.now(),
-                            text: text,
-                            user: currentUser,
-                            parentId: null,  // top-level comment
-                            timestamp: Date.now(),
-                            edited: false
-                        };
-                        commentsByPost[postId].push(newComment);
-                        commentInput.value = "";
-                        const commentsContainer = postElem.querySelector('.commentsList');
-                        renderComments(commentsByPost[postId], null, commentsContainer);
-                    }
+            // Close modal when the close button is clicked
+            document.querySelectorAll('.close').forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = button.closest('.modal');
+                    modal.style.display = 'none'
                 });
             });
 
-            // Delegate events for reply, edit, and delete on comments for each post
-            document.querySelectorAll('.commentsList').forEach(list => {
-                list.addEventListener('click', function(e) {
-                    const commentDiv = e.target.closest('.comment');
-                    if (!commentDiv) return;
-                    // Find the post element and its id
-                    const postElem = list.closest('.post');
-                    const postId = postElem.getAttribute('data-post-id');
-                    const currentComments = commentsByPost[postId] || [];
-                    const commentId = parseInt(commentDiv.dataset.commentId, 10);
+            // Handle the upload button click
+            document.getElementById('editPostBtn').addEventListener('click', () => {
+                const newTitle = document.getElementById('editPostTextTitle').value;
+                const newContent = document.getElementById('editPostTextContent').value;
+                console.log('Updated Title:', newTitle);
+                console.log('Updated Content:', newContent);
 
-                    if (e.target.classList.contains('reply-btn')) {
-                        const replyText = prompt("Enter your reply:");
-                        if (replyText && replyText.trim() !== "") {
-                            const newReply = {
-                                id: Date.now(),
-                                text: replyText.trim(),
-                                user: currentUser,
-                                parentId: commentId,
-                                timestamp: Date.now(),
-                                edited: false
-                            };
-                            currentComments.push(newReply);
-                            renderComments(currentComments, null, list);
-                        }
-                    } else if (e.target.classList.contains('edit-btn')) {
-                        const commentToEdit = currentComments.find(c => c.id === commentId);
-                        if (commentToEdit && commentToEdit.user === currentUser) {
-                            const newText = prompt("Edit your comment:", commentToEdit.text);
-                            if (newText && newText.trim() !== "") {
-                                commentToEdit.text = newText.trim();
-                                commentToEdit.edited = true;
-                                renderComments(currentComments, null, list);
-                            }
-                        }
-                    } else if (e.target.classList.contains('delete-btn')) {
-                        if (confirm("Are you sure you want to delete this comment?")) {
-                            commentsByPost[postId] = currentComments.filter(c => c.id !== commentId);
-                            renderComments(commentsByPost[postId], null, list);
-                        }
-                    }
+                document.getElementById('editModal').style.display = 'none';
+            });
+
+            document.querySelectorAll('#postTitle').forEach((title, index) => {
+                title.addEventListener('click', (event) => {
+                    // Get the post data based on the index
+                    const post = posts[index];
+
+                    // Populate the modal with post data
+                    document.getElementById('modal-username').innerText = post.username;
+                    document.getElementById('modal-date-posted').innerText = post.datePosted;
+                    document.getElementById('modal-post-title').innerText = post.postTitle;
+                    document.getElementById('modal-post-content').innerText = post.postContent;
+                    document.getElementById('modal-post-tags').innerHTML = post.postTags.map(tag => {
+                        return <a href="#" class="post-tag">${tag}</a>;
+                    }).join('');
+
+                    // replace this with actual comments
+                    const comments = [
+                        // { username: 'commenter1', content: 'Great post!' },
+                        // { username: 'commenter2', content: 'Thanks for sharing!' },
+                        // { username: 'commenter3', content: 'Very informative.' },
+                        // { username: 'commenter4', content: 'Looking forward for your next blog!' },
+                        // { username: 'commenter5', content: 'Amazing idea!' }
+                    ];
+
+                    const commentsList = comments.map(comment => {
+                        return <div class="comment"><strong>${comment.username}:</strong> ${comment.content}</div>;
+                    }).join('');
+
+                    document.getElementById('commentsList').innerHTML = commentsList;
+
+                    // Show the modal
+                    document.getElementById('viewPostModal').style.display = 'block';
                 });
             });
         })
         .catch(err => {
             console.error("Error loading post template:", err);
         });
-};
+});

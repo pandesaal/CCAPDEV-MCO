@@ -16,7 +16,7 @@ export const navInjector = () => {
         .then(data => {
             document.getElementById('navbar').innerHTML = data;
 
-            if (isLoggedin){
+            if (isLoggedin === 'true'){
                 document.getElementById('nav-loggedin').classList.remove('hide')
                 document.getElementById('sidebar-button').classList.remove('hide')
                 document.getElementById('nav-loggedout').classList.add('hide')

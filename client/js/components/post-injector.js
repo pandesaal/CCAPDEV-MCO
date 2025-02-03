@@ -53,9 +53,81 @@ export const posts = [
       datePosted: getRandomDate(2020, 2025),
       likes: 8,
       tags: ["timemanagement", "schoollife", "routine"]
+    },
+    {
+      id: 6,
+      username: 'study_hard_24',
+      title: "The Struggles of Online Classes",
+      content: "Online classes have been so hard to keep up with. Anyone else feel like they don’t learn as well through a screen?",
+      datePosted: getRandomDate(2020, 2025),
+      likes: 10,
+      tags: ["online classes", "education", "struggles"]
+    },
+    {
+      id: 7,
+      username: 'artistic_angel',
+      title: "The Power of Meditation",
+      content: "I started meditating last year, and it’s been life-changing. If you haven't tried it, I highly recommend it!",
+      datePosted: getRandomDate(2020, 2025),
+      likes: 25,
+      tags: ["meditation", "mindfulness", "relaxation"]
+    },
+    {
+      id: 8,
+      username: 'User12345',
+      title: "Staying Motivated During the Semester",
+      content: "It's so hard to stay motivated halfway through the semester. Any tips to keep my energy up?",
+      datePosted: getRandomDate(2020, 2025),
+      likes: 14,
+      tags: ["motivation", "study tips", "semester"]
+    },
+    {
+      id: 9,
+      username: 'fitness_junkie',
+      title: "Balancing Fitness and Schoolwork",
+      content: "Trying to juggle my fitness routine with school assignments. It's tough, but I always feel better after a workout. Anyone else do the same?",
+      datePosted: getRandomDate(2020, 2025),
+      likes: 20,
+      tags: ["fitness", "health", "schoolwork"]
+    },
+    {
+      id: 10,
+      username: 'night_owl',
+      title: "Dealing with Procrastination",
+      content: "I always leave assignments to the last minute. How do you fight procrastination and get things done?",
+      datePosted: getRandomDate(2020, 2025),
+      likes: 18,
+      tags: ["procrastination", "study habits", "advice"]
+    },
+    {
+      id: 11,
+      username: 'study_squad',
+      title: "How I Manage My Study Schedule",
+      content: "I've found a method that works for me: breaking my study time into blocks and taking regular breaks. Any other study hacks?",
+      datePosted: getRandomDate(2020, 2025),
+      likes: 30,
+      tags: ["studyschedule", "productivity", "studyhack"]
+    },
+    {
+      id: 12,
+      username: 'nightstudy',
+      title: "Caffeine Addiction During Exams",
+      content: "How many cups of coffee do you drink while studying for exams? I’m pretty sure I’m addicted by now.",
+      datePosted: getRandomDate(2020, 2025),
+      likes: 22,
+      tags: ["caffeine", "exams", "study habits"]
+    },
+    {
+      id: 13,
+      username: 'bookworm',
+      title: "Reading as a Stress Reliever",
+      content: "When things get hectic, I find that reading a good book helps me unwind. Anyone else use books as an escape?",
+      datePosted: getRandomDate(2020, 2025),
+      likes: 16,
+      tags: ["books", "stress relief", "reading"]
     }
 ];
-  
+
 export const postInjector = (postsArray = posts) => {
     const postsContainer = document.getElementById('posts-wrapper');
     postsContainer.innerHTML = "";

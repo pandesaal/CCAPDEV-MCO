@@ -49,11 +49,26 @@ document.getElementById('loginForm').addEventListener('submit', (event) => {
     }
 });
 
+document.getElementById('signupForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const username = document.querySelector('[name="username"]').value;
+    const password = document.querySelector('[name="password"]').value;
+
+    // Simple login check (add your validation logic)
+    if (username === 'user' && password === 'password') {
+        // Successful login: Store login state
+        sessionStorage.setItem('isLoggedIn', true);
+        window.location.reload(); // Reload the page to reflect the logged-in state
+    } else {
+        alert('Incorrect username or password');
+    }
+});
+
 document.querySelectorAll('.post-button').forEach(button => {
     let isLoggedIn = sessionStorage.getItem('isLoggedIn')
 
     button.addEventListener('click', () => {
-        if (!isLoggedIn) {
+        if (isLoggedIn === 'false') {
             openReg();
             showLogin();
         }
@@ -66,6 +81,11 @@ if (document.getElementById('login-note-footer-button')) {
         showLogin();
     })
 }
+
+document.getElementById('sidebar-logout').addEventListener('click', () => {
+    sessionStorage.setItem('isLoggedIn', false)
+    window.location.reload()
+})
 
 
 // navigates to profile page when an icon is clicked; not final

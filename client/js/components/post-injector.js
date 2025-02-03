@@ -65,6 +65,33 @@ document.addEventListener('DOMContentLoaded', () => {
             const allPostsHTML = document.createRange().createContextualFragment(allPostsString);
             document.getElementById('posts-wrapper').appendChild(allPostsHTML);
 
+            document.querySelectorAll('.post-options-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    button.closest('.post').querySelector('.post-menu').classList.toggle('hide')
+                })
+            })
+
+            document.querySelectorAll('.post-content').forEach(post => {
+                const maxLength = 200;
+                const originalText = post.innerText;
+            
+                if (originalText.length > maxLength) {
+                    const truncatedText = originalText.substring(0, maxLength) + '... ';
+                    
+                    post.innerHTML = post.innerHTML.replace(post.innerText, truncatedText);
+            
+                    const readMore = post.querySelector('.content-readmore');
+                    if (readMore) {
+                        readMore.classList.remove('hide');
+                        
+                        readMore.addEventListener('click', () => {
+                            readMore.classList.add('hide')
+                            post.innerHTML = post.innerHTML.replace(truncatedText, originalText);
+                        });
+                    }
+                }
+            });
+
             // Show modal on Edit button click
             document.querySelectorAll('.editBtn').forEach(button => {
                 button.addEventListener('click', () => {
@@ -99,34 +126,39 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('editModal').style.display = 'none';
             });
 
-            document.querySelectorAll('.post-options-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    button.closest('.post').querySelector('.post-menu').classList.toggle('hide')
-                })
-            })
+            document.querySelectorAll('#postTitle').forEach((title, index) => {
+                title.addEventListener('click', (event) => {
+                    // Get the post data based on the index
+                    const post = posts[index];
 
-            document.querySelectorAll('.post-content').forEach(post => {
-                const maxLength = 200;
-                const originalText = post.innerText;
-            
-                if (originalText.length > maxLength) {
-                    const truncatedText = originalText.substring(0, maxLength) + '... ';
-                    
-                    post.innerHTML = post.innerHTML.replace(post.innerText, truncatedText);
-            
-                    const readMore = post.querySelector('.content-readmore');
-                    if (readMore) {
-                        readMore.classList.remove('hide');
-                        
-                        readMore.addEventListener('click', () => {
-                            readMore.classList.add('hide')
-                            post.innerHTML = post.innerHTML.replace(truncatedText, originalText);
-                        });
-                    }
-                }
+                    // Populate the modal with post data
+                    document.getElementById('modal-username').innerText = post.username;
+                    document.getElementById('modal-date-posted').innerText = post.datePosted;
+                    document.getElementById('modal-post-title').innerText = post.postTitle;
+                    document.getElementById('modal-post-content').innerText = post.postContent;
+                    document.getElementById('modal-post-tags').innerHTML = post.postTags.map(tag => {
+                        return `<a href="#" class="post-tag">${tag}</a>`;
+                    }).join('');
+
+                    // replace this with actual comments
+                    const comments = [
+                        // { username: 'commenter1', content: 'Great post!' },
+                        // { username: 'commenter2', content: 'Thanks for sharing!' },
+                        // { username: 'commenter3', content: 'Very informative.' },
+                        // { username: 'commenter4', content: 'Looking forward for your next blog!' },
+                        // { username: 'commenter5', content: 'Amazing idea!' }
+                    ];
+
+                    const commentsList = comments.map(comment => {
+                        return `<div class="comment"><strong>${comment.username}:</strong> ${comment.content}</div>`;
+                    }).join('');
+
+                    document.getElementById('commentsList').innerHTML = commentsList;
+
+                    // Show the modal
+                    document.getElementById('viewPostModal').style.display = 'block';
+                });
             });
-            
-            
         })
         .catch(err => {
             console.error("Error loading post template:", err);

@@ -1,5 +1,6 @@
 @import url("../components/nav.css");
 @import url("../components/createPost.css");
+@import url("../components/post.css");
 
 main {
     margin-top: 3em;
@@ -50,12 +51,6 @@ main {
     outline-color: var(--color-accent);
 }
 
-.post {
-    padding: 2em;
-    padding-top: 1em;
-    border-bottom: var(--border-small);
-}
-
 .editable {
     color: var(--color-accent) !important;
 }
@@ -63,6 +58,12 @@ main {
 #profilePosts {
     margin-top: 1.3em;
     width: 90%;
+}
+
+#posts-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
 }
 
 #recentLabel {

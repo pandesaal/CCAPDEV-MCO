@@ -11,7 +11,7 @@ const getRandomDate = (startYear, endYear) => {
 export const posts = [
     {
       id: 1,
-      username: 'techie_tom',
+      username: 'User12345',
       title: "Stressed Over Finals",
       content: "Feeling the pressure with finals coming up. Anyone else? How do you manage the stress?",
       datePosted: getRandomDate(2020, 2025),
@@ -29,7 +29,7 @@ export const posts = [
     },
     {
       id: 3,
-      username: 'anxious_learner',
+      username: 'User12345',
       title: "Group Projects Are the Worst",
       content: "Why does it always feel like the workload is uneven in group projects? It's so frustrating when no one pulls their weight.",
       datePosted: getRandomDate(2020, 2025),

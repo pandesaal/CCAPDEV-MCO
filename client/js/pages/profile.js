@@ -1,3 +1,14 @@
+import { navInjector } from "../components/nav-injector.js";
+import { postInjector, posts } from "../components/post-injector.js";
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const filteredPosts = posts.filter(post => post.username === 'User12345')
+
+    navInjector();
+    postInjector(filteredPosts);
+});
+
 // for editing profile page
 function editProfile(e) {
     if (e.target.innerText === "Edit Profile") {

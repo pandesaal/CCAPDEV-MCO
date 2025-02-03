@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head>
+  <title>Forum Web Application</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="navbar"></div> <!-- Navbar -->
+
+  <div id="app" class="container">
+    <!-- Home View -->
+    <div id="home-view">
+      <h1>Recent Posts</h1>
+      <div class="filter-options">
+        <label for="tags">Filter by Tag:</label>
+        <select id="tags">
+          <option value="">All</option>
+          <option value="javascript">JavaScript</option>
+          <option value="react">React</option>
+          <option value="vue">Vue</option>
+          <option value="interview">Interview</option>
+        </select>
+        <label for="communities">Filter by Community:</label>
+        <select id="communities">
+          <option value="">All</option>
+          <option value="frontend">Frontend</option>
+          <option value="backend">Backend</option>
+          <option value="fullstack">Fullstack</option>
+        </select>
+      </div>
+      <div class="most-popular">
+        Most Popular: <span id="most-popular-title">Post Title</span>
+      </div>
+      <div id="posts"></div>
+    </div>
+
+    <!-- Post View -->
+    <div id="post-view">
+      <button id="backButton" class="btn">← Back</button> <!-- Back Button -->
+      <h1 id="post-title">Post Title</h1>
+      <p id="post-content">Post content...</p>
+
+      <div class="comments">
+        <h3>Comments</h3>
+        <div id="comments-container"></div>
+      </div>
+
+      <div class="form">
+        <textarea id="new-comment" placeholder="Write a comment..."></textarea>
+        <button class="btn" onclick="addComment()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

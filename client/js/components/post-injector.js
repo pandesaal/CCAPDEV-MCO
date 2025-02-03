@@ -8,62 +8,76 @@ const getRandomDate = (startYear, endYear) => {
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+export const posts = [
+    {
+      id: 1,
+      username: 'User12345',
+      title: "Stressed Over Finals",
+      content: "Feeling the pressure with finals coming up. Anyone else? How do you manage the stress?",
+      datePosted: getRandomDate(2020, 2025),
+      likes: 15,
+      tags: ["finals", "stress", "study"]
+    },
+    {
+      id: 2,
+      username: 'study_hard_24',
+      title: "Late-Night Study Sessions",
+      content: "Just pulled an all-nighter. I feel like I can't function properly without coffee now. Who else is on this grind?",
+      datePosted: getRandomDate(2020, 2025),
+      likes: 12,
+      tags: ["study", "coffee", "latenight"]
+    },
+    {
+      id: 3,
+      username: 'User12345',
+      title: "Group Projects Are the Worst",
+      content: "Why does it always feel like the workload is uneven in group projects? It's so frustrating when no one pulls their weight.",
+      datePosted: getRandomDate(2020, 2025),
+      likes: 22,
+      tags: ["group project", "frustration", "workload"]
+    },
+    {
+      id: 4,
+      username: 'artistic_angel',
+      title: "Stress Relief Through Art",
+      content: "Whenever I'm overwhelmed with school work, I turn to drawing. It helps me relax and recharge. Anyone else use art as an escape?",
+      datePosted: getRandomDate(2020, 2025),
+      likes: 18,
+      tags: ["art", "stress relief", "creativity"]
+    },
+    {
+      id: 5,
+      username: 'study_squad',
+      title: "Time Management Tips",
+      content: "Got any advice on how to balance school and personal life? I need a good routine to stick to.",
+      datePosted: getRandomDate(2020, 2025),
+      likes: 8,
+      tags: ["timemanagement", "schoollife", "routine"]
+    }
+];
+  
+export const postInjector = (postsArray = posts) => {
+    const postsContainer = document.getElementById('posts-wrapper');
+    postsContainer.innerHTML = "";
+
     fetch('../../html/components/post.html')
         .then(response => response.text())
         .then(template => {
-            const posts = [
-                {
-                    username: 'john_doe123',
-                    datePosted: getRandomDate(2020, 2025),
-                    postTitle: 'Exploring the great outdoors',
-                    postContent: "Had an amazing hike up the mountain this weekend! The weather was perfect, and the view from the top was breathtaking. Highly recommend it to anyone who loves nature.",
-                    postTags: ['hiking', 'outdoors', 'adventure']
-                },
-                {
-                    username: 'jane_smith456',
-                    datePosted: getRandomDate(2020, 2025),
-                    postTitle: 'My first cooking experience',
-                    postContent: "Tried my hand at cooking last night and made a delicious homemade pasta. It was surprisingly easy, and I can't wait to try more recipes. Any suggestions?",
-                    postTags: ['cooking', 'food', 'homemade']
-                },
-                {
-                    username: 'techguy789',
-                    datePosted: getRandomDate(2020, 2025),
-                    postTitle: 'The future of AI',
-                    postContent: "AI is rapidly changing the way we interact with technology. From smart assistants to autonomous vehicles, the possibilities are endless. Excited to see where this technology takes us.",
-                    postTags: ['AI', 'technology', 'future']
-                },
-                {
-                    username: 'artlover101',
-                    datePosted: getRandomDate(2020, 2025),
-                    postTitle: 'Art Exhibition Review: Van Gogh',
-                    postContent: "I visited the Van Gogh exhibition this weekend and was blown away by the detail and emotion in his paintings. Definitely a must-see for any art enthusiast.",
-                    postTags: ['art', 'Van Gogh', 'exhibition']
-                },
-                {
-                    username: 'musicman202',
-                    datePosted: getRandomDate(2020, 2025),
-                    postTitle: 'New Album Review: The Weeknd',
-                    postContent: "Just finished listening to The Weeknd's latest album, and it's amazing! The beats are on point, and his voice is as soulful as ever. Definitely worth checking out.",
-                    postTags: ['music', 'The Weeknd', 'album review']
-                },
-            ];
-
-
-            let allPostsString = posts.map(post =>
+            
+            let allPostsString = postsArray.map(post => 
                 template
                     .replace('{{username}}', post.username)
                     .replace('{{date-posted}}', post.datePosted)
-                    .replace('{{post-title}}', post.postTitle)
-                    .replace('{{post-content}}', post.postContent)
-                    .replace('{{post-tags}}', post.postTags.map(tag => {
-                        return <a href="#" class="post-tag">${tag}</a>;
+                    .replace('{{post-id}}', post.id)
+                    .replace('{{post-title}}', post.title)
+                    .replace('{{post-content}}', post.content)
+                    .replace('{{post-tags}}', post.tags.map(tag => {
+                        return `<a href="#" class="post-tag">${tag}</a>`;
                     }).join(''))
             ).join('');
 
             const allPostsHTML = document.createRange().createContextualFragment(allPostsString);
-            document.getElementById('posts-wrapper').appendChild(allPostsHTML);
+            postsContainer.appendChild(allPostsHTML);
 
             document.querySelectorAll('.post-options-button').forEach(button => {
                 button.addEventListener('click', () => {
@@ -74,16 +88,16 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.post-content').forEach(post => {
                 const maxLength = 200;
                 const originalText = post.innerText;
-
+            
                 if (originalText.length > maxLength) {
                     const truncatedText = originalText.substring(0, maxLength) + '... ';
-
+                    
                     post.innerHTML = post.innerHTML.replace(post.innerText, truncatedText);
-
+            
                     const readMore = post.querySelector('.content-readmore');
                     if (readMore) {
                         readMore.classList.remove('hide');
-
+                        
                         readMore.addEventListener('click', () => {
                             readMore.classList.add('hide')
                             post.innerHTML = post.innerHTML.replace(truncatedText, originalText);
@@ -99,10 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const title = post.querySelector('.post-title h3').innerText;
                     const content = post.querySelector('.post-content').innerText;
 
-                    document.getElementById('editPostTextTitle').innerText = title;
+                    document.getElementById('editPostTextTitle').value = title;
                     document.getElementById('editPostTextContent').innerText = content;
-
-                    console.log("clicked edit")
 
                     document.getElementById('editModal').style.display = 'block';
                 });
@@ -116,28 +128,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-            // Handle the upload button click
-            document.getElementById('editPostBtn').addEventListener('click', () => {
-                const newTitle = document.getElementById('editPostTextTitle').value;
-                const newContent = document.getElementById('editPostTextContent').value;
-                console.log('Updated Title:', newTitle);
-                console.log('Updated Content:', newContent);
-
-                document.getElementById('editModal').style.display = 'none';
-            });
-
-            document.querySelectorAll('#postTitle').forEach((title, index) => {
+            document.querySelectorAll('.post-title').forEach((title, index) => {
                 title.addEventListener('click', (event) => {
                     // Get the post data based on the index
-                    const post = posts[index];
+                    const post = posts[index-1];
 
                     // Populate the modal with post data
                     document.getElementById('modal-username').innerText = post.username;
                     document.getElementById('modal-date-posted').innerText = post.datePosted;
-                    document.getElementById('modal-post-title').innerText = post.postTitle;
-                    document.getElementById('modal-post-content').innerText = post.postContent;
-                    document.getElementById('modal-post-tags').innerHTML = post.postTags.map(tag => {
-                        return <a href="#" class="post-tag">${tag}</a>;
+                    document.getElementById('modal-post-title').innerText = post.title;
+                    document.getElementById('modal-post-content').innerText = post.content;
+                    document.getElementById('modal-post-tags').innerHTML = post.tags.map(tag => {
+                        return `<a href="#" class="post-tag">${tag}</a>`;
                     }).join('');
 
                     // replace this with actual comments
@@ -150,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     ];
 
                     const commentsList = comments.map(comment => {
-                        return <div class="comment"><strong>${comment.username}:</strong> ${comment.content}</div>;
+                        return `<div class="comment"><strong>${comment.username}:</strong> ${comment.content}</div>`;
                     }).join('');
 
                     document.getElementById('commentsList').innerHTML = commentsList;
@@ -159,8 +161,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById('viewPostModal').style.display = 'block';
                 });
             });
+
+            // Handle the upload button click
+            document.getElementById('editPostBtn').addEventListener('click', () => {
+                const newTitle = document.getElementById('editPostTextTitle').value;
+                const newContent = document.getElementById('editPostTextContent').value;
+                console.log('Updated Title:', newTitle);
+                console.log('Updated Content:', newContent);
+
+                document.getElementById('editModal').style.display = 'none';
+            });
         })
         .catch(err => {
             console.error("Error loading post template:", err);
         });
-});
+};

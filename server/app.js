@@ -1,7 +1,6 @@
 const express = require('express');
-const path = require('path');
-const fs = require('fs');
-
+const path = require('path')
+const fs = require('fs')
 const app = express();
 const PORT = 3000;
 
@@ -18,22 +17,21 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-    let page = fs.readFileSync(path.join(pages, "index.html"), 'utf8');
-    page = page.replace('<div id="navbar-wrapper"></div>', `<div id="navbar-wrapper">${res.locals.navbar}</div>`);
-    res.send(page);
+    const page = fs.readFileSync(path.join(pages, "index.html"), 'utf8');
+    res.send(res.locals.navbar + page);
 });
 
 app.get('/profile', (req, res) => {
-    let page = fs.readFileSync(path.join(pages, "profile.html"), 'utf8');
-    page = page.replace('<div id="navbar-wrapper"></div>', `<div id="navbar-wrapper">${res.locals.navbar}</div>`);
-    res.send(page);
+    const page = fs.readFileSync(path.join(pages, "profile.html"), 'utf8');
+    res.send(res.locals.navbar + page);
 });
 
-app.get('/search', (req, res) => {
-    let page = fs.readFileSync(path.join(pages, "search.html"), 'utf8');
-    page = page.replace('<div id="navbar-wrapper"></div>', `<div id="navbar-wrapper">${res.locals.navbar}</div>`);
-    res.send(page);
-});
+// app.get('/profile', (req, res) => {
+//     const page = fs.readFileSync(path.join(pages, "profile.html"), 'utf8');
+//     res.send(res.locals.navbar + page);
+// });
+// copy commented code, edit /profile and profile.html into your html files
+// for pages that dont need navbars jsut remove res.locals.navbar sa res.send
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

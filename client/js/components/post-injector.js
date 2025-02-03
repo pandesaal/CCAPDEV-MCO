@@ -113,10 +113,8 @@ export const postInjector = (postsArray = posts) => {
                     const title = post.querySelector('.post-title h3').innerText;
                     const content = post.querySelector('.post-content').innerText;
 
-                    document.getElementById('editPostTextTitle').innerText = title;
+                    document.getElementById('editPostTextTitle').value = title;
                     document.getElementById('editPostTextContent').innerText = content;
-
-                    console.log("clicked edit")
 
                     document.getElementById('editModal').style.display = 'block';
                 });
@@ -130,19 +128,8 @@ export const postInjector = (postsArray = posts) => {
                 });
             });
 
-            // // Handle the upload button click
-            // document.getElementById('editPostBtn').addEventListener('click', () => {
-            //     const newTitle = document.getElementById('editPostTextTitle').value;
-            //     const newContent = document.getElementById('editPostTextContent').value;
-            //     console.log('Updated Title:', newTitle);
-            //     console.log('Updated Content:', newContent);
-
-            //     document.getElementById('editModal').style.display = 'none';
-            // });
-
             document.querySelectorAll('.post-title').forEach((title, index) => {
                 title.addEventListener('click', (event) => {
-                    console.log(index)
                     // Get the post data based on the index
                     const post = posts[index-1];
 
@@ -173,6 +160,16 @@ export const postInjector = (postsArray = posts) => {
                     // Show the modal
                     document.getElementById('viewPostModal').style.display = 'block';
                 });
+            });
+
+            // Handle the upload button click
+            document.getElementById('editPostBtn').addEventListener('click', () => {
+                const newTitle = document.getElementById('editPostTextTitle').value;
+                const newContent = document.getElementById('editPostTextContent').value;
+                console.log('Updated Title:', newTitle);
+                console.log('Updated Content:', newContent);
+
+                document.getElementById('editModal').style.display = 'none';
             });
         })
         .catch(err => {

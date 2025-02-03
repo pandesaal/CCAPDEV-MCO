@@ -1,13 +1,18 @@
 const tags = [
-    "tech",
-    "science",
-    "design",
-    "coding",
-    "tutorials",
-    "web-development",
-    "ai",
-    "innovation",
-    "open source"
+    "finals", 
+    "stress", 
+    "study", 
+    "coffee", 
+    "latenight", 
+    "group project", 
+    "frustration", 
+    "workload", 
+    "art", 
+    "stress relief", 
+    "creativity", 
+    "timemanagement", 
+    "schoollife", 
+    "routine"
 ]; //to be replaced with db simply for testing purposes
 
 

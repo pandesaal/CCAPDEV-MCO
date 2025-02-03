@@ -17,14 +17,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" id="sidebar-settings">
-                            <div class="labels">
-                                <span class="material-symbols-outlined">settings</span>
-                                <p>Settings</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
                         <a href="#" id="sidebar-logout">
                             <div class="labels">
                                 <span class="material-symbols-outlined">logout</span>
@@ -44,15 +36,15 @@
         <h3><a href="/client/html/pages/">Archer's Freedom Wall</a></h3>
     </div>
     <div id="nav-search">
-        <div id="search-query">
-            <input id="search-bar" type="text" placeholder="Search the forums...">
+        <form id="search-query" method="get" action="../pages/search.html">
+            <input id="search-bar" type="text" placeholder="Search the forums..." name="query">
             <button id="search-button">
                 <a href="../pages/search.html">
                     <span class="material-symbols-outlined">search</span>
                 </a> <!--a tags to be removed, just for phase 1 to reach search page-->
             </button>
             <button id="search-clear" class="hide"><span class="material-symbols-outlined">close</span></button>
-        </div>
+        </form>
         <ul id="search-results" class="hide">
         </ul>
     </div>
@@ -79,69 +71,4 @@
     <!-- importing javascript -->
     <script src="../../js/components/nav-injector.js"></script>
 </nav>
-
-<div id="postModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Create a New Post</h2>
-        <div class="postText-title">
-            <textarea id="newPostTextTitle" placeholder="Enter the title of your post." rows="2"></textarea>
-        </div>
-        <div class="postText-content">
-            <textarea id="newPostTextContent" placeholder="What's on your mind?" rows="4"></textarea>
-        </div>
-        <div class="postText-tags">
-            <textarea id="newPostTextTags" placeholder="Enter tags." rows="1"></textarea>
-        </div>
-        <div>
-            <button id="uploadPostBtn">Upload</button>
-            <button id="discardPostBtn">Discard</button>
-        </div>
-    </div>
-</div>
-
-<div id="editModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Edit Post</h2>
-        <div class="postText-title">
-            <textarea id="editPostTextTitle" placeholder="Enter the title of your post." rows="2">hello world</textarea>
-        </div>
-        <div class="postText-content">
-            <textarea id="editPostTextContent" placeholder="What's on your mind?" rows="4"></textarea>
-        </div>
-        
-        <div id="tag-area">
-            <div id="tag" class="tag">
-              <span>CCAPDEV</span>
-              <span><button><close>×</close></button></span>
-            </div>
-            <div id="tag" class="tag">
-              <span>MCO1</span>
-              <span><button><close>×</close></button></span>
-            </div>
-            <div id="tag" class="tag">
-              <span>Famous</span>
-              <span><button><close>×</close></button></span>
-            </div>
-            <div id="tag" class="tag">
-              <span>Trending</span>
-              <span><button><close>×</close></button></span>
-            </div>
-            <div id="tag" class="tag">
-              <span>Application Development</span>
-              <span><button><close>×</close></button></span>
-            </div>
-        </div>
-        <div>
-            <input type="text" id="new-tag-input" placeholder="Enter a tag">
-            <button id="add-tag-button">Add Tag</button>
-        </div>
-
-        <div class="postButtons">
-            <button id="cancelPostBtn">Cancel</button>
-            <button id="editPostBtn">Edit</button>
-        </div>
-    </div>
-</div>
 

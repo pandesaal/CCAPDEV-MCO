@@ -1,4 +1,5 @@
 @import url("../components/nav.css");
+@import url("../components/createPost.css");
 
 main {
     margin-top: 3em;

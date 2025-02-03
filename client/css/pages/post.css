@@ -1,0 +1,26 @@
+@import url("../components/nav.css");
+@import url("../components/post.css");
+@import url("../components/createPost.css");
+
+main {
+    display: flex;
+    justify-content: center;
+    gap: 0.75em;
+
+    margin: 2em 0;
+
+    #posts-wrapper {
+
+        width: 100%;
+        max-width: 45vw;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        gap: 0.75em;
+
+        /* replace/remove when actual post styling is made for placeholder lang to*/
+        
+    }
+}

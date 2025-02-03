@@ -10,7 +10,7 @@ const outsideNav = [
 
 const isLoggedin = sessionStorage.getItem('isLoggedIn')
 
-document.addEventListener('DOMContentLoaded', () => {
+export const navInjector = () => {
     fetch('../../html/components/nav.html')
         .then(response => response.text())
         .then(data => {
@@ -49,4 +49,4 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(err => {
             console.error("Error loading navbar:", err);
         });
-});
+}

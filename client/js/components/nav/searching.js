@@ -31,16 +31,14 @@ searchBar.addEventListener("input", () => {
 
         if (results.length > 0) {
             results.forEach((result) => {
-                const li = document.createElement("li")
-                const a = document.createElement("a")
-    
-                resultsHolder.appendChild(li)
-                li.appendChild(a)
-                a.innerText = result
-                a.href = result.replace(/ /g, "-")
-                
-                resultsHolder.classList.remove("hide")
+                const li = document.createElement("li");
+                const a = document.createElement("a");
+                a.href = `/search?query=${result.replace(/ +/g, "-")}`;
+                a.textContent = result;
+                li.appendChild(a);
+                resultsHolder.appendChild(li);
             })
+            resultsHolder.classList.remove("hide")
         } else {
             resultsHolder.classList.add("hide")
         }

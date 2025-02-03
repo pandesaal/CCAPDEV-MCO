@@ -4,7 +4,9 @@ import { postInjector, posts } from "../components/post-injector.js";
 document.addEventListener('DOMContentLoaded', () => {
 
     const query = new URLSearchParams(window.location.search).get('query')
-    const filteredPosts = posts.filter(post => post.title.toLowerCase().includes(query) || post.content.toLowerCase().includes(query))
+    const filteredPosts = posts.filter(post => post.title.toLowerCase().includes(query) 
+    || post.content.toLowerCase().includes(query) 
+    || post.tags.find(p => p === query))
 
     navInjector();
     postInjector(filteredPosts);

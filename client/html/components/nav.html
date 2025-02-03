@@ -72,3 +72,102 @@
     <script src="../../js/components/nav-injector.js"></script>
 </nav>
 
+<div id="postModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Create a New Post</h2>
+        <div class="postText-title">
+            <textarea id="newPostTextTitle" placeholder="Enter the title of your post." rows="2"></textarea>
+        </div>
+        <div class="postText-content">
+            <textarea id="newPostTextContent" placeholder="What's on your mind?" rows="4"></textarea>
+        </div>
+        <div class="postText-tags">
+            <textarea id="newPostTextTags" placeholder="Enter tags." rows="1"></textarea>
+        </div>
+        <div>
+            <button id="uploadPostBtn">Upload</button>
+            <button id="discardPostBtn">Discard</button>
+        </div>
+    </div>
+</div>
+
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Edit Post</h2>
+        <div class="postText-title">
+            <input id="editPostTextTitle" placeholder="Enter the title of your post." rows="2" />
+        </div>
+        <div class="postText-content">
+            <textarea id="editPostTextContent" placeholder="What's on your mind?" rows="4"></textarea>
+        </div>
+        
+        <div id="tag-area">
+            <div id="tag" class="tag">
+              <span>CCAPDEV</span>
+              <span><button><close>×</close></button></span>
+            </div>
+            <div id="tag" class="tag">
+              <span>MCO1</span>
+              <span><button><close>×</close></button></span>
+            </div>
+            <div id="tag" class="tag">
+              <span>Famous</span>
+              <span><button><close>×</close></button></span>
+            </div>
+            <div id="tag" class="tag">
+              <span>Trending</span>
+              <span><button><close>×</close></button></span>
+            </div>
+            <div id="tag" class="tag">
+              <span>Application Development</span>
+              <span><button><close>×</close></button></span>
+            </div>
+        </div>
+        <div>
+            <input type="text" id="new-tag-input" placeholder="Enter a tag">
+            <button id="add-tag-button">Add Tag</button>
+        </div>
+
+        <div class="postButtons">
+            <button id="cancelPostBtn">Cancel</button>
+            <button id="editPostBtn">Edit</button>
+        </div>
+    </div>
+</div>
+
+<div id="viewPostModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="viewPost">
+            <div id="postDetails" class="viewPostContent">
+                <!-- This part will show a single post using the format from post.html -->
+                <div class="post">
+                    <div class="post-header">
+                        <div class="post-info">
+                            <div class="post-icon"><img src="../../assets/defaulticon.png" alt="icon"></div>
+                            <div class="post-info-text">
+                                <h4 class="post-username" id="modal-username"></h4>
+                                <p class="post-date" id="modal-date-posted"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-body">
+                        <div class="post-title">
+                            <h3 id="modal-post-title"></h3>
+                        </div>
+                        <div class="post-content" id="modal-post-content"></div>
+                    </div>
+                    <div class="post-tags" id="modal-post-tags"></div>
+                </div>
+            </div>
+            <div id="commentsSection" class="viewPostContent">
+                <h3>Comments</h3>
+                <div id="commentsList">
+                    <!-- Comments will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -140,16 +140,15 @@
     overflow: auto;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
+    padding-top: 1%;
 }
 
 .modal-content {
     background-color: #fefefe;
     margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
+    padding: 2%;
+    border: 0.05em solid #888;
+    width: 70%;
 }
 
 .postText-title{
@@ -229,4 +228,12 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.viewPost{
+    display: flex;
+
+    .viewPostContent{
+        margin-right: 5%;
+    }
 }

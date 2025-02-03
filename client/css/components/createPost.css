@@ -1,7 +1,7 @@
 @import url('../base/default.css');
 
 .modal {
-    display: block;
+    display: none;
     position: fixed;
     z-index: 10000000;
     left: 0;
@@ -28,15 +28,14 @@
 }
 
 .postText-title{
-    margin: 1% auto;
+    margin: 3% auto;
 
     input {
 
         font-size: 1em;
 
-        border: var(--border-small);
+        border-bottom: var(--border-small);
         border-color: var(--color-accent);
-        border-radius: 0.3em;
 
         width: 100%;
         resize: none;

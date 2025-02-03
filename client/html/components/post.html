@@ -1,4 +1,4 @@
-<div class="post">
+<div class="post" data-post-id="{{post-id}}">
     <div class="post-header">
         <div class="post-info">
             <div class="post-icon"><img src="../../assets/defaulticon.png" alt="icon"></div>
@@ -14,7 +14,6 @@
                 <li class="post-menu-options">Delete</li>
             </ul>
         </div>
-
     </div>
 
     <div class="post-body">
@@ -38,9 +37,18 @@
             <span class="material-symbols-outlined post-button-icon">thumb_down</span>
             <span class="post-count">Dislike</span>
         </div>
-        <div class="post-button">
+        <!-- Use a class (comment-btn) so every post has its own comment button -->
+        <div class="post-button comment-btn">
             <span class="material-symbols-outlined post-button-icon">chat_bubble</span>
             <span class="post-count">Comment</span>
         </div>
+    </div>
+    <!-- Comment Section Container (Hidden by Default) -->
+    <div class="comments-wrapper hide">
+        <div class="commentsList"></div>
+        <form class="comment-form">
+            <textarea class="comment-input" placeholder="Write a comment..."></textarea>
+            <button type="submit">Submit</button>
+        </form>
     </div>
 </div>

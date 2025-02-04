@@ -23,9 +23,9 @@
             gap: 0.5em;
 
             .comment-info-text {
-                font-size: 1em;
+                font-size: 0.85em;
                 display: flex;
-                gap: 0.3em;
+                gap: 0.4em;
 
                 .comment-edit {
                     font-size: var(--font-smaller);
@@ -39,7 +39,7 @@
     }
 
     .comment-icon {
-        width: 2.7em;
+        width: 2.2em;
 
         img {
             border-radius: 50%;
@@ -112,4 +112,8 @@
         }
     }
 
+}
+
+.editable {
+    color: var(--color-accent) !important;
 }

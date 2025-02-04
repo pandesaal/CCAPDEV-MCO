@@ -66,8 +66,18 @@ export const commentInjector = (commentsArray = comments) => {
             commentsContainer.appendChild(allCommentsHTML);
 
             document.querySelectorAll('.comment-options-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    button.closest('.comment').querySelector('.comment-menu').classList.toggle('hide')
+                button.addEventListener('click', (e) => {
+                    if (e.target.textContent === 'more_horiz') {
+                        button.closest('.comment').querySelector('.comment-menu').classList.remove('hide'); // opens menu if it's the "..." icon
+                    }
+                    else { // saves the edited comment if it's the check icon
+                        const comment = button.closest('.comment');
+
+                        Array.from(comment.querySelectorAll('.comment-options-button')).find(btn => btn.textContent === 'done_outline').classList.add('hide');
+                        Array.from(comment.querySelectorAll('.comment-options-button')).find(btn => btn.textContent === 'more_horiz').classList.remove('hide');
+                        comment.querySelector('.comment-content').classList.remove('editable');
+                        comment.querySelector('.comment-edit').classList.remove('hide');
+                    }
                 })
             })
 
@@ -90,6 +100,21 @@ export const commentInjector = (commentsArray = comments) => {
                         });
                     }
                 }
+            });
+
+            // edit comment
+            document.querySelectorAll('.editBtn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const comment = button.closest('.comment');
+
+                    const hiddenButton = comment.querySelector('.comment-options-button.hide');
+
+                    comment.querySelector('.comment-options-button').classList.add('hide');
+                    comment.querySelector('.comment-menu').classList.add('hide');
+                    comment.querySelector('.comment-content').classList.add('editable');
+
+                    hiddenButton.classList.remove('hide');
+                });
             });
 
         })

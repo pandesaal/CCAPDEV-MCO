@@ -1,0 +1,104 @@
+@import url('../base/default.css');
+
+.comment {
+
+    border-bottom: var(--border-small);
+    padding: 1em 2em 1em 2em;
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    .comment-header {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+
+        .comment-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+
+            .comment-icon {
+                width: 2.7em;
+
+                img {
+                    border-radius: 50%;
+                }
+            }
+
+            .comment-info-text {
+                display: flex;
+                gap: 0.3em;
+
+                .comment-edit {
+                    font-size: var(--font-smaller);
+                    color: var(--color-accent);
+                    margin-left: 0.2em;
+                }
+            }
+
+        }
+
+    }
+
+    .comment-options {
+        position: relative;
+
+        .comment-menu-button {
+            padding: 0.5em;
+        }
+
+        .comment-menu {
+            background-color: white;
+            min-width: 100px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+
+            position: absolute;
+            right: 0;
+
+            border: var(--border-small);
+            border-radius: 0.3em;
+            overflow: hidden;
+
+            .comment-menu-options {
+                padding: 0.5em 1em;
+            }
+
+            .comment-menu-options:hover {
+                background-color: #f1f1f1;
+            }
+        }
+    }
+
+    .comment-options:hover {
+        cursor: pointer;
+    }
+
+    .comment-body {
+        margin: 1em;
+        margin-top: 0.5em;
+    }
+
+    .comment-buttons {
+        display: flex;
+        gap: 1em;
+
+        .comment-button {
+            display: flex;
+            align-items: center;
+            gap: 0.3em;
+
+            .comment-button-icon {
+                font-size: 1.2em;
+            }
+        }
+
+        .comment-button:hover {
+            cursor: pointer;
+        }
+    }
+
+}

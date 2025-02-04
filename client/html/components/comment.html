@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="../../css/components/comment.css" />
+
+</head>
+<body>
+    
+
+
+    <div class="comment">
+
+        <div class="comment-header">
+            <div class="comment-info">
+                <div class="comment-icon"><img src="../../assets/defaulticon.png" alt="icon"></div>
+                    <div class="comment-info-text">
+                        <h4 class="comment-username">{{username}}</h4>
+                        <p class="comment-date">{{date-posted}}</p>
+                        <p class="comment-edit hide">Edited</p>
+                    </div>
+            </div>
+            <div class="comment-options">
+                <span class="material-symbols-outlined comment-options-button">more_horiz</span>
+                <ul class="comment-menu hide">
+                    <li class="comment-menu-options editBtn">Edit</li>
+                    <li class="comment-menu-options">Delete</li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="comment-body">
+            <div class="comment-content">
+                {{comment-content}}
+                <a class="content-readmore hide" href="#">Read more</a>
+            </div>
+        </div>
+    
+        <div class="comment-buttons">
+            <div class="comment-button">
+                <span class="material-symbols-outlined comment-button-icon">thumb_up</span>
+                <span class="comment-count">Like</span>
+            </div>
+            <div class="comment-button">
+                <span class="material-symbols-outlined comment-button-icon">thumb_down</span>
+                <span class="comment-count">Dislike</span>
+            </div>
+            <div class="comment-button">
+                <span class="material-symbols-outlined comment-button-icon">chat_bubble</span>
+                <span class="comment-count">Reply</span>
+            </div>
+        </div>
+    
+    </div>
+
+
+
+
+</body>
+</html>

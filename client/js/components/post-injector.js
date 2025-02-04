@@ -1,3 +1,5 @@
+import { commentInjector, comments } from "./comment-injector.js";
+
 const getRandomDate = (startYear, endYear) => {
     const start = new Date(startYear, 0, 1).getTime();
     const end = new Date(endYear, 11, 31).getTime();
@@ -142,20 +144,23 @@ export const postInjector = (postsArray = posts) => {
                         return `<a href="#" class="post-tag">${tag}</a>`;
                     }).join('');
 
-                    // replace this with actual comments
-                    const comments = [
-                        // { username: 'commenter1', content: 'Great post!' },
-                        // { username: 'commenter2', content: 'Thanks for sharing!' },
-                        // { username: 'commenter3', content: 'Very informative.' },
-                        // { username: 'commenter4', content: 'Looking forward for your next blog!' },
-                        // { username: 'commenter5', content: 'Amazing idea!' }
-                    ];
+                    // replace this with actual comments; imported comments from comment-injector
+                    // const comments = [
+                    //     { username: 'commenter1', content: 'Great post!' },
+                    //     { username: 'commenter2', content: 'Thanks for sharing!' },
+                    //     { username: 'commenter3', content: 'Very informative.' },
+                    //     { username: 'commenter4', content: 'Looking forward for your next blog!' },
+                    //     { username: 'commenter5', content: 'Amazing idea!' }
+                    // ];
 
-                    const commentsList = comments.map(comment => {
-                        return `<div class="comment"><strong>${comment.username}:</strong> ${comment.content}</div>`;
-                    }).join('');
+                    // const commentsList = comments.map(comment => {
+                    //     return `<div class="comment"><strong>${comment.username}:</strong> ${comment.content}</div>`;
+                    // }).join('');
 
-                    document.getElementById('commentsList').innerHTML = commentsList;
+
+                    commentInjector(comments);
+                    // document.getElementById('commentsList').innerHTML = commentsList;
+
 
                     // Show the modal
                     document.getElementById('viewPostModal').style.display = 'block';

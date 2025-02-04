@@ -116,9 +116,32 @@ export const postInjector = (postsArray = posts) => {
                     const content = post.querySelector('.post-content').innerText;
 
                     document.getElementById('editPostTextTitle').value = title;
-                    document.getElementById('editPostTextContent').innerText = content;
+                    document.getElementById('editPostTextContent').value = content;
 
+                    // Get the tags from the post and display them in the edit modal
+                    const tags = post.querySelectorAll('.post-tag');
+                    const editPostTagsContainer = document.getElementById('editPostTags');
+                    editPostTagsContainer.innerHTML = ''; // Clear existing tags
+
+                    tags.forEach(tag => {
+                        const tagElement = document.createElement('div');
+                        tagElement.className = 'tag';
+                        tagElement.innerHTML = `
+                            <span>${tag.innerText}</span>
+                            <span><button class="remove-tag-button">×</button></span>
+                        `;
+                        editPostTagsContainer.appendChild(tagElement);
+                    });
+
+                    // Show the edit modal
                     document.getElementById('editModal').style.display = 'block';
+
+                    // Add event listeners to remove tag buttons
+                    document.querySelectorAll('.remove-tag-button').forEach(removeButton => {
+                        removeButton.addEventListener('click', (e) => {
+                            e.target.closest('.tag').remove(); // Remove the tag element
+                        });
+                    });
                 });
             });
 

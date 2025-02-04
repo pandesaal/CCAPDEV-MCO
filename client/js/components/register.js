@@ -84,13 +84,3 @@ document.getElementById('sidebar-logout').addEventListener('click', () => {
     window.location.reload()
 });
 
-
-// navigates to profile page when an icon is clicked; not final
-// function toProfile() {
-//     window.location.href = "profile.html";
-// }
-// const icons = document.getElementsByClassName("icon");
-// for (let i = 0; i < icons.length; i++) {
-//     icons[i].addEventListener("click", toProfile);
-// }
-

@@ -1,4 +1,5 @@
 @import url('../base/default.css');
+@import url("comment.css");
 
 .modal {
     display: none;
@@ -15,7 +16,6 @@
     margin: 5% auto;
     padding: 1.5em;
     width: 80%;
-    max-width: 500px;
 
     border: var(--border);
     border-radius: 0.5em;
@@ -125,4 +125,33 @@
     color: var(--color-dark);
     text-decoration: none;
     cursor: pointer;
+}
+
+#comment-input-box {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#comment-input-box span {
+    display: inline-block;
+    font-size: 1.7em;
+    margin-left: 0.5em;
+}
+
+#comment-input-box span:hover {
+    color: var(--color-accent);
+    cursor: pointer;
+}
+
+#comment-input {
+    resize: none;
+    display: inline-block;
+    padding: 0.3em 0em 0em 0.7em;
+    width: 35em;
+    height: 2em;
+    outline: 0.1em solid var(--color-dark);
+    border-radius: 10em;
+    margin: 0.2em;
 }

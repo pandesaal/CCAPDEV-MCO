@@ -3,7 +3,7 @@
 @import url("../components/post.css");
 
 main {
-    margin-top: 3em;
+    margin: 3em 0;
     height: 100%;
     display: flex;
     flex-direction: column;

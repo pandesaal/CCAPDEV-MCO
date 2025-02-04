@@ -12,53 +12,89 @@ const getRandomDate = (startYear, endYear) => {
 
 export const posts = [
     {
-      id: 1,
-      username: 'User12345',
-      title: "Stressed Over Finals",
-      content: "Feeling the pressure with finals coming up. Anyone else? How do you manage the stress?",
-      datePosted: getRandomDate(2020, 2025),
-      likes: 15,
-      tags: ["finals", "stress", "study"]
+        id: 1,
+        username: 'User12345',
+        title: "Stressed Over Finals",
+        content: "Feeling the pressure with finals coming up. Anyone else? How do you manage the stress?",
+        datePosted: getRandomDate(2020, 2025),
+        tags: ["finals", "stress", "study"]
     },
     {
-      id: 2,
-      username: 'study_hard_24',
-      title: "Late-Night Study Sessions",
-      content: "Just pulled an all-nighter. I feel like I can't function properly without coffee now. Who else is on this grind?",
-      datePosted: getRandomDate(2020, 2025),
-      likes: 12,
-      tags: ["study", "coffee", "latenight"]
+        id: 2,
+        username: 'study_hard_24',
+        title: "Late-Night Study Sessions",
+        content: "Just pulled an all-nighter. I feel like I can't function properly without coffee now. Who else is on this grind?",
+        datePosted: getRandomDate(2020, 2025),
+        tags: ["study", "coffee", "latenight"]
     },
     {
-      id: 3,
-      username: 'User12345',
-      title: "Group Projects Are the Worst",
-      content: "Why does it always feel like the workload is uneven in group projects? It's so frustrating when no one pulls their weight.",
-      datePosted: getRandomDate(2020, 2025),
-      likes: 22,
-      tags: ["group project", "frustration", "workload"]
+        id: 3,
+        username: 'User12345',
+        title: "Group Projects Are the Worst",
+        content: "Why does it always feel like the workload is uneven in group projects? It's so frustrating when no one pulls their weight.",
+        datePosted: getRandomDate(2020, 2025),
+        tags: ["group project", "frustration", "workload"]
     },
     {
-      id: 4,
-      username: 'artistic_angel',
-      title: "Stress Relief Through Art",
-      content: "Whenever I'm overwhelmed with school work, I turn to drawing. It helps me relax and recharge. Anyone else use art as an escape?",
-      datePosted: getRandomDate(2020, 2025),
-      likes: 18,
-      tags: ["art", "stress relief", "creativity"]
+        id: 4,
+        username: 'artistic_angel',
+        title: "Stress Relief Through Art",
+        content: "Whenever I'm overwhelmed with school work, I turn to drawing. It helps me relax and recharge. Anyone else use art as an escape?",
+        datePosted: getRandomDate(2020, 2025),
+        tags: ["art", "stress relief", "creativity"]
     },
     {
-      id: 5,
-      username: 'study_squad',
-      title: "Time Management Tips",
-      content: "Got any advice on how to balance school and personal life? I need a good routine to stick to.",
-      datePosted: getRandomDate(2020, 2025),
-      likes: 8,
-      tags: ["timemanagement", "schoollife", "routine"]
+        id: 5,
+        username: 'study_squad',
+        title: "Time Management Tips",
+        content: "Got any advice on how to balance school and personal life? I need a good routine to stick to.",
+        datePosted: getRandomDate(2020, 2025),
+        tags: ["timemanagement", "schoollife", "routine"]
+    },
+    {
+        id: 6,
+        username: 'college_survivor',
+        title: "Procrastination Struggles",
+        content: "I keep telling myself I'll start early, but here I am cramming again. How do you fight procrastination?",
+        datePosted: getRandomDate(2020, 2025),
+        tags: ["procrastination", "motivation", "cramming"]
+    },
+    {
+        id: 7,
+        username: 'User12345',
+        title: "Morning or Night Study?",
+        content: "Are you a morning or night person when it comes to studying? I feel like my brain works better at night.",
+        datePosted: getRandomDate(2020, 2025),
+        tags: ["study", "schedule", "night owl"]
+    },
+    {
+        id: 8,
+        username: 'fitness_nerd',
+        title: "Exercise Helps with Studying",
+        content: "I started exercising before study sessions and it actually helps me focus better. Anyone else do this?",
+        datePosted: getRandomDate(2020, 2025),
+        tags: ["exercise", "focus", "productivity"]
+    },
+    {
+        id: 9,
+        username: 'study_hard_24',
+        title: "Best Study Playlists?",
+        content: "Music helps me concentrate, but I need new study playlists. Drop your favorites!",
+        datePosted: getRandomDate(2020, 2025),
+        tags: ["music", "study", "playlists"]
+    },
+    {
+        id: 10,
+        username: 'artistic_angel',
+        title: "Creative Study Notes",
+        content: "Making study notes more visually appealing with colors and doodles actually helps me remember stuff. Does anyone else do this?",
+        datePosted: getRandomDate(2020, 2025),
+        tags: ["study", "notes", "creativity"]
     }
 ];
-  
+
 export const postInjector = (postsArray = posts) => {
+    postsArray = [...postsArray].sort((a, b) => new Date(b.datePosted) - new Date(a.datePosted));
     const postsContainer = document.getElementById('posts-wrapper');
     postsContainer.innerHTML = "";
 

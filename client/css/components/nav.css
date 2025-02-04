@@ -5,7 +5,7 @@
 #navbar {
     position: sticky;
     top: 0;
-    z-index: 999;
+    z-index: 990;
 
     nav {
         border-bottom: var(--border);
@@ -63,13 +63,13 @@
                 display: block;
                 border: var(--border-small);
                 border-radius: 0.5em;
-                margin-top: 0.2em;
 
                 overflow: hidden;
 
                 width: 100%;
                 position: absolute;
                 left: 0;
+                top: 2.5em;
 
                 li {
                     display: flex;
@@ -117,7 +117,10 @@
                 }
                 
                 .create-post-btn:hover {
-                    background: #8a8a8a;
+                    background: var(--color-accent);
+                    span {
+                        background: var(--color-accent);
+                    }
                 }
 
                 #nav-profile {

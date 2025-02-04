@@ -239,9 +239,20 @@
 }
 
 .viewPost{
+    max-height: 40em;
     display: flex;
+    justify-content: space-between;
+    gap: 2.5em;
+    overflow: hidden;
 
-    .viewPostContent{
-        margin-right: 5%;
+    #postDetails {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+    }
+
+    #commentsList {
+        max-height: 40em;
+        overflow: scroll;
     }
 }

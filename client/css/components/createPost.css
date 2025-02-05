@@ -2,7 +2,7 @@
 @import url("comment.css");
 
 .modal {
-    display: none;
+    display: block;
     position: fixed;
     z-index: 10000000;
     left: 0;
@@ -154,4 +154,10 @@
     outline: 0.1em solid var(--color-dark);
     border-radius: 10em;
     margin: 0.2em;
+}
+
+#deletePostModal, #deleteCommentModal {
+    p {
+        margin-top: 0.25em;
+    }
 }

@@ -170,7 +170,7 @@ export const postInjector = (postsArray = posts) => {
                     });
 
                     // Show the edit modal
-                    document.getElementById('editModal').style.display = 'block';
+                    document.getElementById('editModal').classList.remove('hide');
 
                     // Add event listeners to remove tag buttons
                     document.querySelectorAll('.remove-tag-button').forEach(removeButton => {
@@ -181,11 +181,18 @@ export const postInjector = (postsArray = posts) => {
                 });
             });
 
+            document.querySelectorAll('.deleteBtn').forEach(button => {
+                button.addEventListener('click', () => {
+                    if (button.closest('.post'))
+                        document.getElementById('deletePostModal').classList.remove('hide')
+                })
+            })
+
             // Close modal when the close button is clicked
             document.querySelectorAll('.close').forEach(button => {
                 button.addEventListener('click', () => {
                     const modal = button.closest('.modal');
-                    modal.style.display = 'none'
+                    modal.classList.add('hide')
                 });
             });
 
@@ -222,7 +229,7 @@ export const postInjector = (postsArray = posts) => {
 
 
                     // Show the modal
-                    document.getElementById('viewPostModal').style.display = 'block';
+                    document.getElementById('viewPostModal').classList.remove('hide');
                 });
             });
 

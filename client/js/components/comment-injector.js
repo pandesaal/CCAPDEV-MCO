@@ -68,7 +68,7 @@ export const commentInjector = (commentsArray = comments) => {
             document.querySelectorAll('.comment-options-button').forEach(button => {
                 button.addEventListener('click', (e) => {
                     if (e.target.textContent === 'more_horiz') {
-                        button.closest('.comment').querySelector('.comment-menu').classList.remove('hide'); // opens menu if it's the "..." icon
+                        button.closest('.comment').querySelector('.comment-menu').classList.toggle('hide'); // opens menu if it's the "..." icon
                     }
                     else { // saves the edited comment if it's the check icon
                         const comment = button.closest('.comment');
@@ -114,6 +114,13 @@ export const commentInjector = (commentsArray = comments) => {
                     comment.querySelector('.comment-content').classList.add('editable');
 
                     hiddenButton.classList.remove('hide');
+                });
+            });
+
+            document.querySelectorAll('.deleteBtn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    if (button.closest('.comment'))
+                        document.getElementById('deleteCommentModal').classList.remove('hide');
                 });
             });
 

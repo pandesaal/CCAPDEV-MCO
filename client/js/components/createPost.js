@@ -5,15 +5,15 @@ const postModal = document.getElementById('postModal');
 const postText = document.getElementById('postText');
 
 createPostBtn.onclick = function() {
-    postModal.style.display = "block";
+    postModal.classList.remove('hide');
 }
 
 closePostModal.onclick = function() {
-    postModal.style.display = "none";
+    postModal.classList.add('hide');
     postText.value = '';
 }
 
 discardPostBtn.onclick = function() {
-    postModal.style.display = "none";
+    postModal.classList.add('hide');
     postText.value = '';
 }

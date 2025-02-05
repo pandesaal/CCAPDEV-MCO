@@ -61,9 +61,9 @@ document.getElementById('signupForm').addEventListener('submit', (event) => {
 });
 
 document.querySelectorAll('.post-button').forEach(button => {
-    let isLoggedIn = sessionStorage.getItem('isLoggedIn')
-
     button.addEventListener('click', () => {
+        let isLoggedIn = sessionStorage.getItem('isLoggedIn')
+        console.log(isLoggedIn)
         if (isLoggedIn === 'false' || isLoggedIn === null) {
             openReg();
             showLogin();
@@ -81,6 +81,7 @@ if (document.getElementById('login-note-footer-button')) {
 document.getElementById('sidebar-logout').addEventListener('click', () => {
 
     sessionStorage.setItem('isLoggedIn', false);
+    closeReg();
     window.location.reload()
 });
 

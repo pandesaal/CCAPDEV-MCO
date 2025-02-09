@@ -161,3 +161,134 @@
         margin-top: 0.25em;
     }
 }
+
+.modal-content {
+    background-color: var(--color-light);
+    margin: 5% auto;
+    padding: 1.5em;
+    width: 80%;
+
+    border: var(--border);
+    border-radius: 0.5em;
+}
+
+.postText-title{
+    margin: 3% auto;
+
+    #input {
+
+        font-size: 1em;
+
+        border-bottom: var(--border-small);
+        border-color: var(--color-accent);
+
+        width: 100%;
+        resize: none;
+
+        padding: 0.3em;
+    }
+}
+
+.postText-content{
+    margin: 1% auto;
+    textarea {
+        border: var(--border-small);
+        width: 100%;
+        height: 30% auto;
+    }
+}
+
+.postText-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+
+    .post-tag {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: var(--font-smaller);
+        text-decoration: underline;
+    }
+}
+
+.postText-tagArea {
+    margin: 1% auto;
+    width: 100%;
+    height: 10% auto;
+    border: var(--border-small);
+    padding: 5px;
+    overflow-y: scroll; 
+}
+  
+.tag {
+    display: inline-block;
+    padding: 5px;
+    margin: 2px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #ffffff; 
+}
+
+.tag span { 
+    margin-right: 5px; 
+    
+}
+
+.tag .close {
+    cursor: pointer;
+    color: #888; 
+    font-weight: bold; 
+}
+
+#new-tag-input {
+    padding: 5px;
+    border: var(--border-small);
+}
+
+#add-tag-button{
+    padding: 5px;
+    border: var(--border-small);
+}
+
+#add-tag-button:hover {
+    background: #8a8a8a;
+}
+
+.postButtons{
+    margin: 1% auto;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.viewPost{
+    max-height: 40em;
+    display: flex;
+    justify-content: space-between;
+    gap: 2.5em;
+    overflow: hidden;
+
+    #postDetails {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+    }
+
+    #commentsList {
+        max-height: 40em;
+        overflow: scroll;
+    }
+}

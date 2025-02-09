@@ -199,7 +199,7 @@ export const postInjector = (postsArray = posts) => {
             document.querySelectorAll('.post-title').forEach((title, index) => {
                 title.addEventListener('click', (event) => {
                     // Get the post data based on the index
-                    const post = posts[index-1];
+                    const post = posts[index];
 
                     // Populate the modal with post data
                     document.getElementById('modal-username').innerText = post.username;

@@ -1,6 +1,7 @@
 @import url("../components/nav.css");
-@import url("../components/createPost.css");
+@import url("../components/modals.css");
 @import url("../components/post.css");
+@import url("../components/register.css");
 
 main {
     margin: 3em 0;

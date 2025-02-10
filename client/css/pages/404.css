@@ -1,0 +1,25 @@
+@import url("../components/nav.css");
+@import url("../components/post.css");
+@import url("../components/modals.css");
+@import url("../components/register.css");
+
+main {
+
+    height: 60vh;
+
+    #main-content {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        
+        h1 {
+            font-size: 15em;
+        }
+
+        a:hover {
+            color: var(--color-accent);
+        }
+    }
+}

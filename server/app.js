@@ -56,6 +56,14 @@ app.get('/search', (req, res) => {
     res.send(page);
 });
 
+app.use((req, res, next) => {
+    let page = fs.readFileSync(path.join(pages, "404.html"), 'utf8');
+
+    page = page.replace('<div id="navbar"></div>', `<div id="navbar">${res.locals.navbar}</div>`);
+    page = page.replace('<div id="register-wrapper"></div>', `<div id="register-wrapper">${res.locals.register} ${res.locals.modals}</div>`);
+    res.status(404).send(page);
+});
+
 mongoose.connect(process.env.MONGODB).then(() => {
     app.listen(PORT, () => {
         console.log(`Server running at http://localhost:${PORT}`);

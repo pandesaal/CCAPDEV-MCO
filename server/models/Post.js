@@ -8,7 +8,7 @@ const postSchema = new mongoose.Schema({
     likes: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
     dislikes: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
-});
+},{collection: 'Posts'});
 
 postSchema.virtual('likeCount').get(() => {
     return this.likes.length;

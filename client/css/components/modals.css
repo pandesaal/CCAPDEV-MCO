@@ -70,7 +70,7 @@
     border-color: var(--color-accent);
     border-radius: 0.3em;
     padding: 5px;
-    overflow-y: scroll; /* Add scroll if content overflows */
+    overflow-y: scroll;
 }
   
 .tag {
@@ -79,18 +79,18 @@
     margin: 2px;
     border: 1px solid #ccc;
     border-radius: 3px;
-    background-color: #ffffff; /* Light gray background for tags */
+    background-color: #ffffff; 
 }
 
-.tag span { /* Style the tag text */
-    margin-right: 5px; /* Space between text and close icon */
+.tag span { 
+    margin-right: 5px; 
     
 }
 
 .tag .close {
     cursor: pointer;
-    color: #888; /* Slightly darker gray for close icon */
-    font-weight: bold; /* Make close icon bolder */
+    color: #888; 
+    font-weight: bold; 
 }
 
 #new-tag-input {

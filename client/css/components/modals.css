@@ -162,16 +162,6 @@
     }
 }
 
-.modal-content {
-    background-color: var(--color-light);
-    margin: 5% auto;
-    padding: 1.5em;
-    width: 80%;
-
-    border: var(--border);
-    border-radius: 0.5em;
-}
-
 .postText-title{
     margin: 3% auto;
 

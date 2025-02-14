@@ -162,23 +162,6 @@
     }
 }
 
-.postText-title{
-    margin: 3% auto;
-
-    #input {
-
-        font-size: 1em;
-
-        border-bottom: var(--border-small);
-        border-color: var(--color-accent);
-
-        width: 100%;
-        resize: none;
-
-        padding: 0.3em;
-    }
-}
-
 .postText-content{
     margin: 1% auto;
     textarea {

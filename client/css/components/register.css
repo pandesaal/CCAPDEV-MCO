@@ -3,8 +3,9 @@
 #regWindow {
     display: block;
     width: 19.5em;
-    height: 20.5em;
+    height: auto;
     padding: 0.8em;
+    padding-bottom: 2em;
     border: var(--border);
     position: fixed;
     top: 50%;

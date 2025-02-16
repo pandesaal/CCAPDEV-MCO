@@ -103,7 +103,7 @@ export const commentInjector = (commentsArray = comments) => {
             });
 
             // edit comment
-            document.querySelectorAll('.editBtn').forEach(button => {
+            document.querySelectorAll('.editCommBtn').forEach(button => {
                 button.addEventListener('click', (e) => {
                     const comment = button.closest('.comment');
 
@@ -117,7 +117,7 @@ export const commentInjector = (commentsArray = comments) => {
                 });
             });
 
-            document.querySelectorAll('.deleteBtn').forEach(button => {
+            document.querySelectorAll('.deleteCommBtn').forEach(button => {
                 button.addEventListener('click', (e) => {
                     if (button.closest('.comment'))
                         document.getElementById('deleteCommentModal').classList.remove('hide');

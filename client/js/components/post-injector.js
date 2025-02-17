@@ -181,6 +181,22 @@ export const postInjector = (postsArray = posts) => {
                 });
             });
 
+            // Edit Post Button: Edit
+            document.getElementById('editPostBtn').addEventListener('click', () => {
+                const newTitle = document.getElementById('editPostTextTitle').value;
+                const newContent = document.getElementById('editPostTextContent').value;
+                console.log('Updated Title:', newTitle);
+                console.log('Updated Content:', newContent);
+
+                document.getElementById('editModal').classList.add('hide');
+            });
+
+            // Edit Post Button: Cancel
+            document.getElementById('cancelPostBtn').addEventListener('click', () => {
+                document.getElementById('editModal').classList.add('hide');
+            });
+
+            // Post Menu Button: Delete
             document.querySelectorAll('.deleteBtn').forEach(button => {
                 button.addEventListener('click', () => {
                     if (button.closest('.post'))
@@ -188,20 +204,11 @@ export const postInjector = (postsArray = posts) => {
                 })
             })
 
-            // Close modal when the close button is clicked
-            document.querySelectorAll('.close').forEach(button => {
-                button.addEventListener('click', () => {
-                    const modal = button.closest('.modal');
-                    modal.classList.add('hide')
-                });
-            });
-
+            // Open View Post Modal when the close button is clicked
             document.querySelectorAll('.post-title').forEach((title, index) => {
                 title.addEventListener('click', (event) => {
-                    // Get the post data based on the index
                     const post = posts[index];
 
-                    // Populate the modal with post data
                     document.getElementById('modal-username').innerText = post.username;
                     document.getElementById('modal-date-posted').innerText = post.datePosted;
                     document.getElementById('modal-post-title').innerText = post.title;
@@ -212,19 +219,16 @@ export const postInjector = (postsArray = posts) => {
 
                     commentInjector(comments);
 
-                    // Show the View Post modal
                     document.getElementById('viewPostModal').classList.remove('hide');
                 });
             });
 
-            // Handle the upload button click
-            document.getElementById('editPostBtn').addEventListener('click', () => {
-                const newTitle = document.getElementById('editPostTextTitle').value;
-                const newContent = document.getElementById('editPostTextContent').value;
-                console.log('Updated Title:', newTitle);
-                console.log('Updated Content:', newContent);
-
-                document.getElementById('editModal').style.display = 'none';
+            // Close a modal when the close button is clicked
+            document.querySelectorAll('.close').forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = button.closest('.modal');
+                    modal.classList.add('hide')
+                });
             });
         })
         .catch(err => {

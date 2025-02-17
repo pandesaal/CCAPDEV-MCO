@@ -10,31 +10,10 @@
             <textarea id="postTextContent" placeholder="What's on your mind?" rows="4"></textarea>
         </div>
         
-        <div class="postText-tagArea">
-            <div id="tag" class="tag">
-                <span>CCAPDEV</span>
-                <span><button><close>×</close></button></span>
-            </div>
-            <div id="tag" class="tag">
-                <span>MCO1</span>
-                <span><button><close>×</close></button></span>
-            </div>
-            <div id="tag" class="tag">
-                <span>Famous</span>
-                <span><button><close>×</close></button></span>
-            </div>
-            <div id="tag" class="tag">
-                <span>Trending</span>
-                <span><button><close>×</close></button></span>
-            </div>
-            <div id="tag" class="tag">
-                <span>Application Development</span>
-                <span><button><close>×</close></button></span>
-            </div>
-        </div>
+        <div class="postText-tagArea" id="createPostTagList"></div>
         <div>
-            <input type="text" class="post-new-tag-input" id="postTextTagInput" placeholder="Enter a tag">
-            <button id="add-tag-button">Add Tag</button>
+            <input type="text" class="post-new-tag-input" id="createPostTagInput" placeholder="Enter a tag">
+            <button class="add-tag-button" onclick="addTag('createPostTagInput', 'createPostTagList')">Add Tag</button>
         </div>
 
         <div class="postButtons">
@@ -98,10 +77,10 @@
             <textarea id="editPostTextContent" placeholder="What's on your mind?" rows="4"></textarea>
         </div>
         
-        <div class="postText-tagArea" id="editPostTags"></div>
+        <div class="postText-tagArea" id="editPostTagList"></div>
         <div>
-            <input type="text" class="edit-new-tag-input" id="edit-new-tag-input" placeholder="Enter a tag">
-            <button id="add-tag-button">Add Tag</button>
+            <input type="text" class="edit-new-tag-input" id="editPostTagInput" placeholder="Enter a tag">
+            <button class="add-tag-button" onclick="addTag('editPostTagInput', 'editPostTagList')">Add Tag</button>
         </div>
 
         <div class="postButtons">

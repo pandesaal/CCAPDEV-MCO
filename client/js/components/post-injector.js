@@ -144,7 +144,7 @@ export const postInjector = (postsArray = posts) => {
                 }
             });
 
-            // Show modal on Edit button click
+            // Post Menu Button: Edit
             document.querySelectorAll('.editBtn').forEach(button => {
                 button.addEventListener('click', () => {
                     const post = button.closest('.post');
@@ -156,7 +156,7 @@ export const postInjector = (postsArray = posts) => {
 
                     // Get the tags from the post and display them in the edit modal
                     const tags = post.querySelectorAll('.post-tag');
-                    const editPostTagsContainer = document.getElementById('editPostTags');
+                    const editPostTagsContainer = document.getElementById('editPostTagList');
                     editPostTagsContainer.innerHTML = ''; // Clear existing tags
 
                     tags.forEach(tag => {
@@ -204,7 +204,7 @@ export const postInjector = (postsArray = posts) => {
                 })
             })
 
-            // Open View Post Modal when the close button is clicked
+            // Title Button: Open View Post Modal
             document.querySelectorAll('.post-title').forEach((title, index) => {
                 title.addEventListener('click', (event) => {
                     const post = posts[index];

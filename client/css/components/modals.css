@@ -71,7 +71,6 @@
 .postText-tagArea {
     margin: 1% auto;
     width: 100%;
-    height: 10% auto;
     border: var(--border-small);
     border-color: var(--color-accent);
     border-radius: 0.3em;
@@ -80,23 +79,18 @@
 }
   
 .tag {
-    display: inline-block;
+    display: inline-flex;
     padding: 5px;
-    margin: 2px;
+    margin: 0.5%;
     border: 1px solid #ccc;
     border-radius: 3px;
     background-color: #ffffff; 
 }
 
-.tag span { 
-    margin-right: 5px; 
-    
-}
-
-.tag .close {
+.tag .remove-tag-button{
+    margin-left: 0.3em;
+    color: var(--color-accent);
     cursor: pointer;
-    color: #888; 
-    font-weight: bold; 
 }
 
 .post-new-tag-input, .edit-new-tag-input {
@@ -106,14 +100,14 @@
     border-radius: 0.3em;
 }
 
-#add-tag-button{
+.add-tag-button{
     padding: 5px;
     border: var(--border-small);
     border-color: var(--color-accent);
     border-radius: 0.3em;
 }
 
-#add-tag-button:hover {
+.add-tag-button:hover {
     background: #8a8a8a;
 }
 

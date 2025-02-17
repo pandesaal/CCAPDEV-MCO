@@ -1,19 +1,33 @@
-const createPostBtn = document.getElementById('createPostBtn');
-const closePostModal = document.querySelector('.close'); // Close button for post modal
 const discardPostBtn = document.getElementById('discardPostBtn');
 const postModal = document.getElementById('postModal');
-const postText = document.getElementById('postText');
+const postTextTitle = document.getElementById('postTextTitle');
+const postTextContent = document.getElementById('postTextContent');
+const postTextTagInput = document.getElementById('postTextTagInput');
 
-createPostBtn.onclick = function() {
+function openCreatePostModal() {
     postModal.classList.remove('hide');
 }
 
-closePostModal.onclick = function() {
+function closeCreatePostModal() {
     postModal.classList.add('hide');
-    postText.value = '';
+    postTextTitle.value = '';
+    postTextContent.value = '';
+    postTextTitle.value = '';
+    postTextTagInput.value = '';
 }
 
-discardPostBtn.onclick = function() {
+function discardCreatePostModal() {
     postModal.classList.add('hide');
-    postText.value = '';
+    postTextTitle.value = '';
+    postTextContent.value = '';
+    postTextTitle.value = '';
+    postTextTagInput.value = '';
+}
+
+function uploadCreatePostModal() {
+    postModal.classList.add('hide');
+    postTextTitle.value = '';
+    postTextContent.value = '';
+    postTextTitle.value = '';
+    postTextTagInput.value = '';
 }

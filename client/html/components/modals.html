@@ -1,7 +1,7 @@
 <!-- Create: New Post -->
 <div id="postModal" class="modal hide">
     <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close" onclick="closeCreatePostModal()">&times;</span>
         <h2>Create a New Post</h2>
         <div class="postText-title">
             <input id="postTextTitle" placeholder="Enter the title of your post." rows="2" />
@@ -33,13 +33,13 @@
             </div>
         </div>
         <div>
-            <input type="text" id="post-new-tag-input" placeholder="Enter a tag">
+            <input type="text" class="post-new-tag-input" id="postTextTagInput" placeholder="Enter a tag">
             <button id="add-tag-button">Add Tag</button>
         </div>
 
         <div class="postButtons">
-            <button id="uploadPostBtn">Upload</button>
-            <button id="discardPostBtn">Discard</button>
+            <button class="uploadPostBtn" onclick="uploadCreatePostModal()">Upload</button>
+            <button class="discardPostBtn" onclick="discardCreatePostModal()">Discard</button>
         </div>
     </div>
 </div>    

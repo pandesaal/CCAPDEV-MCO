@@ -1,19 +1,56 @@
-const createPostBtn = document.getElementById('createPostBtn');
-const closePostModal = document.querySelector('.close'); // Close button for post modal
 const discardPostBtn = document.getElementById('discardPostBtn');
 const postModal = document.getElementById('postModal');
-const postText = document.getElementById('postText');
+const postTextTitle = document.getElementById('postTextTitle');
+const postTextContent = document.getElementById('postTextContent');
+const postTextTagInput = document.getElementById('postTextTagInput');
 
-createPostBtn.onclick = function() {
+function openCreatePostModal() {
     postModal.classList.remove('hide');
 }
 
-closePostModal.onclick = function() {
+function closeCreatePostModal() {
     postModal.classList.add('hide');
-    postText.value = '';
+    postTextTitle.value = '';
+    postTextContent.value = '';
+    postTextTitle.value = '';
+    postTextTagInput.value = '';
 }
 
-discardPostBtn.onclick = function() {
+// addTag() funxtion for Create Post and Edit Post Features
+function addTag(input, list) {
+    let tagInput = document.getElementById(input);
+    let tagValue = tagInput.value.trim();
+
+    if (tagValue === "") return;
+
+    // Create tag element
+    let tagElement = document.createElement("div");
+    tagElement.className = "tag";
+    tagElement.innerHTML = `${tagValue}<span onclick="removeTag(this)"><button class="remove-tag-button">×</button></span>`;
+
+    // Append tag to tagsArea
+    document.getElementById(list).appendChild(tagElement);
+
+    // Clear input field
+    tagInput.value = "";
+}
+
+function removeTag(element) {
+    element.parentElement.remove();
+}
+
+function discardCreatePostModal() {
     postModal.classList.add('hide');
-    postText.value = '';
+    postTextTitle.value = '';
+    postTextContent.value = '';
+    postTextTitle.value = '';
+    postTextTagInput.value = '';
+}
+
+function uploadCreatePostModal() {
+    postModal.classList.add('hide');
+    postTextTitle.value = '';
+    postTextContent.value = '';
+    postTextTitle.value = '';
+    postTextTagInput.value = '';
 }

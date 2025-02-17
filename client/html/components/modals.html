@@ -1,6 +1,7 @@
+<!-- Create: New Post -->
 <div id="postModal" class="modal hide">
     <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close" onclick="closeCreatePostModal()">&times;</span>
         <h2>Create a New Post</h2>
         <div class="postText-title">
             <input id="postTextTitle" placeholder="Enter the title of your post." rows="2" />
@@ -9,64 +10,20 @@
             <textarea id="postTextContent" placeholder="What's on your mind?" rows="4"></textarea>
         </div>
         
-        <div class="postText-tagArea">
-            <div id="tag" class="tag">
-                <span>CCAPDEV</span>
-                <span><button><close>×</close></button></span>
-            </div>
-            <div id="tag" class="tag">
-                <span>MCO1</span>
-                <span><button><close>×</close></button></span>
-            </div>
-            <div id="tag" class="tag">
-                <span>Famous</span>
-                <span><button><close>×</close></button></span>
-            </div>
-            <div id="tag" class="tag">
-                <span>Trending</span>
-                <span><button><close>×</close></button></span>
-            </div>
-            <div id="tag" class="tag">
-                <span>Application Development</span>
-                <span><button><close>×</close></button></span>
-            </div>
-        </div>
+        <div class="postText-tagArea" id="createPostTagList"></div>
         <div>
-            <input type="text" id="post-new-tag-input" placeholder="Enter a tag">
-            <button id="add-tag-button">Add Tag</button>
+            <input type="text" class="post-new-tag-input" id="createPostTagInput" placeholder="Enter a tag">
+            <button class="add-tag-button" onclick="addTag('createPostTagInput', 'createPostTagList')">Add Tag</button>
         </div>
 
         <div class="postButtons">
-            <button id="uploadPostBtn">Upload</button>
-            <button id="discardPostBtn">Discard</button>
+            <button class="uploadPostBtn" onclick="uploadCreatePostModal()">Upload</button>
+            <button class="discardPostBtn" onclick="discardCreatePostModal()">Discard</button>
         </div>
     </div>
 </div>    
 
-<div id="editModal" class="modal hide">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Edit Post</h2>
-        <div class="postText-title">
-            <input id="editPostTextTitle" placeholder="Enter the title of your post." rows="2" />
-        </div>
-        <div class="postText-content">
-            <textarea id="editPostTextContent" placeholder="What's on your mind?" rows="4"></textarea>
-        </div>
-        
-        <div class="postText-tagArea" id="editPostTags"></div>
-        <div>
-            <input type="text" id="edit-new-tag-input" placeholder="Enter a tag">
-            <button id="add-tag-button">Add Tag</button>
-        </div>
-
-        <div class="postButtons">
-            <button id="cancelPostBtn">Cancel</button>
-            <button id="editPostBtn">Edit</button>
-        </div>
-    </div>
-</div>
-
+<!-- Read: View Post -->
 <div id="viewPostModal" class="modal hide">
     <div class="modal-content">
         <span class="close">&times;</span>
@@ -108,6 +65,32 @@
     </div>
 </div>
 
+<!-- Update: Edit Post -->
+<div id="editModal" class="modal hide">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Edit Post</h2>
+        <div class="postText-title">
+            <input id="editPostTextTitle" placeholder="Enter the title of your post." rows="2" />
+        </div>
+        <div class="postText-content">
+            <textarea id="editPostTextContent" placeholder="What's on your mind?" rows="4"></textarea>
+        </div>
+        
+        <div class="postText-tagArea" id="editPostTagList"></div>
+        <div>
+            <input type="text" class="edit-new-tag-input" id="editPostTagInput" placeholder="Enter a tag">
+            <button class="add-tag-button" onclick="addTag('editPostTagInput', 'editPostTagList')">Add Tag</button>
+        </div>
+
+        <div class="postButtons">
+            <button id="cancelPostBtn">Cancel</button>
+            <button id="editPostBtn">Edit</button>
+        </div>
+    </div>
+</div>
+
+<!-- Delete: Delete Existing Post -->
 <div id="deletePostModal" class="modal hide">
     <div class="modal-content">
         <span class="close">&times;</span>
@@ -120,6 +103,7 @@
     </div>
 </div>
 
+<!-- Delete: Delete Existing Comment -->
 <div id="deleteCommentModal" class="modal hide">
     <div class="modal-content">
         <span class="close">&times;</span>

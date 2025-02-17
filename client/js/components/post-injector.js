@@ -144,7 +144,7 @@ export const postInjector = (postsArray = posts) => {
                 }
             });
 
-            // Show modal on Edit button click
+            // Post Menu Button: Edit
             document.querySelectorAll('.editBtn').forEach(button => {
                 button.addEventListener('click', () => {
                     const post = button.closest('.post');
@@ -156,7 +156,7 @@ export const postInjector = (postsArray = posts) => {
 
                     // Get the tags from the post and display them in the edit modal
                     const tags = post.querySelectorAll('.post-tag');
-                    const editPostTagsContainer = document.getElementById('editPostTags');
+                    const editPostTagsContainer = document.getElementById('editPostTagList');
                     editPostTagsContainer.innerHTML = ''; // Clear existing tags
 
                     tags.forEach(tag => {
@@ -181,6 +181,22 @@ export const postInjector = (postsArray = posts) => {
                 });
             });
 
+            // Edit Post Button: Edit
+            document.getElementById('editPostBtn').addEventListener('click', () => {
+                const newTitle = document.getElementById('editPostTextTitle').value;
+                const newContent = document.getElementById('editPostTextContent').value;
+                console.log('Updated Title:', newTitle);
+                console.log('Updated Content:', newContent);
+
+                document.getElementById('editModal').classList.add('hide');
+            });
+
+            // Edit Post Button: Cancel
+            document.getElementById('cancelPostBtn').addEventListener('click', () => {
+                document.getElementById('editModal').classList.add('hide');
+            });
+
+            // Post Menu Button: Delete
             document.querySelectorAll('.deleteBtn').forEach(button => {
                 button.addEventListener('click', () => {
                     if (button.closest('.post'))
@@ -188,20 +204,11 @@ export const postInjector = (postsArray = posts) => {
                 })
             })
 
-            // Close modal when the close button is clicked
-            document.querySelectorAll('.close').forEach(button => {
-                button.addEventListener('click', () => {
-                    const modal = button.closest('.modal');
-                    modal.classList.add('hide')
-                });
-            });
-
+            // Title Button: Open View Post Modal
             document.querySelectorAll('.post-title').forEach((title, index) => {
                 title.addEventListener('click', (event) => {
-                    // Get the post data based on the index
                     const post = posts[index];
 
-                    // Populate the modal with post data
                     document.getElementById('modal-username').innerText = post.username;
                     document.getElementById('modal-date-posted').innerText = post.datePosted;
                     document.getElementById('modal-post-title').innerText = post.title;
@@ -210,37 +217,18 @@ export const postInjector = (postsArray = posts) => {
                         return `<a href="#" class="post-tag">${tag}</a>`;
                     }).join('');
 
-                    // replace this with actual comments; imported comments from comment-injector
-                    // const comments = [
-                    //     { username: 'commenter1', content: 'Great post!' },
-                    //     { username: 'commenter2', content: 'Thanks for sharing!' },
-                    //     { username: 'commenter3', content: 'Very informative.' },
-                    //     { username: 'commenter4', content: 'Looking forward for your next blog!' },
-                    //     { username: 'commenter5', content: 'Amazing idea!' }
-                    // ];
-
-                    // const commentsList = comments.map(comment => {
-                    //     return `<div class="comment"><strong>${comment.username}:</strong> ${comment.content}</div>`;
-                    // }).join('');
-
-
                     commentInjector(comments);
-                    // document.getElementById('commentsList').innerHTML = commentsList;
 
-
-                    // Show the modal
                     document.getElementById('viewPostModal').classList.remove('hide');
                 });
             });
 
-            // Handle the upload button click
-            document.getElementById('editPostBtn').addEventListener('click', () => {
-                const newTitle = document.getElementById('editPostTextTitle').value;
-                const newContent = document.getElementById('editPostTextContent').value;
-                console.log('Updated Title:', newTitle);
-                console.log('Updated Content:', newContent);
-
-                document.getElementById('editModal').style.display = 'none';
+            // Close a modal when the close button is clicked
+            document.querySelectorAll('.close').forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = button.closest('.modal');
+                    modal.classList.add('hide')
+                });
             });
         })
         .catch(err => {

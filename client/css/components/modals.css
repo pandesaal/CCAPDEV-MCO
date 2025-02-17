@@ -99,7 +99,7 @@
     font-weight: bold; 
 }
 
-#post-new-tag-input, #edit-new-tag-input {
+.post-new-tag-input, .edit-new-tag-input {
     padding: 5px;
     border: var(--border-small);
     border-color: var(--color-accent);
@@ -119,6 +119,16 @@
 
 .postButtons{
     margin: 1% auto;
+
+    .uploadPostBtn, .discardPostBtn {
+        color: var(--color-dark);
+    }
+
+    .uploadPostBtn:hover, .discardPostBtn:hover, .uploadPostBtn:focus, .discardPostBtn:focus {
+        color: var(--color-accent);
+        text-decoration: none;
+        cursor: pointer;
+    }
 }
 
 .close {

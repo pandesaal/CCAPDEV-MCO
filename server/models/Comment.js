@@ -11,18 +11,18 @@ const commentSchema = new mongoose.Schema({
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 }, {collection: 'Comments'});
 
-postSchema.virtual('likeCount').get(() => {
+commentSchema.virtual('likeCount').get(() => {
     return this.likes.length;
 });
 
-postSchema.virtual('dislikeCount').get(() => {
+commentSchema.virtual('dislikeCount').get(() => {
     return this.dislikes.length;
 });
 
-postSchema.virtual('commentCount').get(() => {
+commentSchema.virtual('commentCount').get(() => {
     return this.comments.length;
 });
 
 const Comment = mongoose.model('Comment', commentSchema);
 
-export default Comment;
+module.exports = Comment;

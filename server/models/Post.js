@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
 
 const postSchema = new mongoose.Schema({
+    postId: {type: String, unique: true, default: uuidv4},
     author: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
     datePosted: {type: Date, required: true, default: () => Date.now()},
     dateEdited: {type: Date, required: true, default: () => Date.now()},
+    title: {type: String, required: true},
+    content: {type: String, required: true},
+    contentShort: {type: String, required: true},
     tags: [{type: String}],
     likes: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
     dislikes: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
@@ -24,4 +29,4 @@ postSchema.virtual('commentCount').get(() => {
 
 const Post = mongoose.model('Post', postSchema);
 
-export default Post;
+module.exports = Post;

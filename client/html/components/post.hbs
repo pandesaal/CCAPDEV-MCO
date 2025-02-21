@@ -1,0 +1,67 @@
+{{#each posts}}
+<div class="post">
+    <div class="post-header">
+        <div class="post-info">
+            <a href="/{{author.credentials.username}}" class="post-icon"><img src="{{author.decor.icon}}" alt="icon"></a>
+            <div class="post-info-text">
+                <a href="/{{author.credentials.username}}"><h4 class="post-username">{{author.credentials.username}}</h4></a>
+                <p class="post-date">{{datePosted}}</p>
+            </div>
+        </div>
+        <div class="post-options">
+            <span class="material-symbols-outlined post-options-button">more_horiz</span>
+            <ul class="post-menu hide">
+                <li class="post-menu-options editBtn">Edit</li>
+                <li class="post-menu-options deleteBtn">Delete</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="post-body">
+        <div class="post-title">
+            <a href="/post/{{postId}}"><h3>{{title}}</h3></a>
+        </div>
+        <div class="post-content">
+            {{contentShort}}
+        </div>
+    </div>
+    <div class="post-tags">
+        {{#each tags}}
+            <a href="/search?tag={{this}}" class="post-tag">{{this}}</a>
+        {{/each}}
+    </div>
+    <div class="post-buttons">
+        <div class="post-button post-like">
+            <span class="material-symbols-outlined post-button-icon">thumb_up</span>
+            <span class="post-count">
+            {{#if likes.length}}
+                {{likes.length}}
+            {{else}}
+                Like
+            {{/if}}
+            </span>
+        </div>
+        <div class="post-button post-dislike">
+            <span class="material-symbols-outlined post-button-icon">thumb_down</span>
+            <span class="post-count">
+            {{#if dislikes.length}}
+                {{dislikes.length}}
+            {{else}}
+                Dislike
+            {{/if}}
+            </span>
+        </div>
+        <div class="post-button post-comment">
+            <span class="material-symbols-outlined post-button-icon">chat_bubble</span>
+            <span class="post-count">
+            {{#if comments.length}}
+                {{comments.length}}
+            {{else}}
+                Comment
+            {{/if}}
+            </span>
+        </div>
+    </div>
+</div>
+{{/each}}

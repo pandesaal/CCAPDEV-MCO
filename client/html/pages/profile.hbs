@@ -8,10 +8,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="../../css/pages/profile.css" />
 
-    <title>Profile</title>
+    <title>{{user-viewed}} - Archer's Freedom Wall</title>
 </head>
-<body>
-    <div id="navbar"></div>
+<body data-page="profile">
+    <div id="navbar">{{> nav}}</div>
+    <div id="register-wrapper">{{> register}}</div>
+    {{> modals}}
+
     <main>
         <div id="profileHeader">
             <img src="../../assets/defaulticon.png" class="icon" id="profilePic">
@@ -24,12 +27,11 @@
         <div id="profilePosts">
             <h1 id="recentLabel">Recent Activity</h1><br/>
 
-            <div id="posts-wrapper"></div>
+                <div id="posts-wrapper">
+                    {{posts}}
+                </div>
         </div>
     </main>
-
-    <!-- elements for register pop-up -->
-    <div id="register-wrapper"></div>
 
     <!-- importing javascript -->
     <script type="module" src="../../js/pages/profile.js"></script>

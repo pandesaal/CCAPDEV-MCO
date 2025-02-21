@@ -9,8 +9,10 @@
     <!--importing icons-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
-<body>
-    <div id="navbar"></div>
+<body data-page="post">
+    <div id="navbar">{{> nav}}</div>
+    <div id="register-wrapper">{{> register}}</div>
+    {{> modals}}
     
     <main>
         <div id="posts-wrapper"></div>
@@ -25,9 +27,6 @@
             </div>
         </div>
     </main>
-    
-    <!-- elements for register pop-up -->
-    <div id="register-wrapper"></div>
 
     <!-- importing javascript -->
     <script type="module" src="../../js/pages/post.js"></script>

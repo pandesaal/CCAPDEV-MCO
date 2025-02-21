@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Searching</title>
+    <title>"{{search-request}}" - Archer's Freedom Wall</title>
 
     <link rel="stylesheet" href="../../css/pages/search.css">
     <!--importing icons-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 </head>
-<body>
-    <div id="navbar"></div>
+<body data-page="search">
+    <div id="navbar">{{> nav}}</div>
+    <div id="register-wrapper">{{> register}}</div>
+    {{> modals}}
 
     <main>
         <div id="filters-wrapper">
@@ -104,12 +106,10 @@
         </div>
         <div id="wrapper">
             <div id="posts-wrapper">
+                {{posts}}
             </div>
         </div>
     </main>
-
-    <!-- elements for register pop-up -->
-    <div id="register-wrapper"></div>
 
     <script type="module" src="../../js/pages/search.js"></script>
 </body>

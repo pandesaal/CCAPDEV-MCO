@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const post = [posts.find(p => p.id == postId)]
 
     navInjector();
-    postInjector(post);
+    postInjector();
 
     // Close modal when the close button is clicked
     document.querySelectorAll('.close').forEach(button => {

@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     },
     decor : {
         bio: {type: String},
-        icon: {type: String, default: '../../../client/assets/defaulticon.png'}
+        icon: {type: String, default: '../../client/assets/defaulticon.png'}
     },
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]

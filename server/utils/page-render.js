@@ -7,13 +7,23 @@ const pages = path.join(htmlFolder, "pages")
 
 dotenv.config();
 
-const page_renderer = (filename) => {
-    return (req, res) => {
-        let page = fs.readFileSync(path.join(pages, `${filename}.html`), 'utf8');
-        page = page.replace('<div id="navbar"></div>', `<div id="navbar">${res.locals.navbar}</div>`);
-        page = page.replace('<div id="register-wrapper"></div>', `<div id="register-wrapper">${res.locals.register} ${res.locals.modals}</div>`);
-        res.send(page);
-    }
-}
+const page_renderer = (view) => {
+    return async (req, res) => {
+        try {
+            const response = await fetch('http://localhost:3000/api/posts');
+            const posts = await response.json();
+
+            res.render(view, {
+                layout: false,
+                posts
+            });
+        } catch (err) {
+            console.error("Error loading post template:", err);
+            res.status(500).send("Error loading page");
+        }
+    };
+};
+
+
 
 module.exports = {page_renderer}

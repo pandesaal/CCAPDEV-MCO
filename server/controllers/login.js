@@ -10,7 +10,7 @@ const loginUser = async (req, res) => {
         }
 
         const isPasswordValid = true /* change this into compare function */;
-        if (!isPasswordValid) {
+        if (/* change this into isPasswordValid */ user.passwordHash !== password) {
             return res.status(401).json({ message: 'Incorrect password' });
         }
 

@@ -50,6 +50,7 @@ function discardCreatePostModal() {
 
 function uploadCreatePostModal() {
     postModal.classList.add('hide');
+    
     postTextTitle.value = '';
     postTextContent.value = '';
     postTextTagList.innerHTML = '';

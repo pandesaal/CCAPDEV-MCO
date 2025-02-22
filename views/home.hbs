@@ -1,0 +1,113 @@
+<body>
+    <div id="nav-loggedout">
+        <a href="/login"><button id="loginbtn">Log In</button></a>
+        <a href="/signup"><button id="signupbtn">Sign Up</button></a>
+    </div>
+</body>
+
+{{!-- Disregard this stylesheet; Same design was used from "./client/css/pages/mainpage.css" --}}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+    --color-light: #fffefa;
+    --color-dark: #32583f;
+    --color-accent: #79af7b;
+
+    --font-heading: 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-smaller: 0.85em;
+
+    --border: 0.15rem solid var(--color-dark);
+    --border-small: 0.1rem solid var(--color-dark);
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--color-light);
+
+    list-style: none;
+    text-decoration: none;
+    color: var(--color-dark);
+
+    font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+button, input {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    font-size: inherit;
+    cursor: pointer;
+}
+
+:focus {
+    outline: none;
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+    border: var(--border-small);
+}
+
+html, body {
+    background-color: var(--color-light);
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
+
+.icon img {
+    border-radius: 50%;
+}
+
+.hide {
+    display: none !important;
+}
+
+.options {
+
+    position: relative;
+
+    ul {
+
+        border: var(--border);
+        min-width: max-content;
+
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+}
+
+    #nav-loggedout {
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+    gap: 0.75em;
+
+    button {
+        padding: 0.4em 1em;
+        border: var(--border);
+        border-radius: 0.5em;
+        font-size: var(--font-smaller);
+
+        &#signupbtn {
+            background-color: var(--color-dark);
+            color: var(--color-light);
+        }
+    }
+}
+</style>

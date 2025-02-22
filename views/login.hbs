@@ -1,0 +1,216 @@
+<head>
+    <script>
+        async function login(event) {
+            event.preventDefault();
+            const username = document.getElementById('loginUser').value;
+            const password = document.getElementById('loginPass').value;
+
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+
+            const data = await response.json();
+            alert(data.message);
+        }
+    </script>
+</head>
+<body>
+    <div id="regWindow">
+        <a href="/">
+            <span class="regClose">&times;</span>
+        </a>
+        <div class="regContent" id="login">
+            <h2>Log In</h2>
+            <form onsubmit="login(event)">
+                <label for="loginUser">Username</label><br/>
+                <input type="text" id="loginUser" name="username" class="regInput" required/><br/>
+                <label for="loginPass">Password</label><br/>
+                <input type="password" id="loginPass" name="password" class="regInput" required/><br/>
+                <button type="submit" class="regButton">Log In</button>
+            </form>
+            <p>Don't have an account? <a href="/signup">Sign up</a></p>
+            <p><a href="/">Back to Home</a></p>
+        </div>
+    </div>
+</body>
+
+{{!-- Disregard this stylesheet; Same design was used from "./client/css/pages/mainpage.css" --}}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+    --color-light: #fffefa;
+    --color-dark: #32583f;
+    --color-accent: #79af7b;
+
+    --font-heading: 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-smaller: 0.85em;
+
+    --border: 0.15rem solid var(--color-dark);
+    --border-small: 0.1rem solid var(--color-dark);
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--color-light);
+
+    list-style: none;
+    text-decoration: none;
+    color: var(--color-dark);
+
+    font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+button, input {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    font-size: inherit;
+    cursor: pointer;
+}
+
+:focus {
+    outline: none;
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+    border: var(--border-small);
+}
+
+html, body {
+    background-color: var(--color-light);
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
+
+.icon img {
+    border-radius: 50%;
+}
+
+.hide {
+    display: none !important;
+}
+
+.options {
+
+    position: relative;
+
+    ul {
+
+        border: var(--border);
+        min-width: max-content;
+
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+}
+
+#regWindow {
+    display: block;
+    width: 19.5em;
+    height: auto;
+    padding: 0.8em;
+    padding-bottom: 2em;
+    border: var(--border);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 4px 4px 5px;
+    z-index: 6;
+}
+
+.regContent {
+    display: grid;
+    justify-content: center;
+    padding-top: 10%;
+    margin: auto;
+    gap: 1em;
+}
+
+.regContent a {
+    text-decoration: underline;
+}
+
+.regContent a:hover {
+    color: var(--color-accent);
+    cursor: pointer;
+}
+
+.regInput {
+    outline: 0.1em solid var(--color-dark);
+    border-radius: 0.05em;
+    margin: 0.2em;
+    padding: 0.2em 0em 0.2em 0.3em;
+}
+
+.regInput:hover {
+    cursor: text;
+}
+
+.regButton {
+    outline: 0.2em solid var(--color-dark);
+    font-weight: bold;
+    margin-top: 1.2em;
+    margin-bottom: 1.2em;
+    padding: 0.2em 0.5em 0.2em 0.5em;
+    border-radius: 1em;
+}
+
+.regButton:hover {
+    color: var(--color-accent);
+    outline-color: var(--color-accent);
+}
+
+#signup {
+    display: grid;
+}
+
+#login {
+    display: grid;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.2;
+    display: block;
+    z-index: 5;
+}
+
+.regClose {
+    font-size: 1.7em;
+    font-weight: bold;
+    position: absolute;
+    top: 0.2em;
+    right: 0.6em;
+}
+
+.regClose:hover {
+    color: var(--color-accent);
+    cursor: pointer;
+}
+</style>

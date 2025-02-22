@@ -31,32 +31,82 @@ signUpButton.addEventListener("click", (e) => {
     e.preventDefault();
     openReg();
     showSignup();
-
 })
 
-document.getElementById('loginForm').addEventListener('submit', (event) => {
+// toggling visibility of password fields
+function togglePassInpField(inpField, icon) {
+    if (inpField.type === 'password') {
+        inpField.type = 'text';
+        icon.textContent = 'visibility_off';
+    }
+    else {
+        inpField.type = 'password';
+        icon.textContent = 'visibility';
+    }
+}
+
+document.getElementById('loginPassVisibility').addEventListener('click', (e) => {
+    togglePassInpField(document.getElementById('loginPass'), document.getElementById('loginPassVisibility'));
+});
+
+document.getElementById('signupPassVisibility').addEventListener('click', (e) => {
+    togglePassInpField(document.getElementById('signupPass'), document.getElementById('signupPassVisibility'));
+});
+
+document.getElementById('resignupPassVisibility').addEventListener('click', (e) => {
+    togglePassInpField(document.getElementById('resignupPass'), document.getElementById('resignupPassVisibility'));
+});
+
+document.getElementById('loginForm').addEventListener('submit', async (event) => {
     event.preventDefault();
     const username = document.querySelector('[name="username"]').value;
     const password = document.querySelector('[name="password"]').value;
 
-    if (username === 'user' && password === 'password') {
-        sessionStorage.setItem('isLoggedIn', true);
-        window.location.reload();
-    } else {
-        alert('Incorrect username or password');
+    try {
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            sessionStorage.setItem('isLoggedIn', true);
+            window.location.reload();
+        } /* Remove this default login credentials */ else if (username === 'user' && password === 'password') {
+            sessionStorage.setItem('isLoggedIn', true);
+            window.location.reload();
+        } else {
+            alert(data.message);
+        }
+    } catch (err) {
+        alert("Login failed, try again later.");
     }
 });
 
-document.getElementById('signupForm').addEventListener('submit', (event) => {
+document.getElementById('signupForm').addEventListener('submit', async (event) => {
     event.preventDefault();
-    const username = document.querySelector('[name="username"]').value;
-    const password = document.querySelector('[name="password"]').value;
+    const username = document.querySelector('[name="signupUser"]').value;
+    const password = document.querySelector('[name="signupPass"]').value;
+    const confirmPassword = document.querySelector('[name="resignupPass"]').value;
 
-    if (username === 'user' && password === 'password') {
-        sessionStorage.setItem('isLoggedIn', true);
-        window.location.reload();
-    } else {
-        alert('Incorrect username or password');
+    try {
+        const response = await fetch('/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password, confirmPassword })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            sessionStorage.setItem('isLoggedIn', true);
+            window.location.reload();
+        } else {
+            alert(data.message);
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Sign up failed, try again later.");
     }
 });
 
@@ -84,4 +134,3 @@ document.getElementById('sidebar-logout').addEventListener('click', () => {
     closeReg();
     window.location.reload()
 });
-

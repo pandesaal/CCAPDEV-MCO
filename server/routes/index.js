@@ -5,22 +5,13 @@ const profile = require('./pages/profile');
 const search = require('./pages/search');
 const post = require('./pages/post');
 
-const getPostData = require('../controllers/get-post')
-
 const { loginUser } = require('../controllers/login');
-const { registerUser } = require('../controllers/register');
+const { signupUser } = require('../controllers/signup');
 
 const router = express.Router();
 
-router.get('/login', (req, res) => {
-    res.render('login');
-});
 router.post('/login', loginUser);
-
-router.get('/register', (req, res) => {
-    res.render('register');
-});
-router.post('/register', registerUser);
+router.post('/register', signupUser);
 
 router.get('/', home);
 router.get('/:username', profile);

@@ -16,6 +16,10 @@ const Comment = require('./models/Comment');
 dotenv.config();
 const app = express();
 const PORT = 3000;
+const route = require('../server/routes/index');
+app.use(express.json());
+app.post('/login', route);
+app.post('/signup', route);
 
 app.engine('hbs', hbs.engine({
     extname: 'hbs',

@@ -27,6 +27,10 @@ main {
     margin-right: 20em;
 }
 
+#bio {
+    padding: 0.5em;
+}
+
 #profilePic {
     width: 12em;
     margin-right: 2em;
@@ -37,7 +41,13 @@ main {
     margin-bottom: 0.2em;
 }
 
-#editButton {
+.btnWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+}
+
+.profileBtn {
     font-size: 1.2em;
     font-weight: bold;
     outline: 0.2em solid;
@@ -46,7 +56,7 @@ main {
     white-space: nowrap;
 }
 
-#editButton:hover {
+.profileBtn:hover {
     cursor: pointer;
     color: var(--color-accent);
     outline-color: var(--color-accent);
@@ -54,6 +64,7 @@ main {
 
 .editable {
     color: var(--color-accent) !important;
+    outline: 0.05em solid var(--color-accent);
 }
 
 #profilePosts {

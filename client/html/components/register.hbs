@@ -6,9 +6,13 @@
         <h2>Log In</h2>
         <form id="loginForm">
             <label for="loginUser">Username</label><br/>
-            <input type="text" id="loginUser" name="username" class="regInput" /><br/>
+            <input type="text" id="loginUser" name="username" class="regInput" required/><br/>
             <label for="loginPass">Password</label><br/>
-            <input type="password" id="loginPass" name="password" class="regInput" /><br/>
+            <div class="passWrap">
+                <input type="password" id="loginPass" name="password" class="regInput" required/>
+                <span class="material-symbols-outlined visibilityBtn" id="loginPassVisibility">visibility</span>
+            </div>
+            <br/>
             <input type="submit" class="regButton" value="Log In">
         </form>
         <p>Don't have an account? <a onclick="showSignup()">Sign up</a></p>
@@ -18,11 +22,19 @@
         <h2>Sign Up</h2>
         <form id="signupForm">
             <label for="signupUser">Username</label><br/>
-            <input type="text" id="signupUser" name="username" class="regInput" /><br/>
+            <input type="text" id="signupUser" name="signupUser" class="regInput" required/><br/>
             <label for="signupPass">Password</label><br/>
-            <input type="password" id="signupPass" name="password" class="regInput" /><br/>
+            <div class="passWrap">
+                <input type="password" id="signupPass" name="signupPass" class="regInput" required/>
+                <span class="material-symbols-outlined visibilityBtn" id="signupPassVisibility">visibility</span>
+            </div>
+            <br/>
             <label for="resignupPass">Confirm Password</label><br/>
-            <input type="password" id="resignupPass" name="repassword" class="regInput" /><br/>
+            <div class="passWrap">
+                <input type="password" id="resignupPass" name="resignupPass" class="regInput" required/>
+                <span class="material-symbols-outlined visibilityBtn" id="resignupPassVisibility">visibility</span>
+            </div>
+            <br/>
             <input type="submit" class="regButton" value="Sign Up">
         </form>
         <p>Already have an account? <a onclick="showLogin()">Log in</a></p>

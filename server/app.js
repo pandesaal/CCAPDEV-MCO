@@ -10,11 +10,13 @@ const htmlFolder = path.join(__dirname, "..", "client/html")
 const components = path.join(htmlFolder, "components")
 const pages = path.join(htmlFolder, "pages")
 
-const authRoutes = require('../server/routes/index');
-
 dotenv.config();
 const app = express();
 const PORT = 3000;
+const route = require('../server/routes/index');
+app.use(express.json());
+app.post('/login', route);
+app.post('/signup', route);
 
 app.engine('hbs', hbs.engine({
     extname: 'hbs'

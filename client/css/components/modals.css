@@ -180,7 +180,6 @@
     max-height: 40em;
     display: flex;
     gap: 2.5em;
-    overflow-y: auto;
 
     #postDetails {
         display: flex;

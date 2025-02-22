@@ -31,8 +31,31 @@ signUpButton.addEventListener("click", (e) => {
     e.preventDefault();
     openReg();
     showSignup();
-
 })
+
+// toggling visibility of password fields
+function togglePassInpField(inpField, icon) {
+    if (inpField.type === 'password') {
+        inpField.type = 'text';
+        icon.textContent = 'visibility_off';
+    }
+    else {
+        inpField.type = 'password';
+        icon.textContent = 'visibility';
+    }
+}
+
+document.getElementById('loginPassVisibility').addEventListener('click', (e) => {
+    togglePassInpField(document.getElementById('loginPass'), document.getElementById('loginPassVisibility'));
+});
+
+document.getElementById('signupPassVisibility').addEventListener('click', (e) => {
+    togglePassInpField(document.getElementById('signupPass'), document.getElementById('signupPassVisibility'));
+});
+
+document.getElementById('resignupPassVisibility').addEventListener('click', (e) => {
+    togglePassInpField(document.getElementById('resignupPass'), document.getElementById('resignupPassVisibility'));
+});
 
 document.getElementById('loginForm').addEventListener('submit', async (event) => {
     event.preventDefault();

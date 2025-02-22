@@ -2,10 +2,10 @@
 
     <div class="comment-header">
         <div class="comment-info">
-            <div class="comment-icon"><img src="../../assets/defaulticon.png" alt="icon"></div>
+            <div class="comment-icon"><img src="{{author.decor.icon}}" alt="icon"></div>
                 <div class="comment-info-text">
-                    <h4 class="comment-username">{{username}}</h4>
-                    <p class="comment-date">{{date-posted}}</p>
+                    <h4 class="comment-username">{{author.credentials.username}}</h4>
+                    <p class="comment-date">{{datePosted}}</p>
                     <p class="comment-edit hide">Edited</p>
                 </div>
         </div>
@@ -21,7 +21,7 @@
 
     <div class="comment-body">
         <div class="comment-content">
-            {{comment-content}}
+            {{content}}
             <a class="content-readmore hide" href="#">Read more</a>
         </div>
     </div>
@@ -29,15 +29,33 @@
     <div class="comment-buttons">
         <div class="comment-button">
             <span class="material-symbols-outlined comment-button-icon">thumb_up</span>
-            <span class="comment-count">Like</span>
+            <span class="comment-count">
+            {{#if likes.length}}
+                {{likes.length}}
+            {{else}}
+                Like
+            {{/if}}
+            </span>
         </div>
         <div class="comment-button">
             <span class="material-symbols-outlined comment-button-icon">thumb_down</span>
-            <span class="comment-count">Dislike</span>
+            <span class="comment-count">
+            {{#if dislikes.length}}
+                {{dislikes.length}}
+            {{else}}
+                Dislike
+            {{/if}}
+            </span>
         </div>
         <div class="comment-button">
             <span class="material-symbols-outlined comment-button-icon">chat_bubble</span>
-            <span class="comment-count">Reply</span>
+            <span class="comment-count">
+            {{#if comments.length}}
+                {{comments.length}}
+            {{else}}
+                Reply
+            {{/if}}
+            </span>
         </div>
     </div>
 

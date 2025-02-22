@@ -15,7 +15,7 @@
     {{> modals}}
     
     <main>
-        <div id="posts-wrapper"></div>
+        {{!-- <div id="posts-wrapper"></div>
         <div id="comments-wrapper">
             <div id="comment-input-box">
                 <form method="post">
@@ -24,6 +24,25 @@
             </div>
             <div id="comments">
 
+            </div>
+        </div> --}}
+
+        <div id="postDetails">
+            <!-- This part will show a single post using the format from post.html -->
+            {{> post posts}}
+            <div id="comment-input-box">
+                <form method="post">
+                    <textarea name="comment-content" id="comment-input" placeholder="Add a comment..."></textarea>
+                </form>
+                <span class="material-symbols-outlined">send</span>
+            </div>
+        </div>
+        <div id="commentsSection">
+            <h3>Comments</h3>
+            <div id="commentsList">
+                {{#each posts.comments}}
+                    {{> comment this}}
+                {{/each}}
             </div>
         </div>
     </main>

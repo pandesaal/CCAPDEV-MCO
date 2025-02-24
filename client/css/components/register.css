@@ -67,6 +67,10 @@
     display: grid;
 }
 
+#rememberMe {
+    margin-top: 1em;
+}
+
 #overlay {
     position: fixed;
     top: 0;

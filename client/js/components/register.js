@@ -61,22 +61,23 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
     event.preventDefault();
     const username = document.querySelector('[name="username"]').value;
     const password = document.querySelector('[name="password"]').value;
+    const rememberMe = document.querySelector('[name="rememberMe"]').checked;
 
     try {
         const response = await fetch('/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({ username, password, rememberMe })
         });
 
         const data = await response.json();
         if (response.ok) {
+            const user = data.user;
             sessionStorage.setItem('isLoggedIn', true);
+            sessionStorage.setItem('user', JSON.stringify(user));
             window.location.reload();
-        } /* Remove this default login credentials */ else if (username === 'user' && password === 'password') {
-            sessionStorage.setItem('isLoggedIn', true);
-            window.location.reload();
-        } else {
+        } 
+        else {
             alert(data.message);
         }
     } catch (err) {
@@ -112,8 +113,8 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
 
 document.querySelectorAll('.post-button').forEach(button => {
     button.addEventListener('click', () => {
-        let isLoggedIn = sessionStorage.getItem('isLoggedIn')
-        console.log(isLoggedIn)
+        let isLoggedIn = sessionStorage.getItem('isLoggedIn');
+        console.log(isLoggedIn);
         if (isLoggedIn === 'false' || isLoggedIn === null) {
             openReg();
             showLogin();

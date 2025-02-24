@@ -7,15 +7,17 @@ const post = require('./pages/post');
 
 const { loginUser } = require('../controllers/login');
 const { signupUser } = require('../controllers/signup');
+const getTags = require('../controllers/get-tags');
 
 const router = express.Router();
 
 router.post('/login', loginUser);
 router.post('/register', signupUser);
+router.get('/tags', getTags);
 
 router.get('/', home);
-router.get('/:username', profile);
 router.get('/search', search);
 router.get('/post/:id', post);
+router.get('/:username', profile);
 
 module.exports = router;

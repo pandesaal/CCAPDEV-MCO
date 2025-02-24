@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>"{{search-request}}" - Archer's Freedom Wall</title>
+    <title>{{title}} - Archer's Freedom Wall</title>
 
     <link rel="stylesheet" href="../../css/pages/search.css">
     <!--importing icons-->
@@ -17,7 +17,7 @@
 
     <main>
         <div id="filters-wrapper">
-            <h4>Filter by</h4>
+            <h4>Search by</h4>
             <div id="filters">
                 <div class="filter-groups">
                     <ul>
@@ -48,23 +48,16 @@
                                 <span class="count">33</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="#" id="filter-tags">
-                                <div class="labels">
-                                    <span class="material-symbols-outlined">tag</span>
-                                    <p>Tags</p>
-                                </div>
-                                <span class="count">2</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
                 
                 <div class="filter-groups">
                     <h5>Filter by tag</h5>
                     <ul>
+                        {{!-- filter every post by their tag present --}}
+                        {{#each tags}}
                         <li>
-                            <a href="#" id="filter-users">
+                            <a href="#" class="filter-tags">
                                 <div class="labels">
                                     <span class="material-symbols-outlined">tag</span>
                                     <p>Tag 1</p>
@@ -72,33 +65,7 @@
                                 <span class="count">1</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="#" id="filter-posts">
-                                <div class="labels">
-                                    <span class="material-symbols-outlined">tag</span>
-                                    <p>Tag 2</p>
-                                </div>
-                                <span class="count">55</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" id="filter-comments">
-                                <div class="labels">
-                                    <span class="material-symbols-outlined">tag</span>
-                                    <p>Tag 3</p>
-                                </div>
-                                <span class="count">33</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" id="filter-tags">
-                                <div class="labels">
-                                    <span class="material-symbols-outlined">tag</span>
-                                    <p>Tag 4</p>
-                                </div>
-                                <span class="count">2</span>
-                            </a>
-                        </li>
+                        {{/each}}
                     </ul>
                 </div>
                 
@@ -106,7 +73,9 @@
         </div>
         <div id="wrapper">
             <div id="posts-wrapper">
-                {{posts}}
+                {{#each posts}}
+                    {{> post this}}
+                {{/each}}
             </div>
         </div>
     </main>

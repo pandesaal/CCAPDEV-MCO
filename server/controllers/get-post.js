@@ -1,31 +1,42 @@
 const Post = require('../models/Post');
 const User = require('../models/User');
 
-const getPostData = async ({userId, postId, tags, comments = false} = {}) => {
-
-    const filters = {}
+const getPostData = async ({ userId, postId, search, comments = false } = {}) => {
+    const filters = {};
+    
     try {
+        
         if (userId) {
-            const user = User.findOne({credentials: userId}).lean()
-
+            const user = await User.findOne({ credentials: userId }).lean();
             if (user) {
                 filters.author = user._id;
             }
         }
 
+        
         if (postId) {
-            filters.postId = postId;
+            filters._id = postId;
         }
 
-        if (tags) {
-            filters.tags = tags;
+        
+        if (search?.tag) {
+            filters.tags = { $in: Array.isArray(search.tag) ? search.tag : [search.tag] };
         }
 
+        
+        if (search?.q) {
+            filters.$or = [
+                { title: { $regex: search.q, $options: 'i' } },
+                { content: { $regex: search.q, $options: 'i' } }
+            ];
+        }
 
+        
         let query = Post.find(filters)
             .populate('author', 'credentials.username decor.icon')
-            .sort({datePosted: -1});
+            .sort({ datePosted: -1 });
 
+            
         if (comments) {
             query = query.populate({
                 path: 'comments',
@@ -46,6 +57,7 @@ const getPostData = async ({userId, postId, tags, comments = false} = {}) => {
 
     } catch (error) {
         console.error(error);
+        return [];
     }
 };
 

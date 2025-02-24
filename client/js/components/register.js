@@ -61,12 +61,13 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
     event.preventDefault();
     const username = document.querySelector('[name="username"]').value;
     const password = document.querySelector('[name="password"]').value;
+    const rememberMe = document.querySelector('[name="rememberMe"]').checked;
 
     try {
         const response = await fetch('/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({ username, password, rememberMe })
         });
 
         const data = await response.json();

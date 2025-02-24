@@ -24,6 +24,14 @@ export const navInjector = () => {
         if (document.getElementById('nav-username')) {
             document.getElementById('nav-username').textContent = userInfo.username;
         }
+
+        if (document.getElementById('sidebar-profile')) {
+            document.getElementById('sidebar-profile').href = `/${userInfo.username}`;
+        }
+
+        if (document.getElementById('nav-profile')) {
+            document.getElementById('nav-profile').href = `/${userInfo.username}`;
+        }
     }
 
     navRelatedScripts.forEach(scriptFile => {

@@ -29,6 +29,9 @@ main {
 
 #bio {
     padding: 0.5em;
+    width: 25em;
+    height: 8em;
+    text-wrap: wrap;
 }
 
 #profilePic {
@@ -41,7 +44,8 @@ main {
     margin-bottom: 0.2em;
 }
 
-.btnWrap {
+#btnWrap {
+    width: 15em;
     display: flex;
     flex-direction: column;
     gap: 1.5em;

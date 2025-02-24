@@ -133,5 +133,8 @@ document.getElementById('sidebar-logout').addEventListener('click', () => {
 
     sessionStorage.setItem('isLoggedIn', false);
     closeReg();
-    window.location.reload()
+    // clear sessions and cookies
+    sessionStorage.clear();
+    window.location.replace('/');
+    // window.location.reload();
 });

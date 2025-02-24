@@ -19,8 +19,8 @@
         <div id="profileHeader">
             <img src="../../assets/defaulticon.png" class="icon" id="profilePic">
             <div id="info">
-                <h1 id="username">User12345</h1>
-                <p id="bio">This is your bio.</p>
+                <h1 id="username">{{user.credentials.username}}</h1>
+                <p id="bio">{{user.decor.bio}}</p>
             </div>
             <div id="btnWrap" class="hide">
                 <button class="profileBtn" id="editButton">Edit Profile</button>
@@ -34,7 +34,9 @@
             <h1 id="recentLabel">Recent Activity</h1><br/>
 
                 <div id="posts-wrapper">
-                    {{posts}}
+                    {{#each posts}}
+                        {{> post this}}
+                    {{/each}}
                 </div>
         </div>
     </main>

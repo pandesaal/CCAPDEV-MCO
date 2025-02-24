@@ -6,7 +6,7 @@ const post = async (req, res) => {
 
     console.log("Posts Data:", JSON.stringify(post, null, 2));
 
-    page_renderer('post', req, res, post[0]);
+    page_renderer('post', req, res, { posts: post[0] });
 }
 
 module.exports = post;

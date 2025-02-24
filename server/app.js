@@ -17,6 +17,10 @@ dotenv.config();
 const app = express();
 const PORT = 3000;
 const route = require('../server/routes/index');
+
+// ignore favicon requests
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+
 app.use(express.json());
 app.post('/login', route);
 app.post('/signup', route);

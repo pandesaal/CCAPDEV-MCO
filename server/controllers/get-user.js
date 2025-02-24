@@ -1,9 +1,10 @@
 const User = require('../models/User');
 
-const getUserData = async () => {
+const getUserData = async (username) => {
 
     try {
-        const user = User.find().populate('posts').lean();
+        const user = await User.findOne({ 'credentials.username': username })
+                        .select('-credentials.passwordSalt -credentials.passwordHash').populate('posts').lean();
         return user;
     } catch (error) {
         console.error(error);

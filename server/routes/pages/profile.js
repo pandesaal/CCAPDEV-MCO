@@ -1,9 +1,10 @@
-const getPostData = require('../../controllers/get-post');
+const getUserData = require('../../controllers/get-user');
 const page_renderer = require('../../utils/page-render');
 
 const profile = async (req, res) => {
-    const posts = await getPostData({});
-    await page_renderer('profile', req, res, posts);
+    const user = await getUserData(req.params.username);
+    console.log('user id: ', user._id);
+    await page_renderer('profile', req, res, { user, posts: user.posts });
 };
 
 module.exports = profile;

@@ -1,6 +1,12 @@
 import { navInjector } from "../components/nav-injector.js";
 import { postInjector } from "../components/post-injector.js";
 
+const searchByFilters = (filter) => {
+    var queries = new URLSearchParams(window.location.search);
+    queries.set('type', filter);
+    return `/search?${queries}`;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
     navInjector();
@@ -24,4 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('editModal').style.display = 'none';
     });
+
+    document.getElementById('filter-users').href = searchByFilters('users');
+    document.getElementById('filter-posts').href = searchByFilters('posts');
+    document.getElementById('filter-comments').href = searchByFilters('comments');
+
 });

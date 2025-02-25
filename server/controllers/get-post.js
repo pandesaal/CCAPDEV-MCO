@@ -1,33 +1,23 @@
 const Post = require('../models/Post');
 const User = require('../models/User');
 
-const getPostData = async ({ userId, postId, search, comments = false } = {}) => {
+const getPostData = async ({postId, search, comments = false } = {}) => {
     const filters = {};
     
     try {
-        
-        if (userId) {
-            const user = await User.findOne({ credentials: userId }).lean();
-            if (user) {
-                filters.author = user._id;
-            }
-        }
 
-        
         if (postId) {
-            filters._id = postId;
+            filters.postId = postId;
         }
 
+        if (search?.get('tag')) {
+            filters.tags = { $in: [search.get('tag')] };
+        }        
         
-        if (search?.tag) {
-            filters.tags = { $in: Array.isArray(search.tag) ? search.tag : [search.tag] };
-        }
-
-        
-        if (search?.q) {
+        if (search?.get('q')) {
             filters.$or = [
-                { title: { $regex: search.q, $options: 'i' } },
-                { content: { $regex: search.q, $options: 'i' } }
+                { title: { $regex: search.get('q'), $options: 'i' } },
+                { content: { $regex: search.get('q'), $options: 'i' } }
             ];
         }
 

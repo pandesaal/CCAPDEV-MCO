@@ -3,9 +3,6 @@ import { postInjector } from "../components/post-injector.js";
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const postId = new URLSearchParams(window.location.search).get('id')
-    const post = [posts.find(p => p.id == postId)]
-
     navInjector();
     postInjector();
 

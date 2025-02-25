@@ -1,5 +1,4 @@
 const searchBar = document.getElementById("search-bar")
-const confirmSearch = document.getElementById("search-button")
 const clearSearch = document.getElementById("search-clear")
 const resultsHolder = document.getElementById("search-results")
 
@@ -31,14 +30,14 @@ searchBar.addEventListener("input", () => {
         return;
     }
 
-    let tags = [...new Set(tags)];
+    tags = [...new Set(tags)];
     const filteredTags = tags.filter(tag => tag.toLowerCase().includes(searchQuery)).slice(0, 5);
 
     if (filteredTags.length > 0) {
         filteredTags.forEach((result) => {
             const li = document.createElement("li");
             const a = document.createElement("a");
-            a.href = `/search?q=${result.replace(/ +/g, "-")}`;
+            a.href = `/search?q=${result.replace(/ +/g, "-")}&type=posts`;
             a.textContent = result;
             li.appendChild(a);
             resultsHolder.appendChild(li);
@@ -54,4 +53,13 @@ clearSearch.addEventListener("click", () => {
     resultsHolder.innerHTML = "";
     resultsHolder.classList.add("hide");
     clearSearch.classList.add("hide");
+});
+
+document.getElementById('search-query').addEventListener('submit', function (event) {
+    let queries = new URLSearchParams(new FormData(this));
+    queries.set('q', searchBar.value);
+    queries.set('type', 'posts');
+
+    window.location.href = this.action + '?' + queries.toString();
+    event.preventDefault();
 });

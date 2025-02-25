@@ -1,0 +1,130 @@
+@import url('../base/default.css');
+
+.card {
+
+    border: var(--border);
+    border-radius: 0.5em;
+    padding: 1em;
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    box-shadow: 0px 3px 6px #00000029;
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+
+        .card-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75em;
+
+            .card-icon {
+                display: flex;
+                align-items: center;
+
+                img {
+                    width: auto;
+                    height: auto;
+                    max-width: 2.5em;
+                    border-radius: 50%;
+                }
+            }
+
+            .card-info-text {
+                display: flex;
+                flex-direction: column;
+                gap: 0.1em;
+
+                font-size: 0.95em;
+                .card-date {
+                    font-size: var(--font-smaller);
+                }
+            }
+        }
+
+        .card-options {
+            position: relative;
+
+            .card-menu-button {
+                padding: 0.5em;
+
+            }
+
+            .card-menu {
+                background-color: white;
+                min-width: 100px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                z-index: 1;
+
+                position: absolute;
+                right: 0;
+
+                border: var(--border-small);
+                border-radius: 0.3em;
+                overflow: hidden;
+
+                .card-menu-options {
+                    padding: 0.5em 1em;
+
+                    
+                }
+
+                .card-menu-options:hover {
+                    background-color: #f1f1f1;
+                }
+            }
+        }
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4em;
+
+        .card-title {
+            font-size: 1.2em;
+        }
+    }
+
+    .card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5em;
+
+        .card-tag {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: var(--font-smaller);
+            text-decoration: underline;
+        }
+    }
+
+    .card-buttons {
+        display: flex;
+        align-items: center;
+        gap: 0.2em;
+
+        .card-button {
+
+            padding: 0.5em 0.75em;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3em;
+
+            cursor: pointer;
+
+            font-size: var(--font-smaller);
+            .card-button-icon {
+                font-size: 1.5em;
+            }
+        }
+    }
+}

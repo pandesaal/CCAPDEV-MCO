@@ -1,12 +1,14 @@
-const page_renderer = async (view, req, res, posts) => {
+const page_renderer = async (view, req, res, data = {}) => {
     try {
+        const { user = null, posts = [] } = data;
         res.render(view, {
             layout: false,
+            user,
             posts,
             title: `"${req.query.q}"` || `"${req.params.username}"` || "Search"
         });
     } catch (err) {
-        console.error("Error loading post template:", err);
+        console.error("Error loading template:", err);
         res.status(500).send("Error loading page");
     }
 };

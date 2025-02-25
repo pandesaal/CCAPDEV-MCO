@@ -92,7 +92,7 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
     const confirmPassword = document.querySelector('[name="resignupPass"]').value;
 
     try {
-        const response = await fetch('/signup', {
+        const response = await fetch('/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password, confirmPassword })
@@ -100,7 +100,9 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
 
         const data = await response.json();
         if (response.ok) {
+            const user = data.user;
             sessionStorage.setItem('isLoggedIn', true);
+            sessionStorage.setItem('user', JSON.stringify(user));
             window.location.reload();
         } else {
             alert(data.message);
@@ -134,7 +136,7 @@ document.getElementById('sidebar-logout').addEventListener('click', () => {
     sessionStorage.setItem('isLoggedIn', false);
     closeReg();
     // clear sessions and cookies
-    sessionStorage.clear();
+    sessionStorage.removeItem('user');
     window.location.replace('/');
     // window.location.reload();
 });

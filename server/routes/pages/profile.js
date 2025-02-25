@@ -3,7 +3,6 @@ const page_renderer = require('../../utils/page-render');
 
 const profile = async (req, res) => {
     const user = await getUserData(req.params.username);
-    console.log('user id: ', user._id);
     await page_renderer('profile', req, res, { user, posts: user.posts });
 };
 

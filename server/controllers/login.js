@@ -14,10 +14,10 @@ const loginUser = async (req, res) => {
             return res.status(401).json({ message: 'Incorrect password' });
         }
 
+        // user info for nav
         const userInfo = {
             username: user.credentials.username,
-            icon: user.decor.icon,
-            bio: user.decor.bio
+            icon: user.decor.icon
         };
 
         if (rememberMe) {

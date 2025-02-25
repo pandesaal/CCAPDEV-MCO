@@ -71,12 +71,52 @@ main {
     outline: 0.05em solid var(--color-accent);
 }
 
-#profilePosts {
+#profileActivity {
+    width: 80%;
+    margin-top: 1em;
+}
+
+#profileTabs {
+    margin-top: 1em;
+    display: flex;
+    gap: 0.7em;
+    align-items: center;
+}
+
+#profileTabs button {
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+#viewAll {
+    margin-top: 1em;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.1em;
+}
+
+#viewAll span {
+    background-color: transparent;
+    font-size: 1.3em;
+}
+
+.selected {
+    border-bottom: var(--border);
+}
+
+#profileTabs button:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.tabContent {
     margin-top: 1.3em;
     width: 90%;
 }
 
-#posts-wrapper {
+.tabContentWrap {
     display: flex;
     flex-direction: column;
     gap: 0.75em;

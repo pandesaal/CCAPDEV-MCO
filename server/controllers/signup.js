@@ -23,7 +23,13 @@ const signupUser = async (req, res) => {
         });
         await newUser.save();
 
-        res.status(201).json({ message: 'User registered successfully' });
+        // user info for nav
+        const userInfo = {
+            username: newUser.credentials.username,
+            icon: newUser.decor.icon
+        };
+
+        res.status(201).json({ message: 'User registered successfully', user: userInfo });
     } catch (error) {
         res.status(500).json({ message: 'Error registering user', error });
     }

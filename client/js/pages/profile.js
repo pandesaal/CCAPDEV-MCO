@@ -46,3 +46,23 @@ function editProfile(e) {
     }
 }
 document.getElementById("editButton").addEventListener("click", editProfile);
+
+// for switching of tabs
+const profilePosts = document.getElementById('profilePosts');
+const profileComments = document.getElementById('profileComments');
+const postsTab = document.getElementById('postsTab');
+const commentsTab = document.getElementById('commentsTab');
+
+document.getElementById('postsTab').addEventListener('click', () => {
+    profilePosts.classList.remove('hide');
+    profileComments.classList.add('hide');
+    postsTab.classList.add('selected');
+    commentsTab.classList.remove('selected');
+});
+
+document.getElementById('commentsTab').addEventListener('click', () => {
+    profilePosts.classList.add('hide');
+    profileComments.classList.remove('hide');
+    postsTab.classList.remove('selected');
+    commentsTab.classList.add('selected');
+});

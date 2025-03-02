@@ -2,10 +2,10 @@ const searchBar = document.getElementById("search-bar")
 const clearSearch = document.getElementById("search-clear")
 const resultsHolder = document.getElementById("search-results")
 
-let tags = [];
+let tags;
 const fetchTags = async () => {
     try {
-        const response = await fetch('/tags', {
+        const response = await fetch('/api/tags', {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         });
@@ -24,14 +24,15 @@ fetchTags();
 searchBar.addEventListener("input", () => {
     const searchQuery = searchBar.value.toLowerCase();
     resultsHolder.innerHTML = "";
-
+    
     if (searchQuery.trim() === "") {
         resultsHolder.classList.add("hide");
+        clearSearch.classList.add("hide");
         return;
     }
 
-    tags = [...new Set(tags)];
-    const filteredTags = tags.filter(tag => tag.toLowerCase().includes(searchQuery)).slice(0, 5);
+    let tagsSet = [...new Set(Object.keys(tags))];
+    const filteredTags = tagsSet.filter(tag => tag.toLowerCase().includes(searchQuery)).slice(0, 5);
 
     if (filteredTags.length > 0) {
         filteredTags.forEach((result) => {
@@ -43,8 +44,10 @@ searchBar.addEventListener("input", () => {
             resultsHolder.appendChild(li);
         });
         resultsHolder.classList.remove("hide");
+        clearSearch.classList.remove("hide");
     } else {
         resultsHolder.classList.add("hide");
+        clearSearch.classList.add("hide");
     }
 });
 

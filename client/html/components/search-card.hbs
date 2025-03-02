@@ -1,15 +1,30 @@
 <div class="card">
     <div class="card-header">
         <div class="card-info">
-            <a href="/{{credentials.username}}" class="card-icon"><img src="{{decor.icon}}" alt="icon"></a>
+            {{#if isUser}}
+            <a href="/{{credentials.username}}" class="card-icon">
+                <img src="{{decor.icon}}" alt="icon">
+            </a>
             <div class="card-info-text">
                 <a href="/{{credentials.username}}"><h3 class="card-username">{{credentials.username}}</h3></a>
             </div>
+            {{else}}
+            <a href="/search?tag={{@key}}" class="card-icon">
+                <span class="material-symbols-outlined">tag</span>
+            </a>
+            <div class="card-info-text">
+                <a href="/search?tag={{@key}}"><h3 class="card-username">{{@key}} ({{count}} post/s)</h3></a>
+            </div>
+            {{/if}}
         </div>
     </div>
     <div class="card-body">
         <div class="card-content">
-            {{decor.bio}}
+            {{#if isUser}}
+                {{decor.bio}}
+            {{else}}
+                Last post: {{latestPostDate}}
+            {{/if}}
         </div>
     </div>
 </div>

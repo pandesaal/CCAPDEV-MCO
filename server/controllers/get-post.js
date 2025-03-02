@@ -30,6 +30,7 @@ const getPostData = async ({postId, search, comments = false } = {}) => {
         if (comments) {
             query = query.populate({
                 path: 'comments',
+                options: { sort: { datePosted: -1 } },
                 populate: {
                     path: 'author',
                     select: 'credentials.username decor.icon'
@@ -41,9 +42,15 @@ const getPostData = async ({postId, search, comments = false } = {}) => {
 
         return posts.map(post => ({
             ...post,
-            datePosted: new Date(post.datePosted).toLocaleString('en-US', { timeZone: 'UTC' }),
-            dateEdited: new Date(post.dateEdited).toLocaleString('en-US', { timeZone: 'UTC' })
+            datePosted: new Date(post.datePosted).toISOString().split('T')[0],
+            dateEdited: new Date(post.dateEdited).toISOString().split('T')[0],
+            comments: post.comments?.map(comment => ({
+                ...comment,
+                datePosted: new Date(comment.datePosted).toISOString().split('T')[0],
+                dateEdited: new Date(comment.dateEdited).toISOString().split('T')[0]
+            })) || []
         }));
+        
 
     } catch (error) {
         console.error(error);

@@ -27,7 +27,16 @@ app.post('/signup', route);
 
 app.engine('hbs', hbs.engine({
     extname: 'hbs',
-    partialsDir: components
+    partialsDir: components,
+    helpers: {
+        truncate: (str, len) => {
+            if (str.length > len) {
+                let trimmed = str.substring(0, len);
+                return trimmed.substring(0, trimmed.lastIndexOf(" ")) + "...";
+            }
+            return str;
+        }
+    }
 }))
 app.set('view engine', 'hbs');
 app.set('views', pages)
@@ -36,7 +45,7 @@ app.use(express.static(path.join(__dirname, '../client')));
 
 app.use('/', authRoutes)
 
-app.use((req, res, next) => {
+app.use((req, res) => {
     res.status(404).render('404', {});
 });
 
@@ -45,5 +54,5 @@ mongoose.connect(process.env.MONGODB).then(() => {
         console.log(`Server running at http://localhost:${PORT}`);
     });
 }).catch(e => {
-    console.log(e);
+    console.error(e);
 });

@@ -13,7 +13,15 @@ const router = express.Router();
 
 router.post('/login', loginUser);
 router.post('/register', signupUser);
-router.get('/tags', getTags);
+router.get('/api/tags', (req, res, next) => {
+    const acceptHeader = req.get('Accept');
+
+    if (!acceptHeader || acceptHeader.includes('text/html')) {
+        return res.status(404).render('404', {layout: false});
+    }
+
+    next();
+} , getTags);
 
 router.get('/', home);
 router.get('/search', search);

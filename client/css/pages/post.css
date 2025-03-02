@@ -4,13 +4,16 @@
 @import url("../components/register.css");
 
 main {
+
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
     gap: 0.75em;
 
     margin: 2em 0;
 
-    #posts-wrapper {
+    #wrapper {
 
         width: 100%;
         max-width: 45vw;
@@ -21,7 +24,40 @@ main {
 
         gap: 0.75em;
 
-        /* replace/remove when actual post styling is made for placeholder lang to*/
-        
+        #post-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            gap: 0.75em;
+
+            #comment-input-box {
+                display: flex;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+
+                #comment-input {
+                    resize: none;
+                    padding: 0.3em 0em 0em 0.7em;
+                    width: 100%;
+                    height: 2em;
+                    outline: 0.1em solid var(--color-dark);
+                    border-radius: 10em;
+                    margin: 0.2em;
+                }
+
+                span {
+                    font-size: 1.7em;
+                    margin-left: 0.5em;
+
+                    &:hover {
+                        color: var(--color-accent);
+                        cursor: pointer;
+                    }
+                }
+            }
+            
+        }
     }
 }

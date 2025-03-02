@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Post</title>
+    <title>{{posts.title}} - Archer's Freedom Wall</title>
     <link rel="stylesheet" href="../../css/pages/post.css">
 
     <!--importing icons-->
@@ -15,34 +15,28 @@
     {{> modals}}
     
     <main>
-        {{!-- <div id="posts-wrapper"></div>
-        <div id="comments-wrapper">
-            <div id="comment-input-box">
-                <form method="post">
-                    <textarea name="comment-content" id="comment-input"></textarea>
-                </form>
+        <div id="wrapper">
+            <div id="post-wrapper">
+                <!-- This part will show a single post using the format from post.html -->
+                {{> post posts fullContent=true}}
+                <div id="comment-input-box">
+                    <form method="post">
+                        <textarea name="comment-content" id="comment-input" placeholder="Add a comment..."></textarea>
+                    </form>
+                    <span class="material-symbols-outlined">send</span>
+                </div>
             </div>
-            <div id="comments">
-
-            </div>
-        </div> --}}
-
-        <div id="postDetails">
-            <!-- This part will show a single post using the format from post.html -->
-            {{> post posts}}
-            <div id="comment-input-box">
-                <form method="post">
-                    <textarea name="comment-content" id="comment-input" placeholder="Add a comment..."></textarea>
-                </form>
-                <span class="material-symbols-outlined">send</span>
-            </div>
-        </div>
-        <div id="commentsSection">
-            <h3>Comments</h3>
-            <div id="commentsList">
-                {{#each posts.comments}}
-                    {{> comment this}}
-                {{/each}}
+            <div id="commentsSection">
+                <h3>Comments</h3>
+                <div id="commentsList">
+                {{#if posts.comments.length}}
+                    {{#each posts.comments}}
+                        {{> comment this}}
+                    {{/each}}
+                {{else}}
+                    <p>No comments yet.</p>
+                {{/if}}
+                </div>
             </div>
         </div>
     </main>

@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     navInjector();
     postInjector();
 
-    let tags = [];
+    let tags;
     const fetchTags = async () => {
         try {
-            const response = await fetch('/tags', {
+            const response = await fetch('/api/tags', {
                 method: 'GET',
-                headers: { 'Content-Type': 'application/json' }
+                headers: { 'Content-Type': 'application/json' },
             });
 
             if (response.ok) {
@@ -24,19 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     fetchTags().then(() => {
-        console.log(tags)
-        let tagCounts = tags.reduce((acc, tag) => {
-            acc[tag] = (acc[tag] || 0) + 1;
-            return acc;
-        }, {});
         
-        tagCounts = Object.fromEntries(
-            Object.entries(tagCounts)
-                .sort((a, b) => b[1] - a[1])
+        let tagCounts = Object.fromEntries(
+            Object.entries(tags)
+                .sort((a, b) => b[1].count - a[1].count)
                 .slice(0, 5)
         );
-    
-        console.log(tagCounts);
     
         const tagsWrapper = document.getElementById('tags-wrapper');
     

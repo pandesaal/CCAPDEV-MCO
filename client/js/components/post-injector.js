@@ -8,27 +8,6 @@ export const postInjector = () => {
         })
     })
     
-    document.querySelectorAll('.post-content').forEach(post => {
-        const maxLength = 200;
-        const originalText = post.innerText;
-    
-        if (originalText.length > maxLength) {
-            const truncatedText = originalText.substring(0, maxLength) + '... ';
-            
-            post.innerHTML = post.innerHTML.replace(post.innerText, truncatedText);
-    
-            const readMore = post.querySelector('.content-readmore');
-            if (readMore) {
-                readMore.classList.remove('hide');
-                
-                readMore.addEventListener('click', () => {
-                    readMore.classList.add('hide')
-                    post.innerHTML = post.innerHTML.replace(truncatedText, originalText);
-                });
-            }
-        }
-    });
-    
     // Post Menu Button: Edit
     document.querySelectorAll('.editBtn').forEach(button => {
         button.addEventListener('click', () => {
@@ -88,25 +67,6 @@ export const postInjector = () => {
                 document.getElementById('deletePostModal').classList.remove('hide')
         })
     })
-    
-    // Title Button: Open View Post Modal
-    document.querySelectorAll('.post-title').forEach((title, index) => {
-        title.addEventListener('click', (event) => {
-            const post = posts[index];
-    
-            document.getElementById('modal-username').innerText = post.username;
-            document.getElementById('modal-date-posted').innerText = post.datePosted;
-            document.getElementById('modal-post-title').innerText = post.title;
-            document.getElementById('modal-post-content').innerText = post.content;
-            document.getElementById('modal-post-tags').innerHTML = post.tags.map(tag => {
-                return `<a href="#" class="post-tag">${tag}</a>`;
-            }).join('');
-    
-            commentInjector(comments);
-    
-            document.getElementById('viewPostModal').classList.remove('hide');
-        });
-    });
     
     // Close a modal when the close button is clicked
     document.querySelectorAll('.close').forEach(button => {

@@ -1,100 +1,87 @@
 @import url("../components/nav.css");
 @import url("../components/post.css");
-@import url("../components/search-card.css");
 @import url("../components/modals.css");
 @import url("../components/register.css");
 
 main {
 
-    display: flex;
-    justify-content: space-between;
-    gap: 0.75em;
+    height: 60vh;
 
-    min-height: 100vh;
-
-    #filters-wrapper {
-
-        border-right: var(--border-small);
-        padding-top: 1em;
-
+    #main-content {
+        height: 100%;
         display: flex;
+        align-items: center;
+        justify-content: center;
         flex-direction: column;
-        flex: 0 1 20%;
-        gap: 0.3em;
 
-        h4, h5 {
-            padding: 0.3em 1em;
+        gap: 2em;
+        
+        h1 {
+            font-size: 4.5em;
+            &:hover {
+                color: var(--color-accent);
+            }
         }
 
-        #filters {
+        #nav-search {
+            position: relative;
 
-            display: flex;
-            flex-direction: column;
-            gap: 1em;
+            border: var(--border-small);
+            padding: 0.3em 1em;
+            border-radius: 9999em;
 
-            .filter-groups {
+            width: 100%;
+            max-width: 50em;
 
+            #search-query {
                 display: flex;
-                flex-direction: column;
-                gap: 0.2em;
+                justify-content: space-between;
+                align-items: center;
+                gap: 0.3em;
+                
+                input {
+                    flex: 1 1 50em;
+                    font-size: var(--font-smaller);
+                }
 
-                ul {
+                button {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
 
-                    padding: 0.15em 1em;
-                    
+            #search-results {
+
+                display: block;
+                border: var(--border-small);
+                border-radius: 0.5em;
+
+                overflow: hidden;
+
+                width: 100%;
+                position: absolute;
+                left: 0;
+                top: 2.5em;
+
+                li {
                     display: flex;
                     flex-direction: column;
-                    gap: 0.5em;
-        
-                    li {
-        
-                        a {
-                            font-size: var(--font-smaller);
-                            font-weight: 500;
-                            padding: 0.3em 0.75em;
-        
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-        
-                            .labels {
-                                display: flex;
-                                justify-content: space-around;
-                                align-items: center;
-                                gap: 0.5em;
-                            }
-        
-                            .count {
-                                padding-right: 1em;
-                            }
-                        }
-        
-                        
+                    border-bottom: var(--border-small);
+                    overflow: hidden;
+
+                    padding: 0.3em 1em;
+                    font-size: var(--font-smaller);
+
+                    &:last-child {
+                        border-bottom: none;
                     }
-                    
+
+                    a {
+                        padding: 0.3em 1em;
+                    }
                 }
             }
         }
-        
-    }
-
-    #wrapper {
-
-        width: 100%;
-
-        display: flex;
-        justify-content: center;
-
-        margin: 2em 0;
-
-        #posts-wrapper {
-            max-width: 45em;
-            display: flex;
-            flex-direction: column;
-    
-            gap: 0.75em;
-        }
-
-       
     }
 }

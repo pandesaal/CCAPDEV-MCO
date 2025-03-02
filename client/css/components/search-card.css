@@ -7,6 +7,7 @@
     padding: 1em;
 
     width: 100%;
+    min-width: 45vw;
 
     display: flex;
     flex-direction: column;
@@ -25,11 +26,11 @@
             .card-icon {
                 display: flex;
                 align-items: center;
+                max-width: 3.5em;
 
                 img {
                     width: auto;
                     height: auto;
-                    max-width: 2.5em;
                     border-radius: 50%;
                 }
             }
@@ -55,7 +56,7 @@
             }
 
             .card-menu {
-                background-color: white;
+                background-color: var(--color-light);
                 min-width: 100px;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
                 z-index: 1;
@@ -74,7 +75,7 @@
                 }
 
                 .card-menu-options:hover {
-                    background-color: #f1f1f1;
+                    background-color: var(--color-light);
                 }
             }
         }

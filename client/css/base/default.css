@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root {
-    --color-light: #fffefa;
-    --color-dark: #32583f;
-    --color-accent: #79af7b;
+    --color-light: hsl(132, 100%, 99%);
+    --color-light-dark: hsl(132, 100%, 90%);
+
+    --color-dark: hsl(143, 28%, 27%);
+    --color-dark-dark: hsl(143, 28%, 20%);
+
+    --color-accent: hsl(123, 29%, 58%);
+    --color-accent-dark: hsl(123, 29%, 45%);
 
     --font-heading: 'Inter', sans-serif;
     --font-body: 'Inter', sans-serif;

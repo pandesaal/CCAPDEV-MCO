@@ -1,9 +1,9 @@
 import { navInjector } from "../components/nav-injector.js";
 import { postInjector } from "../components/post-injector.js";
 
-const searchByFilters = (filter) => {
+const searchByFilters = (key, filter) => {
     var queries = new URLSearchParams(window.location.search);
-    queries.set('type', filter);
+    queries.set(key, filter);
     return `/search?${queries}`;
 }
 
@@ -31,8 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('editModal').style.display = 'none';
     });
 
-    document.getElementById('filter-users').href = searchByFilters('users');
-    document.getElementById('filter-posts').href = searchByFilters('posts');
-    document.getElementById('filter-comments').href = searchByFilters('comments');
+    document.getElementById('filter-users').href = searchByFilters('type', 'users');
+    document.getElementById('filter-posts').href = searchByFilters('type', 'posts');
+    document.getElementById('filter-comments').href = searchByFilters('type', 'comments');
+    document.getElementById('filter-tags').href = searchByFilters('type', 'tags');
+
+    document.querySelectorAll('.filter-tags').forEach(tag => {
+        tag.href = searchByFilters('tag', tag.querySelector('p').innerText);
+    })
 
 });

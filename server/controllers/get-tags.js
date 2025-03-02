@@ -3,14 +3,40 @@ const Post = require('../models/Post');
 const getTags = async (req, res) => {
     try {
         const { searchQuery } = req.body;
-        let posts = await Post.find({}, 'tags').lean();
-        let tags = posts.flatMap(post => post.tags);
+
+        let posts = await Post.find({}, 'tags datePosted').lean();
+
+        let tagData = {};
+
+        posts.forEach(post => {
+            post.tags.forEach(tag => {
+                if (!tagData[tag]) {
+                    tagData[tag] = { count: 0, latestPostDate: null };
+                }
+
+                tagData[tag].count += 1;
+
+                if (!tagData[tag].latestPostDate || post.datePosted > tagData[tag].latestPostDate) {
+                    tagData[tag].latestPostDate = post.datePosted;
+                }
+            });
+        });
 
         if (searchQuery) {
-            tags = tags.filter(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+            tagData = Object.fromEntries(
+                Object.entries(tagData).filter(([tag]) =>
+                    tag.toLowerCase().includes(searchQuery.toLowerCase())
+                )
+            );
+        }
+        
+        for (const tag in tagData) {
+            if (tagData[tag].latestPostDate) {
+                tagData[tag].latestPostDate = new Date(tagData[tag].latestPostDate).toISOString().split('T')[0];
+            }
         }
 
-        res.json(tags);
+        res.json(tagData);
     } catch (error) {
         res.status(500).json({ message: "Failed to retrieve tags" });
     }

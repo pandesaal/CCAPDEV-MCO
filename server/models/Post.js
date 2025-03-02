@@ -8,7 +8,6 @@ const postSchema = new mongoose.Schema({
     dateEdited: {type: Date, required: true, default: () => Date.now()},
     title: {type: String, required: true},
     content: {type: String, required: true},
-    contentShort: {type: String, required: true},
     tags: [{type: String}],
     likes: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
     dislikes: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],

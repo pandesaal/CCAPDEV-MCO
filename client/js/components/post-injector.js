@@ -12,6 +12,9 @@ export const postInjector = () => {
     document.querySelectorAll('.editBtn').forEach(button => {
         button.addEventListener('click', () => {
             const post = button.closest('.post');
+            const postId = button.getAttribute('dataPostId');
+            sessionStorage.setItem("editPostId", postId);
+
             const title = post.querySelector('.post-title h3').innerText;
             const content = post.querySelector('.post-content').innerText;
     
@@ -26,17 +29,13 @@ export const postInjector = () => {
             tags.forEach(tag => {
                 const tagElement = document.createElement('div');
                 tagElement.className = 'tag';
-                tagElement.innerHTML = `
-                    <span>${tag.innerText}</span>
-                    <span><button class="remove-tag-button">×</button></span>
-                `;
+                tagElement.innerHTML = `<div class="tagValue">${tag.innerText}</div><span onclick="removeTag(this)"><button class="remove-tag-button">&times;</button></span>`;
                 editPostTagsContainer.appendChild(tagElement);
             });
     
             // Show the edit modal
             document.getElementById('editModal').classList.remove('hide');
     
-            // Add event listeners to remove tag buttons
             document.querySelectorAll('.remove-tag-button').forEach(removeButton => {
                 removeButton.addEventListener('click', (e) => {
                     e.target.closest('.tag').remove(); // Remove the tag element
@@ -45,19 +44,43 @@ export const postInjector = () => {
         });
     });
     
-    // Edit Post Button: Edit
-    document.getElementById('editPostBtn').addEventListener('click', () => {
-        const newTitle = document.getElementById('editPostTextTitle').value;
-        const newContent = document.getElementById('editPostTextContent').value;
-        console.log('Updated Title:', newTitle);
-        console.log('Updated Content:', newContent);
+    document.getElementById('editPostForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        
+        const userInfo = JSON.parse(sessionStorage.getItem('user'));
+        const authorName = userInfo.username;
+        const postId = sessionStorage.getItem('editPostId');
+        const title = document.getElementById('editPostTextTitle').value.trim();
+        const content = document.getElementById('editPostTextContent').value.trim();
+        let contentShort = content.substring(0, 200);
+        
+        const tags = Array.from(document.querySelectorAll('#editPostTagList .tag .tagValue')).map(tag => tag.textContent.trim());
     
-        document.getElementById('editModal').classList.add('hide');
+        try {
+            const response = await fetch('/editPost', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ postId, title, content, contentShort, tags, authorName })
+            });            
+
+            const data = await response.json();
+            if (!response.ok) {
+                console.error('Error:', data.message);
+            } else {
+                console.log('Post updated successfully:', data);
+                sessionStorage.removeItem("editPostId");
+                window.location.reload();
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Editing post failed, try again later.");
+        }
     });
     
     // Edit Post Button: Cancel
     document.getElementById('cancelPostBtn').addEventListener('click', () => {
         document.getElementById('editModal').classList.add('hide');
+        sessionStorage.removeItem("editPostId");
     });
     
     // Post Menu Button: Delete

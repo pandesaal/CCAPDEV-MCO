@@ -15,13 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Handle the upload button click
-    document.getElementById('editPostBtn').addEventListener('click', () => {
-        const newTitle = document.getElementById('editPostTextTitle').value;
-        const newContent = document.getElementById('editPostTextContent').value;
-        console.log('Updated Title:', newTitle);
-        console.log('Updated Content:', newContent);
-
-        document.getElementById('editModal').style.display = 'none';
-    });
+    // // Handle the upload button click
+    // document.getElementById('editPostBtn').addEventListener('click', () => {
+    //     document.getElementById('editModal').style.display = 'none';
+    // });
 });

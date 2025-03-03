@@ -73,23 +73,26 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Edit Post</h2>
-        <div class="postText-title">
-            <input id="editPostTextTitle" placeholder="Enter the title of your post." rows="2" />
-        </div>
-        <div class="postText-content">
-            <textarea id="editPostTextContent" placeholder="What's on your mind?" rows="4"></textarea>
-        </div>
-        
-        <div class="postText-tagArea" id="editPostTagList"></div>
-        <div>
-            <input type="text" class="edit-new-tag-input" id="editPostTagInput" placeholder="Enter a tag">
-            <button class="add-tag-button" onclick="addTag('editPostTagInput', 'editPostTagList')">Add Tag</button>
-        </div>
 
-        <div class="postButtons">
-            <button id="cancelPostBtn">Cancel</button>
-            <button id="editPostBtn">Edit</button>
-        </div>
+        <form id="editPostForm">            
+            <div class="postText-title">
+                <input id="editPostTextTitle" name="editPostTextTitle" placeholder="Enter the title of your post." rows="2" required/>
+            </div>
+            <div class="postText-content">
+                <textarea id="editPostTextContent" name="editPostTextContent" placeholder="What's on your mind?" rows="4" required></textarea>
+            </div>
+            
+            <div class="postText-tagArea" id="editPostTagList" name="editPostTagList"></div>
+            <div>
+                <input type="text" class="edit-new-tag-input" id="editPostTagInput" name="editPostTagInput" placeholder="Enter a tag">
+                <button type="button" class="add-tag-button" onclick="addTag('editPostTagInput', 'editPostTagList')">Add Tag</button>
+            </div>
+            
+            <div class="postButtons">
+                <button type="button" id="cancelPostBtn">Cancel</button>
+                <button type="submit" id="editPostBtn">Edit</button>
+            </div>
+        </form>
     </div>
 </div>
 

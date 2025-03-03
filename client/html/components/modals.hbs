@@ -3,23 +3,26 @@
     <div class="modal-content">
         <span class="close" onclick="closeCreatePostModal()">&times;</span>
         <h2>Create a New Post</h2>
-        <div class="postText-title">
-            <input id="postTextTitle" placeholder="Enter the title of your post." rows="2" />
-        </div>
-        <div class="postText-content">
-            <textarea id="postTextContent" placeholder="What's on your mind?" rows="4"></textarea>
-        </div>
-        
-        <div class="postText-tagArea" id="createPostTagList"></div>
-        <div>
-            <input type="text" class="post-new-tag-input" id="createPostTagInput" placeholder="Enter a tag">
-            <button class="add-tag-button" onclick="addTag('createPostTagInput', 'createPostTagList')">Add Tag</button>
-        </div>
 
-        <div class="postButtons">
-            <button class="uploadPostBtn" onclick="uploadCreatePostModal()">Upload</button>
-            <button class="discardPostBtn" onclick="discardCreatePostModal()">Discard</button>
-        </div>
+        <form id="createPostForm">            
+            <div class="postText-title">
+                <input id="postTextTitle" name="postTextTitle" placeholder="Enter the title of your post." rows="2" required/>
+            </div>
+            <div class="postText-content">
+                <textarea id="postTextContent" name="postTextContent" placeholder="What's on your mind?" rows="4" required></textarea>
+            </div>
+            
+            <div class="postText-tagArea" id="createPostTagList" name="createPostTagList"></div>
+            <div>
+                <input type="text" class="post-new-tag-input" id="createPostTagInput" name="createPostTagInput" placeholder="Enter a tag">
+                <button type="button" class="add-tag-button" onclick="addTag('createPostTagInput', 'createPostTagList')">Add Tag</button>
+            </div>
+            
+            <div class="postButtons">
+                <button type="submit" class="uploadPostBtn">Upload</button>
+                <button type="button" class="discardPostBtn" onclick="discardCreatePostModal()">Discard</button>
+            </div>
+        </form>
     </div>
 </div>    
 

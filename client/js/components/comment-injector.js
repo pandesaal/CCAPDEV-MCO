@@ -81,27 +81,6 @@ export const commentInjector = (commentsArray = comments) => {
                 })
             })
 
-            document.querySelectorAll('.comment-content').forEach(comment => {
-                const maxLength = 200;
-                const originalText = comment.innerText;
-            
-                if (originalText.length > maxLength) {
-                    const truncatedText = originalText.substring(0, maxLength) + '... ';
-                    
-                    comment.innerHTML = comment.innerHTML.replace(comment.innerText, truncatedText);
-            
-                    const readMore = post.querySelector('.content-readmore');
-                    if (readMore) {
-                        readMore.classList.remove('hide');
-                        
-                        readMore.addEventListener('click', () => {
-                            readMore.classList.add('hide')
-                            comment.innerHTML = comment.innerHTML.replace(truncatedText, originalText);
-                        });
-                    }
-                }
-            });
-
             // edit comment
             document.querySelectorAll('.editCommBtn').forEach(button => {
                 button.addEventListener('click', (e) => {

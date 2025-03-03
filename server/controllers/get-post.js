@@ -1,5 +1,4 @@
 const Post = require('../models/Post');
-const User = require('../models/User');
 
 const getPostData = async ({postId, search, comments = false } = {}) => {
     const filters = {};
@@ -44,14 +43,15 @@ const getPostData = async ({postId, search, comments = false } = {}) => {
             ...post,
             datePosted: new Date(post.datePosted).toISOString().split('T')[0],
             dateEdited: new Date(post.dateEdited).toISOString().split('T')[0],
-            comments: post.comments?.map(comment => ({
-                ...comment,
-                datePosted: new Date(comment.datePosted).toISOString().split('T')[0],
-                dateEdited: new Date(comment.dateEdited).toISOString().split('T')[0]
-            })) || []
+            comments: comments
+                ? post.comments?.map(comment => ({
+                    ...comment,
+                    datePosted: new Date(comment.datePosted).toISOString().split('T')[0],
+                    dateEdited: new Date(comment.dateEdited).toISOString().split('T')[0]
+                }))
+                : undefined
         }));
         
-
     } catch (error) {
         console.error(error);
         return [];

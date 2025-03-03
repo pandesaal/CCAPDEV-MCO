@@ -19,7 +19,7 @@ const search = async (req, res) => {
         return;
     }
 
-    if (!searchParams.get('q') && !searchParams.get('tag')) { //no query
+    if (!searchParams.get('q') && !searchParams.get('tag')) { //no query w no tag
         await page_renderer('search', req, res, {});
         return;
     }
@@ -39,13 +39,16 @@ const search = async (req, res) => {
         const userCount = allUsers.filter(user => 
             user.credentials.username.toLowerCase().includes(searchParams.get('q').toLowerCase())
         ).length;
+
         const postCount = allPosts.filter(post => 
             post.title.toLowerCase().includes(searchParams.get('q').toLowerCase()) ||
             post.content.toLowerCase().includes(searchParams.get('q').toLowerCase())
         ).length;
+
         const commentCount = allComments.filter(comment => 
             comment.content.toLowerCase().includes(searchParams.get('q').toLowerCase())
         ).length;
+
         const tagCount = Object.entries(tags).filter(([key]) => key.includes(searchParams.get('q'))).length;
     
         const tagCounts = Object.fromEntries(
@@ -72,10 +75,21 @@ const search = async (req, res) => {
                 break;
     
             case 'posts':
-                content = allPosts.filter(post => 
-                    post.title.toLowerCase().includes(searchParams.get('q').toLowerCase()) ||
-                    post.content.toLowerCase().includes(searchParams.get('q').toLowerCase())
-                );
+                content = allPosts.filter(post => {
+                    const query = searchParams.get('q')?.toLowerCase();
+                    const tagQuery = searchParams.get('tag')?.toLowerCase();
+                
+                    const matchesQuery = query 
+                        ? post.title.toLowerCase().includes(query) || post.content.toLowerCase().includes(query) 
+                        : true; 
+                
+                    const matchesTag = tagQuery 
+                        ? post.tags.some(tag => tag.toLowerCase().includes(tagQuery))
+                        : true;
+                
+                    return matchesQuery && matchesTag;
+                });
+                
                 type = { isPost: true };
                 break;
     

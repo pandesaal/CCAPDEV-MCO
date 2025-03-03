@@ -60,22 +60,21 @@ const editPost = async (req, res) => {
 };
 
 const deletePost = async (req, res) => {
-    const { postId } = req.params;
-    const { authorName } = req.body;
+    const { postId, authorName } = req.body;
 
     try {
         const user = await User.findOne({ 'credentials.username': authorName });
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ message: "No user is currently logged in." });
         }
 
-        const post = await Post.findById(postId);
+        const post = await Post.findOne({ postId });
         if (!post) {
-            return res.status(404).json({ message: "Post not found" });
+            return res.status(404).json({ message: "Post not found." });
         }
 
         if (post.author.toString() !== user._id.toString()) {
-            return res.status(403).json({ message: "Unauthorized to delete this post" });
+            return res.status(403).json({ message: "Unauthorized to delete this post." });
         }
 
         await Post.deleteOne({ postId });

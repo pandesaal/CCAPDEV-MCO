@@ -27,8 +27,12 @@ router.get('/api/tags', (req, res, next) => {
 
     next();
 } , getTags);
+
 router.get('/', home);
 router.get('/search', search);
+router.get('/about', (req, res) => {
+    res.render('about', {layout: false});
+});
 router.get('/post/:id', post);
 router.get('/:username', profile);
 

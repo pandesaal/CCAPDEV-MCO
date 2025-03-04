@@ -65,8 +65,10 @@ export const postInjector = () => {
 
             const data = await response.json();
             if (!response.ok) {
+                alert(data.message);
                 console.error('Error:', data.message);
             } else {
+                alert("Post updated successfully!");
                 console.log('Post updated successfully:', data);
                 sessionStorage.removeItem("editPostId");
                 window.location.reload();
@@ -86,10 +88,54 @@ export const postInjector = () => {
     // Post Menu Button: Delete
     document.querySelectorAll('.deleteBtn').forEach(button => {
         button.addEventListener('click', () => {
+            const post = button.closest('.post');
+            const postId = button.getAttribute('deletePostId');
+            sessionStorage.setItem("deletePostId", postId);
+
             if (button.closest('.post'))
                 document.getElementById('deletePostModal').classList.remove('hide')
-        })
-    })
+        });
+    });
+
+    // Delete Post Modal Button: Delete
+    document.querySelectorAll('.deletePostBtn').forEach(button => {
+        button.addEventListener('click', async () => {
+        
+            const userInfo = JSON.parse(sessionStorage.getItem('user'));
+            const authorName = userInfo.username;
+            const postId = sessionStorage.getItem('deletePostId');
+            try {
+                const response = await fetch('/deletePost', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ postId, authorName })
+                });            
+
+                const data = await response.json();
+                if (!response.ok) {
+                    alert(data.message);
+                    console.error('Error:', data.message);
+                } else {
+                    alert("Post deleted successfully!");
+                    console.log('Post deleted successfully:', data);
+                    sessionStorage.removeItem("deletePostId");
+                    document.getElementById('deletePostModal').classList.add('hide');
+                    window.location.reload();
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Deleting a post failed, try again later.");
+            }
+        });
+    });
+
+    // Delete Post Modal Button: Cancel
+    document.querySelectorAll('.dlt-cancelPostBtn').forEach(button => {
+        button.addEventListener('click', () => {
+            sessionStorage.removeItem("deletePostId");
+            document.getElementById('deletePostModal').classList.add('hide');
+        });
+    });
     
     // Close a modal when the close button is clicked
     document.querySelectorAll('.close').forEach(button => {

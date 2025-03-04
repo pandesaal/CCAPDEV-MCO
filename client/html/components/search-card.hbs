@@ -21,7 +21,7 @@
     <div class="card-body">
         <div class="card-content">
             {{#if isUser}}
-                {{decor.bio}}
+                {{truncate decor.bio 100}}
             {{else}}
                 Last post: {{latestPostDate}}
             {{/if}}

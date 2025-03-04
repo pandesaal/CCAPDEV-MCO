@@ -1,11 +1,11 @@
-<div class="pagination">
+<div id="pagination">
     {{#if (gt currentPage 1)}}
-        <a href="/?page={{subtract currentPage 1}}" class="pagination-button">Previous</a>
+        <a href="/?page={{subtract currentPage 1}}" id="pagination-button">Previous</a>
     {{/if}}
 
     <span>Page {{currentPage}} of {{totalPages}}</span>
 
     {{#if (lt currentPage totalPages)}}
-        <a href="/?page={{add currentPage 1}}" class="pagination-button">Next</a>
+        <a href="/?page={{add currentPage 1}}" id="pagination-button">Next</a>
     {{/if}}
 </div>

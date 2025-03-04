@@ -29,11 +29,13 @@
             {{/if}}
         </div>
     </div>
+    {{#if tags.length}}
     <div class="post-tags">
         {{#each tags}}
             <a href="/search?tag={{this}}" class="post-tag">{{this}}</a>
         {{/each}}
     </div>
+    {{/if}}
     <div class="post-buttons">
         <div class="post-button post-like">
             <span class="material-symbols-outlined post-button-icon">thumb_up</span>

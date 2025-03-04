@@ -1,26 +1,26 @@
 const Comment = require('../models/Comment');
 
-const getCommentsData = async ({search} = {}) => {
-    const filters = {};
-    
+const getCommentsData = async ({ postId = null, search = null, page = 1, limit = 15 } = {}) => {
+    const filters = postId ? { replyTo: postId } : {};
+
+    if (search) {
+        filters.content = { $regex: search.get('q'), $options: 'i' };
+    }
+
     try {
-        if (search?.get('q')) {
-            filters.$or = [
-                { content: { $regex: search.get('q'), $options: 'i' } }
-            ];
-        }
+        const query = Comment.find(filters)
+            .populate('author', 'credentials.username decor.icon')
+            .sort({ datePosted: -1 })
+            .skip((page - 1) * limit)
+            .limit(limit);
 
-        const comments = await Comment.find(filters).populate('author').lean();
+        const comments = await query.lean();
+        const totalCount = await Comment.countDocuments(filters);
 
-        return comments.map(comment => ({
-            ...comment,
-            datePosted: new Date(comment.datePosted).toISOString().split('T')[0],
-            dateEdited: new Date(comment.dateEdited).toISOString().split('T')[0]
-        }));
-        
+        return { comments, totalPages: Math.ceil(totalCount / limit), currentPage: page };
     } catch (error) {
         console.error(error);
-        return [];
+        return { comments: [], totalPages: 1, currentPage: 1 };
     }
 };
 

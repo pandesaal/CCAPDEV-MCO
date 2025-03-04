@@ -1,31 +1,28 @@
 const Post = require('../models/Post');
 
-const getPostData = async ({postId, search, comments = false } = {}) => {
+const getPostData = async ({ postId, search, comments = false, page = 1, limit = 15 } = {}) => {
     const filters = {};
     
+    if (postId) filters.postId = postId;
+
+    if (search?.get('tag')) {
+        filters.tags = { $in: [search.get('tag')] };
+    }        
+        
+    if (search?.get('q')) {
+        filters.$or = [
+            { title: { $regex: search.get('q'), $options: 'i' } },
+            { content: { $regex: search.get('q'), $options: 'i' } }
+        ];
+    }
+
     try {
-
-        if (postId) {
-            filters.postId = postId;
-        }
-
-        if (search?.get('tag')) {
-            filters.tags = { $in: [search.get('tag')] };
-        }        
-        
-        if (search?.get('q')) {
-            filters.$or = [
-                { title: { $regex: search.get('q'), $options: 'i' } },
-                { content: { $regex: search.get('q'), $options: 'i' } }
-            ];
-        }
-
-        
         let query = Post.find(filters)
             .populate('author', 'credentials.username decor.icon')
-            .sort({ datePosted: -1 });
+            .sort({ datePosted: -1 })
+            .skip((page - 1) * limit)
+            .limit(limit);
 
-            
         if (comments) {
             query = query.populate({
                 path: 'comments',
@@ -38,23 +35,20 @@ const getPostData = async ({postId, search, comments = false } = {}) => {
         }
 
         const posts = await query.lean();
+        const totalCount = await Post.countDocuments(filters);
 
-        return posts.map(post => ({
-            ...post,
-            datePosted: new Date(post.datePosted).toISOString().split('T')[0],
-            dateEdited: new Date(post.dateEdited).toISOString().split('T')[0],
-            comments: comments
-                ? post.comments?.map(comment => ({
-                    ...comment,
-                    datePosted: new Date(comment.datePosted).toISOString().split('T')[0],
-                    dateEdited: new Date(comment.dateEdited).toISOString().split('T')[0]
-                }))
-                : undefined
-        }));
-        
+        return {
+            posts: posts.map(post => ({
+                ...post,
+                datePosted: new Date(post.datePosted).toISOString().split('T')[0],
+                dateEdited: new Date(post.dateEdited).toISOString().split('T')[0]
+            })),
+            totalPages: Math.ceil(totalCount / limit),
+            currentPage: page
+        };
     } catch (error) {
         console.error(error);
-        return [];
+        return { posts: [], totalPages: 1, currentPage: 1 };
     }
 };
 

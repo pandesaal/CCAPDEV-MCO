@@ -14,7 +14,6 @@ const search = async (req, res) => {
 
     if ((searchParams.get('tag') && searchParams.get('type') !== 'posts') || (!searchParams.get('type') && searchParams.get('q'))) {
         searchParams.set('type', 'posts');
-        console.log(searchParams)
         res.redirect(`/search?${searchParams.toString()}`);
         return;
     }
@@ -31,12 +30,12 @@ const search = async (req, res) => {
         const tags = await response.json();
 
         const [allUsers, allPosts, allComments] = await Promise.all([
-            getUserData(),       
-            getPostData(),       
-            getCommentsData()    
+            getUserData({page: parseInt(searchParams.get('page'))}),       
+            getPostData({page: parseInt(searchParams.get('page'))}),       
+            getCommentsData({page: parseInt(searchParams.get('page'))})    
         ]);
 
-        const filteredPosts = allPosts.filter(post => {
+        const filteredPosts = allPosts.posts.filter(post => {
             const query = searchParams.get('q')?.toLowerCase();
         
             const matchesQuery = query 
@@ -46,11 +45,11 @@ const search = async (req, res) => {
             return matchesQuery;
         });
 
-        const filteredUsers = allUsers.filter(user => 
+        const filteredUsers = allUsers.users.filter(user => 
             user.credentials.username.toLowerCase().includes(searchParams.get('q')?.toLowerCase())
         );
 
-        const filteredComments = allComments.filter(comment => 
+        const filteredComments = allComments.comments.filter(comment => 
             comment.content.toLowerCase().includes(searchParams.get('q')?.toLowerCase())
         );
 

@@ -16,77 +16,79 @@
     {{> modals}}
 
     <main>
-        <div id="filters-wrapper">
-            <h4>Search by</h4>
-            <div id="filters">
-                {{#unless searchTypes.type.tagOnlySearch}}
-                <div class="filter-groups">
-                    <ul>
-                        <li>
-                            <a href="#" id="filter-users">
-                                <div class="labels">
-                                    <span class="material-symbols-outlined">person</span>
-                                    <p>Users</p>
-                                </div>
-                                <span class="count">{{searchTypes.users.count}}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" id="filter-posts">
-                                <div class="labels">
-                                    <span class="material-symbols-outlined">sticky_note_2</span>
-                                    <p>Posts</p>
-                                </div>
-                                <span class="count">{{searchTypes.posts.count}}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" id="filter-comments">
-                                <div class="labels">
-                                    <span class="material-symbols-outlined">comment</span>
-                                    <p>Comments</p>
-                                </div>
-                                <span class="count">{{searchTypes.comments.count}}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" id="filter-tags">
-                                <div class="labels">
-                                    <span class="material-symbols-outlined">tag</span>
-                                    <p>Tags</p>
-                                </div>
-                                <span class="count">{{searchTypes.tags.count}}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                {{/unless}}
-                
-                {{#if searchTypes.type.isPost}}
-                <div class="filter-groups">
+        <div id="filters-container">
+            <div id="filters-wrapper">
+                <h4>Search by</h4>
+                <div id="filters">
                     {{#unless searchTypes.type.tagOnlySearch}}
-                    <h5>Filter by tag</h5>
+                    <div class="filter-groups">
+                        <ul>
+                            <li>
+                                <a href="#" id="filter-users">
+                                    <div class="labels">
+                                        <span class="material-symbols-outlined">person</span>
+                                        <p>Users</p>
+                                    </div>
+                                    <span class="count">{{searchTypes.users.count}}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" id="filter-posts">
+                                    <div class="labels">
+                                        <span class="material-symbols-outlined">sticky_note_2</span>
+                                        <p>Posts</p>
+                                    </div>
+                                    <span class="count">{{searchTypes.posts.count}}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" id="filter-comments">
+                                    <div class="labels">
+                                        <span class="material-symbols-outlined">comment</span>
+                                        <p>Comments</p>
+                                    </div>
+                                    <span class="count">{{searchTypes.comments.count}}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" id="filter-tags">
+                                    <div class="labels">
+                                        <span class="material-symbols-outlined">tag</span>
+                                        <p>Tags</p>
+                                    </div>
+                                    <span class="count">{{searchTypes.tags.count}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                     {{/unless}}
-                    <ul>
-                        {{!-- filter every post by their tag present --}}
-                        {{#each searchTypes.tagCounts}}
-                        <li>
-                            <a href="#" class="filter-tags">
-                                <div class="labels">
-                                    <span class="material-symbols-outlined">tag</span>
-                                    <p>{{@key}}</p>
-                                </div>
-                                <span class="count">{{count}}</span>
-                            </a>
-                        </li>
-                        {{/each}}
-                    </ul>
-                </div>
-                {{/if}}
-                
-            </div> 
+                    
+                    {{#if searchTypes.type.isPost}}
+                    <div class="filter-groups">
+                        {{#unless searchTypes.type.tagOnlySearch}}
+                        <h5>Filter by tag</h5>
+                        {{/unless}}
+                        <ul>
+                            {{!-- filter every post by their tag present --}}
+                            {{#each searchTypes.tagCounts}}
+                            <li>
+                                <a href="#" class="filter-tags">
+                                    <div class="labels">
+                                        <span class="material-symbols-outlined">tag</span>
+                                        <p>{{@key}}</p>
+                                    </div>
+                                    <span class="count">{{count}}</span>
+                                </a>
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    {{/if}}
+                    
+                </div> 
+            </div>
         </div>
-        <div id="wrapper">
+        <div id="posts-container">
             <div id="posts-wrapper">
                 {{#if searchTypes.type.isPost}}
                     {{#each posts}}
@@ -110,6 +112,7 @@
                     {{/if}}
                 {{/if}}
             </div>
+            {{> pagination pagination}}
         </div>
     </main>
 

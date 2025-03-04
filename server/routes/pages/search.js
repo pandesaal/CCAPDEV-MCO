@@ -35,25 +35,35 @@ const search = async (req, res) => {
             getPostData(),       
             getCommentsData()    
         ]);
+
+        const filteredPosts = allPosts.filter(post => {
+            const query = searchParams.get('q')?.toLowerCase();
+        
+            const matchesQuery = query 
+                ? post.title.toLowerCase().includes(query) || post.content.toLowerCase().includes(query) 
+                : true;
+        
+            return matchesQuery;
+        });
+
+        const filteredUsers = allUsers.filter(user => 
+            user.credentials.username.toLowerCase().includes(searchParams.get('q')?.toLowerCase())
+        );
+
+        const filteredComments = allComments.filter(comment => 
+            comment.content.toLowerCase().includes(searchParams.get('q')?.toLowerCase())
+        );
+
+        const filteredTags = Object.entries(tags).filter(([key]) => key.toLowerCase().includes(searchParams.get('q')?.toLowerCase()));
     
-        const userCount = allUsers.filter(user => 
-            user.credentials.username.toLowerCase().includes(searchParams.get('q').toLowerCase())
-        ).length;
-
-        const postCount = allPosts.filter(post => 
-            post.title.toLowerCase().includes(searchParams.get('q').toLowerCase()) ||
-            post.content.toLowerCase().includes(searchParams.get('q').toLowerCase())
-        ).length;
-
-        const commentCount = allComments.filter(comment => 
-            comment.content.toLowerCase().includes(searchParams.get('q').toLowerCase())
-        ).length;
-
-        const tagCount = Object.entries(tags).filter(([key]) => key.includes(searchParams.get('q'))).length;
+        const postCount = filteredPosts.length;
+        const userCount = filteredUsers.length;
+        const commentCount = filteredComments.length;
+        const tagCount = filteredTags.length;
     
         const tagCounts = Object.fromEntries(
             Object.entries(
-                allPosts.reduce((acc, post) => {
+                filteredPosts.reduce((acc, post) => {
                     post.tags.forEach(tag => {
                         if (!acc[tag]) acc[tag] = { count: 0, latestPostDate: "0000-00-00" };
                         acc[tag].count += 1;
@@ -68,43 +78,31 @@ const search = async (req, res) => {
     
         switch (searchParams.get('type')) {
             case 'users':
-                content = allUsers.filter(user => 
-                    user.credentials.username.toLowerCase().includes(searchParams.get('q').toLowerCase())
-                );
+                content = filteredUsers;
                 type = { isUser: true };
                 break;
     
             case 'posts':
-                content = allPosts.filter(post => {
-                    const query = searchParams.get('q')?.toLowerCase();
+                content = filteredPosts.filter(post => {
                     const tagQuery = searchParams.get('tag')?.toLowerCase();
-                
-                    const matchesQuery = query 
-                        ? post.title.toLowerCase().includes(query) || post.content.toLowerCase().includes(query) 
-                        : true; 
                 
                     const matchesTag = tagQuery 
                         ? post.tags.some(tag => tag.toLowerCase().includes(tagQuery))
                         : true;
                 
-                    return matchesQuery && matchesTag;
+                    return matchesTag;
                 });
-                
-                type = { isPost: true };
+                type = { isPost: true, tagOnlySearch: searchParams.get('tag') && !searchParams.get('q') };
                 break;
     
             case 'comments':
-                content = allComments.filter(comment => 
-                    comment.content.toLowerCase().includes(searchParams.get('q').toLowerCase())
-                );
+                content = filteredComments;
                 type = { isComment: true };
                 break;
     
             case 'tags':
                 // filter tags based on query
-                content = Object.fromEntries(
-                    Object.entries(tags).filter(([key]) => key.includes(searchParams.get('q')))
-                );                
+                content = Object.fromEntries(filteredTags);                
                 type = { isTag: true };
                 break;
     

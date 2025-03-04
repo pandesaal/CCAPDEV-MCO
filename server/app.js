@@ -36,7 +36,11 @@ app.engine('hbs', hbs.engine({
                 return trimmed.substring(0, trimmed.lastIndexOf(" ")) + "...";
             }
             return str;
-        }
+        },
+        add: (a, b) => a + b,
+        subtract: (a, b) => a - b,
+        gt: (a, b) => a > b,
+        lt: (a, b) => a < b
     }
 }))
 app.set('view engine', 'hbs');

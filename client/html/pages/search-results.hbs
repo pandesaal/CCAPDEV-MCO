@@ -19,6 +19,7 @@
         <div id="filters-wrapper">
             <h4>Search by</h4>
             <div id="filters">
+                {{#unless searchTypes.type.tagOnlySearch}}
                 <div class="filter-groups">
                     <ul>
                         <li>
@@ -59,10 +60,13 @@
                         </li>
                     </ul>
                 </div>
+                {{/unless}}
                 
                 {{#if searchTypes.type.isPost}}
                 <div class="filter-groups">
+                    {{#unless searchTypes.type.tagOnlySearch}}
                     <h5>Filter by tag</h5>
+                    {{/unless}}
                     <ul>
                         {{!-- filter every post by their tag present --}}
                         {{#each searchTypes.tagCounts}}

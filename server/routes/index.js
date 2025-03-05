@@ -11,7 +11,7 @@ const getTags = require('../controllers/get-tags');
 const { createPost, editPost, deletePost } = require('../controllers/createPost');
 const { createComment, editComment, deleteComment } = require('../controllers/comment');
 
-const { deleteUser } = require('../controllers/editUser');
+const { editUser, deleteUser } = require('../controllers/editUser');
 
 const router = express.Router();
 
@@ -24,7 +24,8 @@ router.post('/createComment', createComment);
 router.put('/editComment', editComment);
 router.delete('/deleteComment', deleteComment);
 
-router.put('/deleteUser', deleteUser);
+router.delete('/deleteUser', deleteUser);
+router.put('/editUser', editUser);
 
 
 router.get('/api/tags', (req, res, next) => {

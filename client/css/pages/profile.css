@@ -27,6 +27,29 @@ main {
     margin-right: 20em;
 }
 
+#editIconBtn {
+    position: absolute;
+    bottom: 0.25em;
+    right: 2.05em;
+}
+
+#iconWrapper {
+    position: relative;
+    display: inline-block;
+    margin: 0.05em;
+}
+
+#iconWrapper span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    width: 1.4em;
+    height: 1.4em;
+    color: var(--color-light);
+    background-color: var(--color-dark);
+}
+
 #bio {
     padding: 0.5em;
     width: 25em;

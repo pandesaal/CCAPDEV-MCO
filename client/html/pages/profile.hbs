@@ -17,7 +17,10 @@
 
     <main>
         <div id="profileHeader">
-            <img src="../../assets/defaulticon.png" class="icon" id="profilePic">
+            <div id="iconWrapper">
+                <img src="../../assets/defaulticon.png" class="icon" id="profilePic">
+                <button id="editIconBtn" class="hide"><span class="material-symbols-outlined">add_a_photo</span></button>
+            </div>
             <div id="info">
                 <h1 id="username">{{user.credentials.username}}</h1>
                 <p id="bio">{{user.decor.bio}}</p>

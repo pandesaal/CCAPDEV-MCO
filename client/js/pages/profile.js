@@ -21,6 +21,7 @@ function editProfile(e) {
         document.getElementById("bio").classList.add("editable");
         document.getElementById("deleteProfileBtn").classList.remove("hide");
         // document.getElementById("changePassBtn").classList.remove("hide");
+        document.getElementById("editIconBtn").classList.remove("hide");
         e.target.innerText = "Save Changes";
         bio.contentEditable = true;
 
@@ -35,11 +36,12 @@ function editProfile(e) {
         
         profileImage.contentEditable = true;
     }
-    else {
+    else { // save changes
         document.getElementById("profilePic").classList.remove("editable");
         document.getElementById("bio").classList.remove("editable");
         document.getElementById("deleteProfileBtn").classList.add("hide");
         // document.getElementById("changePassBtn").classList.add("hide");
+        document.getElementById("editIconBtn").classList.add("hide");
         e.target.innerText = "Edit Profile";
         bio.contentEditable = false;
         profileImage.contentEditable = false;
@@ -72,7 +74,7 @@ async function deleteProfile(e) {
     const username = JSON.parse(sessionStorage.getItem('user')).username;
     try {
         const response = await fetch('/deleteUser', {
-            method: 'PUT',
+            method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username })
         });            

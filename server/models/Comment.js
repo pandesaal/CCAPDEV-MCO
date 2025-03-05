@@ -9,7 +9,8 @@ const commentSchema = new mongoose.Schema({
     content: { type: String, required: true},
     likes: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
     dislikes: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
-    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+    deleted: [{ type: Boolean, default: false }]
 }, {collection: 'Comments'});
 
 commentSchema.virtual('likeCount').get(() => {

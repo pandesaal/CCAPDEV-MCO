@@ -11,7 +11,8 @@ const postSchema = new mongoose.Schema({
     tags: [{type: String}],
     likes: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
     dislikes: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
-    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+    deleted: [{ type: Boolean, default: false }]
 },{collection: 'Posts'});
 
 postSchema.virtual('likeCount').get(() => {

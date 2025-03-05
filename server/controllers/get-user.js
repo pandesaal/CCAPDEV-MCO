@@ -7,13 +7,15 @@ const getUserData = async ({ username = null, exactMatch = false, page = 1, limi
 
     try {
         const query = User.find(filters)
-            .select('credentials.username decor.bio decor.icon')
+            .select('credentials.username decor.bio decor.icon posts comments')
+            .populate('posts')
+            .populate('comments')
             .skip((page - 1) * limit)
             .limit(limit);
 
         const users = await query.lean();
         const totalCount = await User.countDocuments(filters);
-
+        
         return { users, totalPages: Math.ceil(totalCount / limit), currentPage: page };
     } catch (error) {
         console.error(error);

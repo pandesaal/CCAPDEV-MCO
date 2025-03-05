@@ -21,10 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // // Handle the upload button click
-    // document.getElementById('editPostBtn').addEventListener('click', () => {
-    //     document.getElementById('editModal').style.display = 'none';
-    // });
+    // Handle the upload button click
+    document.getElementById('editPostBtn').addEventListener('click', () => {
+        document.getElementById('editModal').style.display = 'none';
+    });
 
     document.getElementById('filter-users').href = searchByFilters('type', 'users');
     document.getElementById('filter-posts').href = searchByFilters('type', 'posts');

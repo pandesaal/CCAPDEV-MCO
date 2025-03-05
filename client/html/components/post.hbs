@@ -10,7 +10,7 @@
         <div class="post-options">
             <span class="material-symbols-outlined post-options-button">more_horiz</span>
             <ul class="post-menu hide">
-                <li class="post-menu-options editBtn" dataPostId="{{postId}}">Edit</li>
+                <li class="post-menu-options editBtn" editPostId="{{postId}}">Edit</li>
                 <li class="post-menu-options deleteBtn" deletePostId="{{postId}}">Delete</li>
             </ul>
         </div>
@@ -57,7 +57,7 @@
             {{/if}}
             </span>
         </div>
-        <div class="post-button post-comment">
+        <div class="post-button post-comment" commentPostId="{{postId}}">
             <span class="material-symbols-outlined post-button-icon">chat_bubble</span>
             <span class="post-count">
             {{#if comments.length}}

@@ -12,7 +12,7 @@ export const postInjector = () => {
     document.querySelectorAll('.editBtn').forEach(button => {
         button.addEventListener('click', () => {
             const post = button.closest('.post');
-            const postId = button.getAttribute('dataPostId');
+            const postId = button.getAttribute('editPostId');
             sessionStorage.setItem("editPostId", postId);
 
             const title = post.querySelector('.post-title h3').innerText;

@@ -62,7 +62,6 @@ const editPost = async (req, res) => {
 };
 
 const serverDeletePost = async (req) => {
-    console.log('Request body from server:', req.body);
     const { postId, authorName } = req.body;
 
     try {
@@ -98,7 +97,6 @@ const serverDeletePost = async (req) => {
 
 const deletePost = async (req, res) => {
     try {
-        console.log('Request body:', req.body);
         const result = await serverDeletePost(req);
         if (result) res.status(200).json({ message: 'Post deleted successfully' });
         else res.status(500).json({ message: 'Error in deleting post: ', error });

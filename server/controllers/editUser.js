@@ -26,8 +26,6 @@ const deleteUser = async(req, res) => {
             if (!res.success) {
                 console.error('Failed to delete post: ', res.error);
             }
-
-            console.log('currently: ', i);
         }
 
         // insert deleting comments here

@@ -1,35 +1,42 @@
-const Post = require('../models/Post');
 const User = require('../models/User');
+const Post = require('../models/Post');
+const Comment = require('../models/Comment');
 
-const createPost = async (req, res) => {    
-    const { authorName, title, content, contentShort, tags} = req.body;
+const createComment = async (req, res) => {    
+    const { authorName, postId, replyToRefPath, content } = req.body;
     
     try {
-        console.log('Received post data:', { authorName, title, content, contentShort, tags });
+        console.log('Received comment data:', { authorName, postId, replyToRefPath, content });
         const user = await User.findOne({ 'credentials.username': authorName });
         if (!user) {
             return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });
         }
 
-        const newPost = new Post({
+        const post = await Post.findOne({ postId });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        const newComment = new Comment({
             author: user._id, 
-            title: title.trim(),
-            content: content.trim(),
-            contentShort: contentShort.trim(),
-            tags: Array.isArray(tags) ? tags.map(tag => tag.trim()) : []
+            replyTo: post._id,
+            replyToRefPath: replyToRefPath,
+            content: content
         });
 
-        user.posts.push(newPost._id);
-        await newPost.save();
+        user.comments.push(newComment._id);
+        post.comments.push(newComment._id);
+        await newComment.save();
         await user.save();
+        await post.save();
 
-        res.status(201).json({ message: 'Post created successfully', post: newPost});
+        res.status(201).json({ message: 'Comment created successfully', comment: newComment});
     } catch (error) {
-        res.status(500).json({ message: 'Error uploading a post.', error });
+        res.status(500).json({ message: 'Error uploading a comment.', error });
     }
 };
 
-const editPost = async (req, res) => {
+const editComment = async (req, res) => {
     const { postId, title, content, contentShort, tags, authorName } = req.body;
 
     try {
@@ -61,7 +68,7 @@ const editPost = async (req, res) => {
     }
 };
 
-const deletePost = async (req, res) => {
+const deleteComment = async (req, res) => {
     const { postId, authorName } = req.body;
 
     try {
@@ -79,13 +86,11 @@ const deletePost = async (req, res) => {
             return res.status(403).json({ message: "Unauthorized to delete this post." });
         }
 
-        user.posts.pull(post._id);
         await Post.deleteOne({ postId });
-        await user.save();
         res.status(200).json({ message: 'Post deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Error deleting the post', error });
     }
 };
 
-module.exports = { createPost, editPost, deletePost };
+module.exports = { createComment, editComment, deleteComment };

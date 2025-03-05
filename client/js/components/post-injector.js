@@ -7,12 +7,21 @@ export const postInjector = () => {
             button.closest('.post').querySelector('.post-menu').classList.toggle('hide')
         })
     })
+
+    // View a Single Post
+    document.querySelectorAll('.viewPost').forEach(button => {
+        button.addEventListener('click', () => {
+            const post = button.closest('.post');
+            const postId = button.getAttribute('viewPostId');
+            sessionStorage.setItem("viewPostId", postId);
+        });
+    });
     
     // Post Menu Button: Edit
     document.querySelectorAll('.editBtn').forEach(button => {
         button.addEventListener('click', () => {
             const post = button.closest('.post');
-            const postId = button.getAttribute('dataPostId');
+            const postId = button.getAttribute('editPostId');
             sessionStorage.setItem("editPostId", postId);
 
             const title = post.querySelector('.post-title h3').innerText;
@@ -74,6 +83,7 @@ export const postInjector = () => {
                 alert("Post updated successfully!");
                 console.log('Post updated successfully:', data);
                 sessionStorage.removeItem("editPostId");
+                document.getElementById('editModal').classList.add('hide');
                 window.location.reload();
             }
         } catch (err) {
@@ -146,7 +156,7 @@ export const postInjector = () => {
     document.querySelectorAll('.close').forEach(button => {
         button.addEventListener('click', () => {
             const modal = button.closest('.modal');
-            modal.classList.add('hide')
+            modal.classList.add('hide');
         });
     });
 };

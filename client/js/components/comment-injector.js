@@ -79,7 +79,7 @@ export const commentInjector = (commentsArray = comments) => {
                         comment.querySelector('.comment-edit').classList.remove('hide');
                     }
                 })
-            })
+            });
 
             // edit comment
             document.querySelectorAll('.editCommBtn').forEach(button => {

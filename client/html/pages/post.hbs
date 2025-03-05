@@ -19,11 +19,11 @@
             <div id="post-wrapper">
                 <!-- This part will show a single post using the format from post.html -->
                 {{> post posts fullContent=true}}
-                <div id="comment-input-box">
-                    <form method="post">
+                <div class="comment-input-box">
+                    <form id="createCommentForm" method="post">
                         <input name="comment-content" id="comment-input" placeholder="Add a comment..." />
-                    </form>
-                    <span class="material-symbols-outlined">send</span>
+                        <button><span class="material-symbols-outlined" type="submit">send</span></button>
+                    </form> 
                 </div>
             </div>
             <div id="commentsSection">

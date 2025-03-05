@@ -11,12 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             console.log('click')
             const modal = button.closest('.modal');
-            modal.style.display = 'none'
+            modal.classList.add('hide');
         });
     });
 
     // Handle the upload button click
     document.getElementById('editPostBtn').addEventListener('click', () => {
-        document.getElementById('editModal').style.display = 'none';
+        document.getElementById('editModal').classList.add('hide');
     });
 });

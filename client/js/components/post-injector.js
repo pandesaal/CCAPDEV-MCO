@@ -74,6 +74,7 @@ export const postInjector = () => {
                 alert("Post updated successfully!");
                 console.log('Post updated successfully:', data);
                 sessionStorage.removeItem("editPostId");
+                document.getElementById('editModal').classList.add('hide');
                 window.location.reload();
             }
         } catch (err) {
@@ -146,7 +147,7 @@ export const postInjector = () => {
     document.querySelectorAll('.close').forEach(button => {
         button.addEventListener('click', () => {
             const modal = button.closest('.modal');
-            modal.classList.add('hide')
+            modal.classList.add('hide');
         });
     });
 };

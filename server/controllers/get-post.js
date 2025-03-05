@@ -41,7 +41,14 @@ const getPostData = async ({ postId, search, comments = false, page = 1, limit =
             posts: posts.map(post => ({
                 ...post,
                 datePosted: new Date(post.datePosted).toISOString().split('T')[0],
-                dateEdited: new Date(post.dateEdited).toISOString().split('T')[0]
+                dateEdited: new Date(post.dateEdited).toISOString().split('T')[0],
+                comments: comments
+                ? post.comments?.map(comment => ({
+                    ...comment,
+                    datePosted: new Date(comment.datePosted).toISOString().split('T')[0],
+                    dateEdited: new Date(comment.dateEdited).toISOString().split('T')[0]
+                }))
+                : undefined
             })),
             totalPages: Math.ceil(totalCount / limit),
             currentPage: page

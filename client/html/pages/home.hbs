@@ -20,9 +20,13 @@
             <h2 id="main-header">Recently Posted</h2>
             <div id="content-wrapper">
                 <div id="posts-wrapper">
-                    {{#each posts}}
-                        {{> post this fullContent=false}}
-                    {{/each}}
+                    {{#if posts.length}}
+                        {{#each posts}}
+                            {{> post this fullContent=false}}
+                        {{/each}}
+                    {{else}}
+                        <p>No posts found.</p>
+                    {{/if}}
                 </div>
                 
                 <aside id="tags-area">

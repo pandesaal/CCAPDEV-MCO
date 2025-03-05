@@ -90,6 +90,7 @@
         </div>
         <div id="posts-container">
             <div id="posts-wrapper">
+                {{#if posts.length}}
                 {{#if searchTypes.type.isPost}}
                     {{#each posts}}
                         {{> post this fullContent=false}}
@@ -110,6 +111,9 @@
                             {{/each}}
                         {{/if}}
                     {{/if}}
+                {{/if}}
+                {{else}}
+                <p>No results found.</p>
                 {{/if}}
             </div>
             {{> pagination pagination}}

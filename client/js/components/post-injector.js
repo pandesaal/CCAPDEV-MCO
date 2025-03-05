@@ -48,7 +48,10 @@ export const postInjector = () => {
         event.preventDefault();
         
         const userInfo = JSON.parse(sessionStorage.getItem('user'));
-        const authorName = userInfo.username;
+        let authorName;
+        if(userInfo){
+            authorName = userInfo.username;
+        }
         const postId = sessionStorage.getItem('editPostId');
         const title = document.getElementById('editPostTextTitle').value.trim();
         const content = document.getElementById('editPostTextContent').value.trim();
@@ -100,9 +103,11 @@ export const postInjector = () => {
     // Delete Post Modal Button: Delete
     document.querySelectorAll('.deletePostBtn').forEach(button => {
         button.addEventListener('click', async () => {
-        
             const userInfo = JSON.parse(sessionStorage.getItem('user'));
-            const authorName = userInfo.username;
+            let authorName;
+            if(userInfo){
+                authorName = userInfo.username;
+            }
             const postId = sessionStorage.getItem('deletePostId');
             try {
                 const response = await fetch('/deletePost', {

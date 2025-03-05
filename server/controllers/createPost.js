@@ -8,7 +8,7 @@ const createPost = async (req, res) => {
         console.log('Received post data:', { authorName, title, content, contentShort, tags });
         const user = await User.findOne({ 'credentials.username': authorName });
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });
         }
 
         const newPost = new Post({
@@ -33,7 +33,7 @@ const editPost = async (req, res) => {
     try {
         const user = await User.findOne({ 'credentials.username': authorName });
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });
         }
 
         const post = await Post.findOne({ postId });
@@ -65,7 +65,7 @@ const deletePost = async (req, res) => {
     try {
         const user = await User.findOne({ 'credentials.username': authorName });
         if (!user) {
-            return res.status(404).json({ message: "No user is currently logged in." });
+            return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });
         }
 
         const post = await Post.findOne({ postId });

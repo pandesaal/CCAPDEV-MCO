@@ -48,7 +48,7 @@ const getPostData = async ({ postId, search, comments = false, page = 1, limit =
                     datePosted: new Date(comment.datePosted).toISOString().split('T')[0],
                     dateEdited: new Date(comment.dateEdited).toISOString().split('T')[0]
                 }))
-                : undefined
+                : post.comments
             })),
             totalPages: Math.ceil(totalCount / limit),
             currentPage: page

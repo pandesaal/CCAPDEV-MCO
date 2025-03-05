@@ -22,7 +22,7 @@ const page_renderer = async (view, req, res, data = {}) => {
         });
     } catch (err) {
         console.error("Error loading template:", err);
-        res.status(500).send("Error loading page");
+        res.status(404).render('404', {layout: false});
     }
 };
 

@@ -50,73 +50,53 @@ export const commentInjector = (commentsArray = comments) => {
     const commentsContainer = document.getElementById('commentsList');
     commentsContainer.innerHTML = "";
 
-    fetch('../../html/components/comment.html')
-        .then(response => response.text())
-        .then(template => {
-            
-            let allCommentsString = commentsArray.map(comment => 
-                template
-                    .replace('{{username}}', comment.username)
-                    .replace('{{date-posted}}', comment.datePosted)
-                    .replace('{{comment-id}}', comment.id)
-                    .replace('{{comment-content}}', comment.content)
-            ).join('');
+    document.querySelectorAll('.comment-options-button').forEach(button => {
+        button.addEventListener('click', (e) => {
+            if (e.target.textContent === 'more_horiz') {
+                button.closest('.comment').querySelector('.comment-menu').classList.toggle('hide'); // opens menu if it's the "..." icon
+            }
+            else { // saves the edited comment if it's the check icon
+                const comment = button.closest('.comment');
 
-            const allCommentsHTML = document.createRange().createContextualFragment(allCommentsString);
-            commentsContainer.appendChild(allCommentsHTML);
-
-            document.querySelectorAll('.comment-options-button').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    if (e.target.textContent === 'more_horiz') {
-                        button.closest('.comment').querySelector('.comment-menu').classList.toggle('hide'); // opens menu if it's the "..." icon
-                    }
-                    else { // saves the edited comment if it's the check icon
-                        const comment = button.closest('.comment');
-
-                        Array.from(comment.querySelectorAll('.comment-options-button')).find(btn => btn.textContent === 'done_outline').classList.add('hide');
-                        Array.from(comment.querySelectorAll('.comment-options-button')).find(btn => btn.textContent === 'more_horiz').classList.remove('hide');
-                        comment.querySelector('.comment-content').classList.remove('editable');
-                        comment.querySelector('.comment-edit').classList.remove('hide');
-                    }
-                })
-            });
-
-            // edit comment
-            document.querySelectorAll('.editCommBtn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const comment = button.closest('.comment');
-
-                    const hiddenButton = comment.querySelector('.comment-options-button.hide');
-
-                    comment.querySelector('.comment-options-button').classList.add('hide');
-                    comment.querySelector('.comment-menu').classList.add('hide');
-                    comment.querySelector('.comment-content').classList.add('editable');
-
-                    // for blinking cursor during edit
-                    /*
-                    const content = comment.querySelector('.comment-content');
-                    content.focus();
-                    let range = document.createRange();
-                    let selection = window.getSelection();
-                    range.selectNodeContents(content);
-                    range.collapse(false);
-                    selection.removeAllRanges();
-                    selection.addRange(range);
-                    */
-
-                    hiddenButton.classList.remove('hide');
-                });
-            });
-
-            document.querySelectorAll('.deleteCommBtn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    if (button.closest('.comment'))
-                        document.getElementById('deleteCommentModal').classList.remove('hide');
-                });
-            });
-
+                Array.from(comment.querySelectorAll('.comment-options-button')).find(btn => btn.textContent === 'done_outline').classList.add('hide');
+                Array.from(comment.querySelectorAll('.comment-options-button')).find(btn => btn.textContent === 'more_horiz').classList.remove('hide');
+                comment.querySelector('.comment-content').classList.remove('editable');
+                comment.querySelector('.comment-edit').classList.remove('hide');
+            }
         })
-        .catch(err => {
-            console.error("Error loading post template:", err);
+    });
+
+    // edit comment
+    document.querySelectorAll('.editCommBtn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const comment = button.closest('.comment');
+
+            const hiddenButton = comment.querySelector('.comment-options-button.hide');
+
+            comment.querySelector('.comment-options-button').classList.add('hide');
+            comment.querySelector('.comment-menu').classList.add('hide');
+            comment.querySelector('.comment-content').classList.add('editable');
+
+            // for blinking cursor during edit
+            /*
+            const content = comment.querySelector('.comment-content');
+            content.focus();
+            let range = document.createRange();
+            let selection = window.getSelection();
+            range.selectNodeContents(content);
+            range.collapse(false);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            */
+
+            hiddenButton.classList.remove('hide');
         });
+    });
+
+    document.querySelectorAll('.deleteCommBtn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            if (button.closest('.comment'))
+                document.getElementById('deleteCommentModal').classList.remove('hide');
+        });
+    });
 };

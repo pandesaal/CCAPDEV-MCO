@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     credentials: {
         username: {type: String, required: true, unique: true},
-        passwordSalt: {type: String, required: true},
-        passwordHash: {type: String, required: true}
+        passwordSalt: {type: String, required: function () { return !this.deleted; }},
+        passwordHash: {type: String, required: function () { return !this.deleted; }}
     },
     decor : {
         bio: {type: String},
@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     },
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
-    deleted: [{ type: Boolean, default: false }]
+    deleted: { type: Boolean, default: false }
 }, {collection: 'Users'});
 
 const User = mongoose.model('User', userSchema);

@@ -1,7 +1,9 @@
 const Post = require('../models/Post');
 
-const getPostData = async ({ postId, search, comments = false, page = 1, limit = 15 } = {}) => {
+const getPostData = async ({ postId, search, comments = false, page = 1, limit = 15, deleted = false } = {}) => {
     const filters = {};
+
+    filters.deleted = deleted;
     
     if (postId) filters.postId = postId;
 

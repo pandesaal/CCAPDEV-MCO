@@ -66,3 +66,27 @@ document.getElementById('commentsTab').addEventListener('click', () => {
     postsTab.classList.remove('selected');
     commentsTab.classList.add('selected');
 });
+
+async function deleteProfile(e) {
+    // ADD CONFIRMATION MODAL
+    const username = JSON.parse(sessionStorage.getItem('user')).username;
+    try {
+        const response = await fetch('/deleteUser', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username })
+        });            
+
+        const data = await response.json();
+        if (!response.ok) {
+            alert(data.message);
+        } else {
+            sessionStorage.setItem('isLoggedIn', false);
+            sessionStorage.removeItem('user');
+            window.location.replace('/');
+        }
+    } catch (err) {
+        alert("Deleting user failed, try again later.");
+    }
+}
+document.getElementById('deleteProfileBtn').addEventListener('click', deleteProfile);

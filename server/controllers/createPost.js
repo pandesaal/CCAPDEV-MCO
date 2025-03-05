@@ -61,31 +61,51 @@ const editPost = async (req, res) => {
     }
 };
 
-const deletePost = async (req, res) => {
+const serverDeletePost = async (req) => {
+    console.log('Request body from server:', req.body);
     const { postId, authorName } = req.body;
 
     try {
         const user = await User.findOne({ 'credentials.username': authorName });
         if (!user) {
-            return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });
+            throw new Error('You are not currently logged in. Please log in to access this feature.');
         }
 
         const post = await Post.findOne({ postId });
         if (!post) {
-            return res.status(404).json({ message: "Post not found." });
+            throw new Error('Post not found.');
         }
 
         if (post.author.toString() !== user._id.toString()) {
-            return res.status(403).json({ message: "Unauthorized to delete this post." });
+            throw new Error('Unauthorized to delete this post.');
         }
 
+        post.title = '[deleted]';
+        post.content = '[deleted]';
+        post.deleted = true;
+        await post.save();
+
         user.posts.pull(post._id);
-        await Post.deleteOne({ postId });
         await user.save();
-        res.status(200).json({ message: 'Post deleted successfully' });
+
+        return { success: true };
+
     } catch (error) {
-        res.status(500).json({ message: 'Error deleting the post', error });
+        console.log('Error in deleting post (server side): ', error);
+        return { success: false, error: error.message };
     }
 };
 
-module.exports = { createPost, editPost, deletePost };
+const deletePost = async (req, res) => {
+    try {
+        console.log('Request body:', req.body);
+        const result = await serverDeletePost(req);
+        if (result) res.status(200).json({ message: 'Post deleted successfully' });
+        else res.status(500).json({ message: 'Error in deleting post: ', error });
+    } catch (error) {
+        console.log('Error in deleting post (client side): ', error);
+        res.status(500).json({ message: 'Error in deleting post: ', error });
+    }
+};
+
+module.exports = { createPost, editPost, serverDeletePost, deletePost };

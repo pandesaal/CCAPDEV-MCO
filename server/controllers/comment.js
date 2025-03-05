@@ -28,6 +28,7 @@ const createComment = async (req, res) => {
         post.comments.push(newComment._id);
 
         await newComment.save();
+        await user.save();
         await post.save();
 
         res.status(201).json({ message: 'Comment created successfully', comment: newComment});

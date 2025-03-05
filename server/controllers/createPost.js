@@ -19,7 +19,9 @@ const createPost = async (req, res) => {
             tags: Array.isArray(tags) ? tags.map(tag => tag.trim()) : []
         });
 
+        user.posts.push(newPost._id);
         await newPost.save();
+        await user.save();
 
         res.status(201).json({ message: 'Post created successfully', post: newPost});
     } catch (error) {
@@ -77,7 +79,9 @@ const deletePost = async (req, res) => {
             return res.status(403).json({ message: "Unauthorized to delete this post." });
         }
 
+        user.posts.pull(post._id);
         await Post.deleteOne({ postId });
+        await user.save();
         res.status(200).json({ message: 'Post deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Error deleting the post', error });

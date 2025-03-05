@@ -26,7 +26,6 @@ const createComment = async (req, res) => {
 
         user.comments.push(newComment._id);
         post.comments.push(newComment._id);
-
         await newComment.save();
         await user.save();
         await post.save();

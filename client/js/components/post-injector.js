@@ -7,6 +7,15 @@ export const postInjector = () => {
             button.closest('.post').querySelector('.post-menu').classList.toggle('hide')
         })
     })
+
+    // View a Single Post
+    document.querySelectorAll('.viewPost').forEach(button => {
+        button.addEventListener('click', () => {
+            const post = button.closest('.post');
+            const postId = button.getAttribute('viewPostId');
+            sessionStorage.setItem("viewPostId", postId);
+        });
+    });
     
     // Post Menu Button: Edit
     document.querySelectorAll('.editBtn').forEach(button => {

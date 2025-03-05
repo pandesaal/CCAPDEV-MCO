@@ -5,10 +5,11 @@ const profile = require('./pages/profile');
 const search = require('./pages/search');
 const post = require('./pages/post');
 
-const { createPost, editPost, deletePost } = require('../controllers/createPost');
 const { loginUser } = require('../controllers/login');
 const { signupUser } = require('../controllers/signup');
 const getTags = require('../controllers/get-tags');
+const { createPost, editPost, deletePost } = require('../controllers/createPost');
+const { createComment, editComment, deleteComment } = require('../controllers/comment');
 
 const router = express.Router();
 
@@ -17,6 +18,9 @@ router.post('/register', signupUser);
 router.post('/createPost', createPost);
 router.put('/editPost', editPost);
 router.delete('/deletePost', deletePost);
+router.post('/createComment', createComment);
+router.put('/editComment', editComment);
+router.delete('/deleteComment', deleteComment);
 
 router.get('/api/tags', (req, res, next) => {
     const acceptHeader = req.get('Accept');

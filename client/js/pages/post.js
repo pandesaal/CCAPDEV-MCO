@@ -19,4 +19,37 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('editPostBtn').addEventListener('click', () => {
         document.getElementById('editModal').classList.add('hide');
     });
+
+    // create comment
+    document.getElementById('createCommentForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        
+        const userInfo = JSON.parse(sessionStorage.getItem('user'));
+        let authorName;
+        if(userInfo){
+            authorName = userInfo.username;
+        }
+        const postId = sessionStorage.getItem('viewPostId');
+        const replyToRefPath = 'Post';
+
+        const content = document.querySelector('[name="comment-content"]').value.trim(); 
+        try {
+            const response = await fetch('/createComment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ authorName, postId, replyToRefPath, content }) 
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert("Comment uploaded successfully!");
+                window.location.reload(); 
+            } else {
+                alert(data.message);
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Uploading a comment failed, try again later.");
+        }
+    });
 });

@@ -14,7 +14,7 @@ const createComment = async (req, res) => {
 
         const post = await Post.findOne({ postId });
         if (!post) {
-            return res.status(404).json({ message: "Post not found" });
+            return res.status(404).json({ message: "Post not found." });
         }
 
         const newComment = new Comment({
@@ -30,46 +30,14 @@ const createComment = async (req, res) => {
         await user.save();
         await post.save();
 
-        res.status(201).json({ message: 'Comment created successfully', comment: newComment});
+        res.status(201).json({ message: 'Comment created successfully.', comment: newComment});
     } catch (error) {
         res.status(500).json({ message: 'Error uploading a comment.', error });
     }
 };
 
 const editComment = async (req, res) => {
-    const { postId, title, content, contentShort, tags, authorName } = req.body;
-
-    try {
-        const user = await User.findOne({ 'credentials.username': authorName });
-        if (!user) {
-            return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });
-        }
-
-        const post = await Post.findOne({ postId });
-        if (!post) {
-            return res.status(404).json({ message: "Post not found" });
-        }
-
-        if (post.author.toString() !== user._id.toString()) {
-            return res.status(403).json({ message: "Unauthorized to edit this post" });
-        }
-
-        post.title = title.trim();
-        post.content = content.trim();
-        post.contentShort = contentShort.trim();
-        post.tags = Array.isArray(tags) ? tags.map(tag => tag.trim()) : [];
-        post.dateEdited = new Date();
-
-        await post.save();
-
-        res.status(200).json({ message: 'Post updated successfully', post });
-    } catch (error) {
-        res.status(500).json({ message: 'Error editing the post', error });
-    }
-};
-
-const deleteComment = async (req, res) => {
-    const { postId, authorName } = req.body;
+    const { authorName, postId, commentId, content } = req.body;
 
     try {
         const user = await User.findOne({ 'credentials.username': authorName });
@@ -82,14 +50,50 @@ const deleteComment = async (req, res) => {
             return res.status(404).json({ message: "Post not found." });
         }
 
-        if (post.author.toString() !== user._id.toString()) {
-            return res.status(403).json({ message: "Unauthorized to delete this post." });
+        const comment = await Comment.findOne({ commentId });
+        if (!comment) {
+            return res.status(404).json({ message: "Comment not found." });
+        }
+        if (comment.author.toString() !== user._id.toString()) {
+            return res.status(403).json({ message: "Unauthorized to edit this comment." });
         }
 
-        await Post.deleteOne({ postId });
-        res.status(200).json({ message: 'Post deleted successfully' });
+        comment.content = content;
+        comment.dateEdited = new Date();
+
+        await comment.save();
+
+        res.status(200).json({ message: 'Comment updated successfully.', post });
     } catch (error) {
-        res.status(500).json({ message: 'Error deleting the post', error });
+        res.status(500).json({ message: 'Error editing the comment.', error });
+    }
+};
+
+const deleteComment = async (req, res) => {
+    const { commentId, authorName } = req.body;
+
+    try {
+        const user = await User.findOne({ 'credentials.username': authorName });
+        if (!user) {
+            return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });
+        }
+
+        const comment = await Comment.findOne({ commentId });
+        if (!comment) {
+            return res.status(404).json({ message: "Comment not found." });
+        }
+
+        if (comment.author.toString() !== user._id.toString()) {
+            return res.status(403).json({ message: "Unauthorized to delete this Comment." });
+        }
+
+        user.comments.pull(comment._id);
+        await Comment.deleteOne({ commentId });
+        await user.save();
+
+        res.status(200).json({ message: 'Comment deleted successfully.' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting the Comment.', error });
     }
 };
 

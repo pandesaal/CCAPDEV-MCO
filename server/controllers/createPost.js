@@ -84,9 +84,6 @@ const serverDeletePost = async (req) => {
         post.deleted = true;
         await post.save();
 
-        user.posts.pull(post._id);
-        await user.save();
-
         return { success: true };
 
     } catch (error) {

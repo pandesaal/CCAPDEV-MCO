@@ -26,12 +26,15 @@ export const navInjector = () => {
         }
 
         if (document.getElementById('sidebar-profile')) {
-            document.getElementById('sidebar-profile').href = `/${userInfo.username}`;
+            document.getElementById('sidebar-profile').href = `/user/${userInfo.username}`;
         }
 
         if (document.getElementById('nav-profile')) {
-            document.getElementById('nav-profile').href = `/${userInfo.username}`;
+            document.getElementById('nav-profile').href = `/user/${userInfo.username}`;
         }
+
+        const imageId = userInfo.icon;
+        document.getElementById('nav-icon-img').src = `/image/${imageId}`;
     }
 
     navRelatedScripts.forEach(scriptFile => {

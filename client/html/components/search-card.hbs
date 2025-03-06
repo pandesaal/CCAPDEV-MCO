@@ -3,10 +3,10 @@
         <div class="card-info">
             {{#if isUser}}
             <a href="/{{credentials.username}}" class="card-icon">
-                <img src="{{decor.icon}}" alt="icon">
+                <img src="/image/{{decor.icon}}" alt="icon">
             </a>
             <div class="card-info-text">
-                <a href="/{{credentials.username}}"><h3 class="card-username">{{credentials.username}}</h3></a>
+                <a href="/user/{{credentials.username}}"><h3 class="card-username">{{credentials.username}}</h3></a>
             </div>
             {{else}}
             <a href="/search?tag={{@key}}" class="card-icon">

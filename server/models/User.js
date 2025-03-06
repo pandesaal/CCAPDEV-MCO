@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     },
     decor : {
         bio: {type: String},
-        icon: { type: mongoose.Schema.Types.ObjectId, ref: 'uploads', default: new mongoose.Types.ObjectId('67c9edf4a91a98104ce4f253') }
+        icon: { type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId('67c9edf4a91a98104ce4f253') }
     },
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],

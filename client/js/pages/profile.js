@@ -10,7 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // shows edit profile buttons when it's logged-in user's profile
 if (sessionStorage.getItem('isLoggedIn') === 'true') {
     const userInfo = JSON.parse(sessionStorage.getItem('user'));
-    if (window.location.pathname.slice(1) === userInfo.username)
+    const paths = window.location.pathname.split('/');
+    const username = paths[2];
+    if (username === userInfo.username)
         document.getElementById("btnWrap").classList.remove("hide");
 }
 

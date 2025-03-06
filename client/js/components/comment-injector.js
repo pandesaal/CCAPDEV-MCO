@@ -51,16 +51,14 @@ export const commentInjector = () => {
             comment.querySelector('.comment-content').classList.add('editable');
 
             // for blinking cursor during edit
-            /*
-            const content = comment.querySelector('.comment-content');
-            content.focus();
-            let range = document.createRange();
-            let selection = window.getSelection();
-            range.selectNodeContents(content);
-            range.collapse(false);
-            selection.removeAllRanges();
-            selection.addRange(range);
-            */
+            // const content = comment.querySelector('.comment-content');
+            // content.focus();
+            // let range = document.createRange();
+            // let selection = window.getSelection();
+            // range.selectNodeContents(content);
+            // range.collapse(false);
+            // selection.removeAllRanges();
+            // selection.addRange(range);
 
             hiddenButton.classList.remove('hide');
         });

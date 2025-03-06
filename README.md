@@ -16,6 +16,7 @@ npm install mongoose
 npm install express-handlebars
 npm install dotenv
 npm install uuid
+npm install gridfs-stream
 ```
 ## External Sources
 - for icons: https://fonts.google.com/icons?icon.size=24&icon.color=%23e8eaed&icon.platform=web

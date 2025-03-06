@@ -8,8 +8,14 @@ const getUserData = async ({ username = null, exactMatch = false, page = 1, limi
     try {
         const query = User.find(filters)
             .select('credentials.username decor.bio decor.icon posts comments')
-            .populate('posts')
-            .populate('comments')
+            .populate({
+                path: 'posts',
+                match: { deleted: false }
+            })
+            .populate({
+                path: 'comments',
+                match: { deleted: false }
+            })
             .skip((page - 1) * limit)
             .limit(limit);
 

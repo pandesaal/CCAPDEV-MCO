@@ -25,8 +25,6 @@ router.put('/editComment', editComment);
 router.delete('/deleteComment', deleteComment);
 
 router.delete('/deleteUser', deleteUser);
-router.put('/editUser', editUser);
-
 
 router.get('/api/tags', (req, res, next) => {
     const acceptHeader = req.get('Accept');

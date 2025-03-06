@@ -3,7 +3,11 @@ const Post = require('../models/Post');
 const User = require('../models/User');
 const postModule = require('./createPost');
 
-const editUser = async(req, res) => {};
+const uploadImage = async(req, res) => {
+};
+
+const editUser = async(req, res) => {
+};
 
 const deleteUser = async(req, res) => {
     const { username } = req.body;
@@ -48,4 +52,4 @@ const deleteUser = async(req, res) => {
     }
 };
 
-module.exports = { editUser, deleteUser };
+module.exports = { uploadImage, editUser, deleteUser };

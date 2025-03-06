@@ -14,6 +14,22 @@ if (sessionStorage.getItem('isLoggedIn') === 'true') {
         document.getElementById("btnWrap").classList.remove("hide");
 }
 
+function viewState() {
+    document.getElementById("profilePic").classList.remove("editable");
+    document.getElementById("bio").classList.remove("editable");
+    document.getElementById("deleteProfileBtn").classList.add("hide");
+    // document.getElementById("changePassBtn").classList.add("hide");
+    document.getElementById("editIconBtn").classList.add("hide");
+    document.getElementById("discardChangesBtn").classList.add("hide");
+    document.getElementById("editButton").innerText = "Edit Profile";
+    originalBio = document.getElementById("bio").innerHTML;
+    originalIcon = document.getElementById('profilePic').src;
+    bio.contentEditable = false;
+}
+
+let originalBio = document.getElementById('bio').innerHTML;
+let originalIcon = document.getElementById('profilePic').src;
+
 // for editing profile page
 function editProfile(e) {
     if (e.target.innerText === "Edit Profile") {
@@ -22,6 +38,7 @@ function editProfile(e) {
         document.getElementById("deleteProfileBtn").classList.remove("hide");
         // document.getElementById("changePassBtn").classList.remove("hide");
         document.getElementById("editIconBtn").classList.remove("hide");
+        document.getElementById("discardChangesBtn").classList.remove("hide");
         e.target.innerText = "Save Changes";
         bio.contentEditable = true;
 
@@ -33,21 +50,36 @@ function editProfile(e) {
         range.collapse(false);
         selection.removeAllRanges();
         selection.addRange(range);
-        
-        profileImage.contentEditable = true;
     }
     else { // save changes
-        document.getElementById("profilePic").classList.remove("editable");
-        document.getElementById("bio").classList.remove("editable");
-        document.getElementById("deleteProfileBtn").classList.add("hide");
-        // document.getElementById("changePassBtn").classList.add("hide");
-        document.getElementById("editIconBtn").classList.add("hide");
-        e.target.innerText = "Edit Profile";
-        bio.contentEditable = false;
-        profileImage.contentEditable = false;
+        viewState();
+        // record changes here
     }
 }
 document.getElementById("editButton").addEventListener("click", editProfile);
+
+document.getElementById('discardChangesBtn').addEventListener('click', () => {
+    document.getElementById('bio').innerHTML = originalBio;
+    document.getElementById('profilePic').src = originalIcon;
+    viewState();
+});
+
+document.getElementById('editIconBtn').addEventListener('click', () => {
+    document.getElementById('uploadIconInput').click();
+});
+
+document.getElementById('uploadIconInput').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            document.getElementById('profilePic').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        alert('Please upload a PNG or JPEG image.');
+    }
+});
 
 // for switching of tabs
 const profilePosts = document.getElementById('profilePosts');

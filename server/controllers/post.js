@@ -19,9 +19,10 @@ const createPost = async (req, res) => {
             tags: Array.isArray(tags) ? tags.map(tag => tag.trim()) : []
         });
 
-        user.posts.push(newPost._id);
         await newPost.save();
-        await user.save();
+        await User.findByIdAndUpdate(user._id, {
+            $push: { posts: newPost._id }
+        });
 
         res.status(201).json({ message: 'Post created successfully', post: newPost});
     } catch (error) {

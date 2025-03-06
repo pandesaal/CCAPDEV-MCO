@@ -24,7 +24,7 @@ app.get('/favicon.ico', (req, res) => res.status(204).end());
 app.use(express.json());
 app.post('/signup', route);
 app.post('/login', route);
-app.post('/createPost', route);
+app.post('/post', route);
 app.post('/comment', route);
 
 app.engine('hbs', hbs.engine({

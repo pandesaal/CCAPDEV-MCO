@@ -8,7 +8,7 @@ const post = require('./pages/post');
 const { loginUser } = require('../controllers/login');
 const { signupUser } = require('../controllers/signup');
 const getTags = require('../controllers/get-tags');
-const { createPost, editPost, deletePost } = require('../controllers/createPost');
+const { createPost, editPost, deletePost } = require('../controllers/post');
 const { createComment, editComment, deleteComment } = require('../controllers/comment');
 
 const { editUser, deleteUser } = require('../controllers/editUser');

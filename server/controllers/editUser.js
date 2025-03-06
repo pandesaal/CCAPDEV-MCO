@@ -1,7 +1,7 @@
 const Comment = require('../models/Comment');
 const Post = require('../models/Post');
 const User = require('../models/User');
-const postModule = require('./createPost');
+const postModule = require('./post');
 
 const editUser = async(req, res) => {};
 

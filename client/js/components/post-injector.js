@@ -6,7 +6,7 @@ export const postInjector = () => {
         button.addEventListener('click', () => {
             button.closest('.post').querySelector('.post-menu').classList.toggle('hide')
         })
-    })
+    });
 
     // View a Single Post
     document.querySelectorAll('.viewPost').forEach(button => {

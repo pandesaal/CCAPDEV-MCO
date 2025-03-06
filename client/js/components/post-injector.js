@@ -1,5 +1,3 @@
-import { commentInjector, comments } from "./comment-injector.js";
-
 export const postInjector = () => {
 
     document.querySelectorAll('.post-options-button').forEach(button => {

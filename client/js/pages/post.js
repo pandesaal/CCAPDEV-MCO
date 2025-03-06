@@ -1,10 +1,12 @@
 import { navInjector } from "../components/nav-injector.js";
 import { postInjector } from "../components/post-injector.js";
+import { commentInjector } from "../components/comment-injector.js";
 
 document.addEventListener('DOMContentLoaded', () => {
 
     navInjector();
     postInjector();
+    commentInjector();
 
     // Close modal when the close button is clicked
     document.querySelectorAll('.close').forEach(button => {

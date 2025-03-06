@@ -1,12 +1,10 @@
-import { commentInjector, comments } from "./comment-injector.js";
-
 export const postInjector = () => {
 
     document.querySelectorAll('.post-options-button').forEach(button => {
         button.addEventListener('click', () => {
             button.closest('.post').querySelector('.post-menu').classList.toggle('hide')
         })
-    })
+    });
 
     // View a Single Post
     document.querySelectorAll('.viewPost').forEach(button => {

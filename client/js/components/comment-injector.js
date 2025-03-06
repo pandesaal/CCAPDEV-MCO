@@ -1,3 +1,80 @@
+export const commentInjector = () => {
+    document.querySelectorAll('.comment-options-button').forEach(button => {
+        button.addEventListener('click', async (e) => {
+            if (e.target.textContent === 'more_horiz') {
+                const userInfo = JSON.parse(sessionStorage.getItem('user'));
+                let currentUserName;
+                if(userInfo){
+                    currentUserName = userInfo.username;
+                }
+                const authorName = button.getAttribute('authorName');
+
+                try {
+                    const response = await fetch('/checkCommentAccess', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ currentUserName, authorName })
+                    });            
+    
+                    const data = await response.json();
+                    if (!response.ok) {
+                        alert(data.message);
+                        console.error('Error:', data.message);
+                    } else {
+                        button.closest('.comment').querySelector('.comment-menu').classList.toggle('hide'); // opens menu if it's the "..." icon
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert("Accessing the menu options for a comment failed, try again later.");
+                }
+            }
+            else { // saves the edited comment if it's the check icon
+                const comment = button.closest('.comment');
+
+                Array.from(comment.querySelectorAll('.comment-options-button')).find(btn => btn.textContent === 'done_outline').classList.add('hide');
+                Array.from(comment.querySelectorAll('.comment-options-button')).find(btn => btn.textContent === 'more_horiz').classList.remove('hide');
+                comment.querySelector('.comment-content').classList.remove('editable');
+                comment.querySelector('.comment-edit').classList.remove('hide');
+            }
+        })
+    });
+
+    // edit comment
+    document.querySelectorAll('.editCommBtn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const comment = button.closest('.comment');
+
+            const hiddenButton = comment.querySelector('.comment-options-button.hide');
+
+            comment.querySelector('.comment-options-button').classList.add('hide');
+            comment.querySelector('.comment-menu').classList.add('hide');
+            comment.querySelector('.comment-content').classList.add('editable');
+
+            // for blinking cursor during edit
+            /*
+            const content = comment.querySelector('.comment-content');
+            content.focus();
+            let range = document.createRange();
+            let selection = window.getSelection();
+            range.selectNodeContents(content);
+            range.collapse(false);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            */
+
+            hiddenButton.classList.remove('hide');
+        });
+    });
+
+    document.querySelectorAll('.deleteCommBtn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            if (button.closest('.comment'))
+                document.getElementById('deleteCommentModal').classList.remove('hide');
+        });
+    });
+};
+
+/*
 const getRandomDate = (startYear, endYear) => {
     const start = new Date(startYear, 0, 1).getTime();
     const end = new Date(endYear, 11, 31).getTime();
@@ -45,58 +122,4 @@ export const comments = [
       likes: 8
     }
 ];
-
-export const commentInjector = (commentsArray = comments) => {
-    const commentsContainer = document.getElementById('commentsList');
-    commentsContainer.innerHTML = "";
-
-    document.querySelectorAll('.comment-options-button').forEach(button => {
-        button.addEventListener('click', (e) => {
-            if (e.target.textContent === 'more_horiz') {
-                button.closest('.comment').querySelector('.comment-menu').classList.toggle('hide'); // opens menu if it's the "..." icon
-            }
-            else { // saves the edited comment if it's the check icon
-                const comment = button.closest('.comment');
-
-                Array.from(comment.querySelectorAll('.comment-options-button')).find(btn => btn.textContent === 'done_outline').classList.add('hide');
-                Array.from(comment.querySelectorAll('.comment-options-button')).find(btn => btn.textContent === 'more_horiz').classList.remove('hide');
-                comment.querySelector('.comment-content').classList.remove('editable');
-                comment.querySelector('.comment-edit').classList.remove('hide');
-            }
-        })
-    });
-
-    // edit comment
-    document.querySelectorAll('.editCommBtn').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const comment = button.closest('.comment');
-
-            const hiddenButton = comment.querySelector('.comment-options-button.hide');
-
-            comment.querySelector('.comment-options-button').classList.add('hide');
-            comment.querySelector('.comment-menu').classList.add('hide');
-            comment.querySelector('.comment-content').classList.add('editable');
-
-            // for blinking cursor during edit
-            /*
-            const content = comment.querySelector('.comment-content');
-            content.focus();
-            let range = document.createRange();
-            let selection = window.getSelection();
-            range.selectNodeContents(content);
-            range.collapse(false);
-            selection.removeAllRanges();
-            selection.addRange(range);
-            */
-
-            hiddenButton.classList.remove('hide');
-        });
-    });
-
-    document.querySelectorAll('.deleteCommBtn').forEach(button => {
-        button.addEventListener('click', (e) => {
-            if (button.closest('.comment'))
-                document.getElementById('deleteCommentModal').classList.remove('hide');
-        });
-    });
-};
+*/

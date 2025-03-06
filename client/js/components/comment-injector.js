@@ -1,8 +1,32 @@
 export const commentInjector = () => {
     document.querySelectorAll('.comment-options-button').forEach(button => {
-        button.addEventListener('click', (e) => {
+        button.addEventListener('click', async (e) => {
             if (e.target.textContent === 'more_horiz') {
-                button.closest('.comment').querySelector('.comment-menu').classList.toggle('hide'); // opens menu if it's the "..." icon
+                const userInfo = JSON.parse(sessionStorage.getItem('user'));
+                let currentUserName;
+                if(userInfo){
+                    currentUserName = userInfo.username;
+                }
+                const authorName = button.getAttribute('authorName');
+
+                try {
+                    const response = await fetch('/checkCommentAccess', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ currentUserName, authorName })
+                    });            
+    
+                    const data = await response.json();
+                    if (!response.ok) {
+                        alert(data.message);
+                        console.error('Error:', data.message);
+                    } else {
+                        button.closest('.comment').querySelector('.comment-menu').classList.toggle('hide'); // opens menu if it's the "..." icon
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert("Accessing the menu options for a comment failed, try again later.");
+                }
             }
             else { // saves the edited comment if it's the check icon
                 const comment = button.closest('.comment');

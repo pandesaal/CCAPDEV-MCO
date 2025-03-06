@@ -9,7 +9,7 @@ const { loginUser } = require('../controllers/login');
 const { signupUser } = require('../controllers/signup');
 const getTags = require('../controllers/get-tags');
 const { createPost, editPost, deletePost } = require('../controllers/post');
-const { createComment, editComment, deleteComment } = require('../controllers/comment');
+const { checkCommentAccess, createComment, editComment, deleteComment } = require('../controllers/comment');
 
 const { editUser, deleteUser } = require('../controllers/editUser');
 
@@ -20,6 +20,7 @@ router.post('/register', signupUser);
 router.post('/createPost', createPost);
 router.put('/editPost', editPost);
 router.delete('/deletePost', deletePost);
+router.post('/checkCommentAccess', checkCommentAccess);
 router.post('/createComment', createComment);
 router.put('/editComment', editComment);
 router.delete('/deleteComment', deleteComment);

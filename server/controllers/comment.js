@@ -2,6 +2,31 @@ const User = require('../models/User');
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 
+const checkCommentAccess = async (req, res) => {    
+    const { currentUserName, authorName } = req.body;
+    
+    try {
+        console.log('Received comment data:', { currentUserName, authorName });
+        const user = await User.findOne({ 'credentials.username': currentUserName });
+        if (!user) {
+            return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });
+        }
+        
+        const author = await User.findOne({ 'credentials.username': authorName });
+        if (!author) {
+            return res.status(404).json({ message: "Author not found." });
+        }
+
+        if (user._id.toString() !== author._id.toString()) {
+            return res.status(404).json({ message: "Unauthorized to edit/delete this comment." });
+        }
+
+        res.status(201).json({ message: 'Comment menu options opened successfully.'});
+    } catch (error) {
+        res.status(500).json({ message: 'Error accessing the comment menu options.', error });
+    }
+};
+
 const createComment = async (req, res) => {    
     const { authorName, postId, replyToRefPath, content } = req.body;
     
@@ -101,4 +126,4 @@ const deleteComment = async (req, res) => {
     }
 };
 
-module.exports = { createComment, editComment, deleteComment };
+module.exports = { checkCommentAccess, createComment, editComment, deleteComment };

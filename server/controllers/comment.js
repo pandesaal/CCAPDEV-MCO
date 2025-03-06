@@ -24,11 +24,15 @@ const createComment = async (req, res) => {
             content: content
         });
 
-        user.comments.push(newComment._id);
-        post.comments.push(newComment._id);
         await newComment.save();
-        await user.save();
-        await post.save();
+
+        await User.findByIdAndUpdate(user._id, {
+            $push: { comments: newComment._id }
+        });
+
+        await Post.findByIdAndUpdate(post._id, {
+            $push: { comments: newComment._id }
+        });
 
         res.status(201).json({ message: 'Comment created successfully.', comment: newComment});
     } catch (error) {

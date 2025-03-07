@@ -159,7 +159,41 @@ export const postInjector = () => {
     });
 
     // Like Button
-    document.querySelectorAll('.post-like').forEach(button => {
+    document.querySelectorAll('.post-like').forEach(async button => {
+
+        const userInfo = JSON.parse(sessionStorage.getItem('user'));
+        if (userInfo) {
+            const postId = button.getAttribute('postId');
+    
+            try {
+                const response = await fetch(`/api/likedPosts?postId=${postId}&authorName=${encodeURIComponent(userInfo.username)}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    alert(errorData.message);
+                    return
+                }
+    
+                const data = await response.json();
+                const icon = button.querySelector('.post-button-icon');
+    
+                if (data.liked) {
+                    icon.classList.add('reacted');
+                    button.setAttribute('liked', "true");
+                } else {
+                    icon.classList.remove('reacted');
+                    button.setAttribute('liked', "false");
+                }
+    
+            } catch (error) {
+                console.error("Error toggling like:", error);
+            }
+        }
+
+
         button.addEventListener('click', async () => {
             const userInfo = JSON.parse(sessionStorage.getItem('user'));
             if (!userInfo) {
@@ -203,45 +237,3 @@ export const postInjector = () => {
         });
     });    
 };
-
-const toggleReactedClass = async (button) => {
-    const userInfo = JSON.parse(sessionStorage.getItem('user'));
-    if (!userInfo) {
-        alert("Log in to like a post.");
-        return;
-    }
-
-    const postId = button.getAttribute('postId');
-    let liked = button.getAttribute('liked') === "true";
-
-    try {
-        const response = await fetch('/toggleLike', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ postId, authorName: userInfo.username })
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            alert(errorData.message);
-            return;
-        }
-
-        const data = await response.json();
-        const icon = button.querySelector('.post-button-icon');
-        const likeCountElement = button.querySelector('.post-count');
-
-        if (data.liked) {
-            icon.classList.add('reacted');
-            button.setAttribute('liked', "true");
-        } else {
-            icon.classList.remove('reacted');
-            button.setAttribute('liked', "false");
-        }
-
-        likeCountElement.textContent = data.likeCount > 0 ? data.likeCount : "Like";
-
-    } catch (error) {
-        console.error("Error toggling like:", error);
-    }
-}

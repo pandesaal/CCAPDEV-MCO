@@ -12,7 +12,7 @@ const post = require('./pages/post');
 const { loginUser } = require('../controllers/login');
 const { signupUser } = require('../controllers/signup');
 const getTags = require('../controllers/get-tags');
-const { createPost, editPost, deletePost, toggleLike, toggleDislike } = require('../controllers/post');
+const { createPost, editPost, deletePost, toggleLike, toggleDislike, checkLikeStatus } = require('../controllers/post');
 const { checkCommentAccess, createComment, editComment, deleteComment } = require('../controllers/comment');
 
 const { deleteFile, editUser, deleteUser } = require('../controllers/user');
@@ -33,7 +33,7 @@ router.put('/toggleDislike', toggleDislike);
 
 router.delete('/deleteUser', deleteUser);
 
-router.get('/api/tags', (req, res, next) => {
+const verify = (req, res, next) => {
     const acceptHeader = req.get('Accept');
 
     if (!acceptHeader || acceptHeader.includes('text/html')) {
@@ -41,7 +41,10 @@ router.get('/api/tags', (req, res, next) => {
     }
 
     next();
-} , getTags);
+}
+
+router.get('/api/likedPosts', verify, checkLikeStatus);
+router.get('/api/tags', verify, getTags);
 
 router.get('/', home);
 router.get('/search', search);

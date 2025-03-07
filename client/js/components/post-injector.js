@@ -159,9 +159,48 @@ export const postInjector = () => {
     });
 
     // Like Button
-    document.querySelectorAll('.post-like').forEach(async button => {
-        await toggleReactedClass(button);
-        button.addEventListener('click', toggleReactedClass(button));
+    document.querySelectorAll('.post-like').forEach(button => {
+        button.addEventListener('click', async () => {
+            const userInfo = JSON.parse(sessionStorage.getItem('user'));
+            if (!userInfo) {
+                alert("Log in to like a post.");
+                return;
+            }
+    
+            const postId = button.getAttribute('postId');
+            let liked = button.getAttribute('liked') === "true";
+    
+            try {
+                const response = await fetch('/toggleLike', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ postId, authorName: userInfo.username })
+                });
+    
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    alert(errorData.message);
+                    return
+                }
+    
+                const data = await response.json();
+                const icon = button.querySelector('.post-button-icon');
+                const likeCountElement = button.querySelector('.post-count');
+    
+                if (data.liked) {
+                    icon.classList.add('reacted');
+                    button.setAttribute('liked', "true");
+                } else {
+                    icon.classList.remove('reacted');
+                    button.setAttribute('liked', "false");
+                }
+    
+                likeCountElement.textContent = data.likeCount > 0 ? data.likeCount : "Like";
+    
+            } catch (error) {
+                console.error("Error toggling like:", error);
+            }
+        });
     });    
 };
 

@@ -157,4 +157,47 @@ export const postInjector = () => {
             modal.classList.add('hide');
         });
     });
+
+    // Like Button
+    document.querySelectorAll('.post-like').forEach(button => {
+        button.addEventListener('click', async () => {
+            const userInfo = JSON.parse(sessionStorage.getItem('user'));
+            if (!userInfo) {
+                alert("Log in to like a post.");
+            }
+    
+            const postId = button.getAttribute('postId');
+            let liked = button.getAttribute('liked') === "true";
+    
+            try {
+                const response = await fetch('/toggleLike', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ postId, authorName: userInfo.username })
+                });
+    
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    alert(errorData.message);
+                }
+    
+                const data = await response.json();
+                const icon = button.querySelector('.post-button-icon');
+                const likeCountElement = button.querySelector('.post-count');
+    
+                if (data.liked) {
+                    icon.style.color = "green";
+                    button.setAttribute('liked', "true");
+                } else {
+                    icon.style.color = "inherit";
+                    button.setAttribute('liked', "false");
+                }
+    
+                likeCountElement.textContent = data.likeCount > 0 ? data.likeCount : "Like";
+    
+            } catch (error) {
+                console.error("Error toggling like:", error);
+            }
+        });
+    });    
 };

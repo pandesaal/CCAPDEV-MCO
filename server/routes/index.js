@@ -10,7 +10,7 @@ const post = require('./pages/post');
 const { loginUser } = require('../controllers/login');
 const { signupUser } = require('../controllers/signup');
 const getTags = require('../controllers/get-tags');
-const { createPost, editPost, deletePost } = require('../controllers/post');
+const { createPost, editPost, deletePost, toggleLike, toggleDislike } = require('../controllers/post');
 const { checkCommentAccess, createComment, editComment, deleteComment } = require('../controllers/comment');
 
 const { editUser, deleteUser } = require('../controllers/editUser');
@@ -26,6 +26,8 @@ router.post('/checkCommentAccess', checkCommentAccess);
 router.post('/createComment', createComment);
 router.put('/editComment', editComment);
 router.delete('/deleteComment', deleteComment);
+router.put('/toggleLike', toggleLike);
+router.put('/toggleDislike', toggleDislike);
 
 router.delete('/deleteUser', deleteUser);
 

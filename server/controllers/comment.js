@@ -80,7 +80,7 @@ const editComment = async (req, res) => {
             return res.status(404).json({ message: "Post not found." });
         }
 
-        const comment = await Comment.findOne({ _id: commentId });
+        const comment = await Comment.findOne({ commentId });
         if (!comment) {
             return res.status(404).json({ message: "Comment not found." });
         }
@@ -88,12 +88,15 @@ const editComment = async (req, res) => {
             return res.status(403).json({ message: "Unauthorized to edit this comment." });
         }
 
-        comment.content = content;
-        comment.dateEdited = new Date();
+        // Only update dateEdited if content changes
+        if (comment.content !== content) {
+            comment.content = content;
+            comment.dateEdited = new Date();
+        }
 
         await comment.save();
 
-        res.status(200).json({ message: 'Comment updated successfully.', post });
+        res.status(200).json({ message: 'Comment updated successfully.', comment });
     } catch (error) {
         res.status(500).json({ message: 'Error editing the comment.', error });
     }
@@ -113,7 +116,7 @@ const deleteComment = async (req, res) => {
             return res.status(404).json({ message: "Post not found." });
         }
 
-        const comment = await Comment.findOne({ _id: commentId });
+        const comment = await Comment.findOne({ commentId });
         if (!comment) {
             return res.status(404).json({ message: "Comment not found." });
         }

@@ -80,7 +80,7 @@ const editComment = async (req, res) => {
             return res.status(404).json({ message: "Post not found." });
         }
 
-        const comment = await Comment.findOne({ commentId });
+        const comment = await Comment.findOne({ _id: commentId });
         if (!comment) {
             return res.status(404).json({ message: "Comment not found." });
         }

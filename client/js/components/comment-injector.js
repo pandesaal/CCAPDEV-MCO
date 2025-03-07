@@ -29,16 +29,54 @@ export const commentInjector = () => {
         }
 
         button.addEventListener('click', async (e) => {
+            const comment = button.closest('.comment');
             if (e.target.textContent === 'more_horiz') {
-                button.closest('.comment').querySelector('.comment-menu').classList.toggle('hide'); // opens menu if it's the "..." icon
+                comment.querySelector('.comment-menu').classList.toggle('hide'); // opens menu if it's the "..." icon
             }
-            else { // saves the edited comment if it's the check icon
-                const comment = button.closest('.comment');
+            else if (e.target.textContent === 'done_outline') { // Saves the edited comment
+                const contentDiv = comment.querySelector('.comment-content');
+                const newContent = contentDiv.innerText.trim();
+                const commentId = comment.querySelector('.editCommBtn').getAttribute('editCommentId');
+                const postId = sessionStorage.getItem('viewPostId');
+                const userInfo = JSON.parse(sessionStorage.getItem('user'));
+                let authorName;
+                if (userInfo) {
+                    authorName = userInfo.username;
+                }
 
-                Array.from(comment.querySelectorAll('.comment-options-button')).find(btn => btn.textContent === 'done_outline').classList.add('hide');
-                Array.from(comment.querySelectorAll('.comment-options-button')).find(btn => btn.textContent === 'more_horiz').classList.remove('hide');
-                comment.querySelector('.comment-content').classList.remove('editable');
-                comment.querySelector('.comment-edit').classList.remove('hide');
+                try {
+                    const response = await fetch('/editComment', {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ commentId, postId, authorName, content: newContent })
+                    });
+
+                    const data = await response.json();
+                    if (!response.ok) {
+                        alert(data.message);
+                        console.error('Error:', data.message);
+                        return;
+                    }
+
+                    // Hide "done_outline" and show "more_horiz" again
+                    Array.from(comment.querySelectorAll('.comment-options-button'))
+                        .find(btn => btn.textContent === 'done_outline')
+                        .classList.add('hide');
+                    
+                    Array.from(comment.querySelectorAll('.comment-options-button'))
+                        .find(btn => btn.textContent === 'more_horiz')
+                        .classList.remove('hide');
+
+                    // Remove contenteditable and show "Edited" label
+                    contentDiv.setAttribute('contenteditable', 'false');
+                    comment.querySelector('.comment-edit').classList.remove('hide');
+
+                    alert("Comment updated successfully!");
+
+                } catch (err) {
+                    console.error(err);
+                    alert("Updating the comment failed, try again later.");
+                }
             }
         });
     });
@@ -50,20 +88,24 @@ export const commentInjector = () => {
 
             const hiddenButton = comment.querySelector('.comment-options-button.hide');
 
+            // Hide the "more_horiz" and show the "done_outline"
             comment.querySelector('.comment-options-button').classList.add('hide');
             comment.querySelector('.comment-menu').classList.add('hide');
-            comment.querySelector('.comment-content').classList.add('editable');
 
-            // for blinking cursor during edit
-            // const content = comment.querySelector('.comment-content');
-            // content.focus();
-            // let range = document.createRange();
-            // let selection = window.getSelection();
-            // range.selectNodeContents(content);
-            // range.collapse(false);
-            // selection.removeAllRanges();
-            // selection.addRange(range);
+            // Make the comment content editable
+            const content = comment.querySelector('.comment-content');
+            content.setAttribute('contentEditable', 'true');  // Make content editable
+            content.focus();  // Focus on the content
 
+            // Set cursor to the end of the content
+            let range = document.createRange();
+            let selection = window.getSelection();
+            range.selectNodeContents(content);
+            range.collapse(false);  // Move the cursor to the end
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+            // Show the hidden "done_outline" button
             hiddenButton.classList.remove('hide');
         });
     });

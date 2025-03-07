@@ -24,16 +24,15 @@ function viewState() {
     document.getElementById("editIconBtn").classList.add("hide");
     document.getElementById("discardChangesBtn").classList.add("hide");
     document.getElementById("editButton").innerText = "Edit Profile";
-    originalBio = document.getElementById("bio").innerHTML;
-    originalIcon = document.getElementById('profilePic').src;
     bio.contentEditable = false;
 }
 
 let originalBio = document.getElementById('bio').innerHTML;
 let originalIcon = document.getElementById('profilePic').src;
+let changedIcon = false;
 
 // for editing profile page
-function editProfile(e) {
+async function editProfile(e) {
     if (e.target.innerText === "Edit Profile") {
         document.getElementById("profilePic").classList.add("editable");
         document.getElementById("bio").classList.add("editable");
@@ -55,7 +54,64 @@ function editProfile(e) {
     }
     else { // save changes
         viewState();
-        // record changes here
+        const bio = document.getElementById("bio").innerText;
+        const fileInput = document.getElementById("uploadIconInput");
+        const icon = fileInput.files[0]; 
+
+        const formData = new FormData();
+        formData.append('bio', bio);
+        formData.append('username', JSON.parse(sessionStorage.getItem('user')).username);
+        if (changedIcon) {
+            formData.append('icon', icon); 
+        }
+        
+        try {
+            const response = await fetch("/editUser", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to update profile");
+            }
+
+            const result = await response.json();
+            const userInfo = JSON.parse(sessionStorage.getItem('user'));
+            if (changedIcon) {
+                userInfo.icon = result.icon;
+                sessionStorage.setItem('user', JSON.stringify(userInfo));
+            }
+
+            originalBio = bio;
+        } catch (error) {
+            console.error("Error updating profile:", error);
+            alert("Error updating profile. Please try again.");
+        }
+
+        if (changedIcon) {
+            const match = originalIcon.match(/\/image\/([a-zA-Z0-9]+)/);
+            const imageId = match[1];
+            if (!(imageId === '67caf0890c6cb1c003672e7c')) { // default icon
+                try {
+                    const response = await fetch("/deleteFile", {
+                        method: 'DELETE',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ imageId })
+                    });
+
+                    await response.json();
+                    if (response.ok) {
+
+                        changedIcon = false;
+                    }
+                } catch (error) {
+                    console.error("Error deleting file:", error);
+                    alert(error);
+                }
+            }
+        }
+
+        window.location.reload();
     }
 }
 document.getElementById("editButton").addEventListener("click", editProfile);
@@ -63,6 +119,7 @@ document.getElementById("editButton").addEventListener("click", editProfile);
 document.getElementById('discardChangesBtn').addEventListener('click', () => {
     document.getElementById('bio').innerHTML = originalBio;
     document.getElementById('profilePic').src = originalIcon;
+    changedIcon = false;
     viewState();
 });
 
@@ -75,7 +132,9 @@ document.getElementById('uploadIconInput').addEventListener('change', (e) => {
     if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
         const reader = new FileReader();
         reader.onload = (e) => {
+            originalIcon = document.getElementById('profilePic').src;
             document.getElementById('profilePic').src = e.target.result;
+            changedIcon = true;
         };
         reader.readAsDataURL(file);
     } else {

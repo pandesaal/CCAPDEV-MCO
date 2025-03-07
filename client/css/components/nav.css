@@ -142,8 +142,8 @@
                         justify-content: center;
 
                         img {
-                            width: auto;
-                            height: auto;
+                            width: 2em;
+                            height: 2em;
                             max-width: 2em;
                             border-radius: 9999em;
                         }

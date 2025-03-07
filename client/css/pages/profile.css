@@ -60,6 +60,7 @@ main {
 #profilePic {
     width: 12em;
     height: 12em;
+    max-width: 12em;
     margin-right: 2em;
     box-shadow: 5px 5px 2px;
 }
@@ -70,6 +71,7 @@ main {
 
 #btnWrap {
     width: 15em;
+    max-width: 15em;
     display: flex;
     flex-direction: column;
     gap: 1.5em;

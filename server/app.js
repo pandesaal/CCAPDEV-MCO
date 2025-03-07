@@ -13,8 +13,6 @@ const Post = require('./models/Post');
 const User = require('./models/User');
 const Comment = require('./models/Comment');
 
-const Grid = require('gridfs-stream');
-
 dotenv.config();
 const app = express();
 const PORT = 3000;
@@ -63,11 +61,4 @@ mongoose.connect(process.env.MONGODB).then(() => {
     });
 }).catch(e => {
     console.error(e);
-});
-
-const conn = mongoose.connection;
-let gfs;
-conn.once('open', () => {
-    gfs = Grid(conn.db, mongoose.mongo);
-    gfs.collection('uploads');
 });

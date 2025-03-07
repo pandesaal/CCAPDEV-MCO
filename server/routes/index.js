@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+
+const multer = require('multer');
 const { GridFSBucket } = require('mongodb');
 
 const home = require('./pages/home');
@@ -13,7 +15,7 @@ const getTags = require('../controllers/get-tags');
 const { createPost, editPost, deletePost } = require('../controllers/post');
 const { checkCommentAccess, createComment, editComment, deleteComment } = require('../controllers/comment');
 
-const { editUser, deleteUser } = require('../controllers/editUser');
+const { deleteFile, editUser, deleteUser } = require('../controllers/user');
 
 const router = express.Router();
 
@@ -47,15 +49,34 @@ router.get('/about', (req, res) => {
 router.get('/post/:id', post);
 router.get('/user/:username', profile);
 
+const conn = mongoose.connection;
+let gfs;
+
+conn.once('open', () => {
+    gfs = new GridFSBucket(conn, { bucketName: 'uploads' });
+
+    // storage = new GridFsStorage({
+    //     db: conn.db,
+    //     file: (req, file) => ({
+    //         filename: `${file.originalname}_${Date.now()}`, 
+    //         bucketName: 'uploads'
+    //         })
+    //     });
+});
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
 // for icons to appear in pages
 router.get('/image/:id', async (req, res) => {
     try {
-        const conn = mongoose.connection.db;
-        const gfs = new GridFSBucket(conn, { bucketName: 'uploads' });
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).send('Invalid ID format');
+        }
 
         const fileId = new mongoose.Types.ObjectId(req.params.id);
 
-        const files = await gfs.find({ _id: fileId }).toArray();
+        const cursor = gfs.find({ _id: fileId });
+        const files = await cursor.toArray();
         if (!files || files.length === 0) {
             return res.status(404).send('File not found');
         }
@@ -69,5 +90,7 @@ router.get('/image/:id', async (req, res) => {
         res.status(500).send('Error retrieving file');
     }
 });
+router.post('/editUser', upload.single('icon'), editUser);
+router.delete('/deleteFile', deleteFile);
 
 module.exports = router;

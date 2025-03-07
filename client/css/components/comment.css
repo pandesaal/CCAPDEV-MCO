@@ -27,9 +27,11 @@
             .comment-icon {
                 display: flex;
                 align-items: center;
-                width: 2.2em;
         
                 img {
+                    width: 2.2em;
+                    height: 2.2em;
+                    max-width: 2.2em;
                     border-radius: 50%;
                 }
             }

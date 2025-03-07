@@ -47,7 +47,8 @@ main {
     width: 1.4em;
     height: 1.4em;
     color: var(--color-light);
-    background-color: var(--color-dark);
+    background-color: var(--color-accent);
+    opacity: 0.85;
 }
 
 #bio {
@@ -93,8 +94,8 @@ main {
 }
 
 .editable {
-    color: var(--color-accent) !important;
-    outline: 0.05em solid var(--color-accent);
+    outline: 0.1em solid var(--color-accent);
+    border-radius: 0.5em;
 }
 
 #profileActivity {

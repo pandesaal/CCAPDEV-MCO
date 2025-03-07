@@ -35,6 +35,7 @@ export const commentInjector = () => {
             }
             else if (e.target.textContent === 'done_outline') { // Saves the edited comment
                 const contentDiv = comment.querySelector('.comment-content');
+                contentDiv.classList.remove('editable');
                 const newContent = contentDiv.innerText.trim();
                 const commentId = comment.querySelector('.editCommBtn').getAttribute('editCommentId');
                 const postId = sessionStorage.getItem('viewPostId');
@@ -95,6 +96,7 @@ export const commentInjector = () => {
             // Make the comment content editable
             const content = comment.querySelector('.comment-content');
             content.setAttribute('contentEditable', 'true');  // Make content editable
+            content.classList.add('editable');
             content.focus();  // Focus on the content
 
             // Set cursor to the end of the content

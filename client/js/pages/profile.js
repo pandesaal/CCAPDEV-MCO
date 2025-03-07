@@ -17,7 +17,6 @@ if (sessionStorage.getItem('isLoggedIn') === 'true') {
 }
 
 function viewState() {
-    document.getElementById("profilePic").classList.remove("editable");
     document.getElementById("bio").classList.remove("editable");
     document.getElementById("deleteProfileBtn").classList.add("hide");
     // document.getElementById("changePassBtn").classList.add("hide");
@@ -34,7 +33,6 @@ let changedIcon = false;
 // for editing profile page
 async function editProfile(e) {
     if (e.target.innerText === "Edit Profile") {
-        document.getElementById("profilePic").classList.add("editable");
         document.getElementById("bio").classList.add("editable");
         document.getElementById("deleteProfileBtn").classList.remove("hide");
         // document.getElementById("changePassBtn").classList.remove("hide");

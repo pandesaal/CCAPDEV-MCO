@@ -3,16 +3,16 @@ const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 
 const checkCommentAccess = async (req, res) => {    
-    const { currentUserName, authorId } = req.body;
+    const { currentUserName, authorName } = req.body;
     
     try {
-        console.log('Received comment data:', { currentUserName, authorId });
+        console.log('Received comment data:', { currentUserName, authorName });
         const user = await User.findOne({ 'credentials.username': currentUserName });
         if (!user) {
             return res.json(false); // Return false if user not found
         }
         
-        const author = await User.findOne({ _id: authorId });
+        const author = await User.findOne({ 'credentials.username': authorName });
         if (!author) {
             return res.json(false); // Return false if author not found
         }

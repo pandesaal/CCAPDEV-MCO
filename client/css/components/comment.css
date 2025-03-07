@@ -13,6 +13,16 @@
     flex-direction: column;
     gap: 0.7em;
 
+    .comment-source {
+
+        margin-bottom: 0.4em;
+
+        display: flex;
+        align-items: center;
+        font-size: 0.9em;
+        gap: 0.5em;
+    }
+
     .comment-header {
         display: flex;
         align-items: center;

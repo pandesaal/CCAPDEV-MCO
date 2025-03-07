@@ -3,16 +3,16 @@ const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 
 const checkCommentAccess = async (req, res) => {    
-    const { currentUserName, authorId } = req.body;
+    const { currentUserName, authorName } = req.body;
     
     try {
-        console.log('Received comment data:', { currentUserName, authorId });
+        console.log('Received comment data:', { currentUserName, authorName });
         const user = await User.findOne({ 'credentials.username': currentUserName });
         if (!user) {
             return res.json(false); // Return false if user not found
         }
         
-        const author = await User.findOne({ _id: authorId });
+        const author = await User.findOne({ 'credentials.username': authorName });
         if (!author) {
             return res.json(false); // Return false if author not found
         }
@@ -80,7 +80,7 @@ const editComment = async (req, res) => {
             return res.status(404).json({ message: "Post not found." });
         }
 
-        const comment = await Comment.findOne({ _id: commentId });
+        const comment = await Comment.findOne({ commentId });
         if (!comment) {
             return res.status(404).json({ message: "Comment not found." });
         }
@@ -88,12 +88,15 @@ const editComment = async (req, res) => {
             return res.status(403).json({ message: "Unauthorized to edit this comment." });
         }
 
-        comment.content = content;
-        comment.dateEdited = new Date();
+        // Only update dateEdited if content changes
+        if (comment.content !== content) {
+            comment.content = content;
+            comment.dateEdited = new Date();
+        }
 
         await comment.save();
 
-        res.status(200).json({ message: 'Comment updated successfully.', post });
+        res.status(200).json({ message: 'Comment updated successfully.', comment });
     } catch (error) {
         res.status(500).json({ message: 'Error editing the comment.', error });
     }
@@ -113,7 +116,7 @@ const deleteComment = async (req, res) => {
             return res.status(404).json({ message: "Post not found." });
         }
 
-        const comment = await Comment.findOne({ _id: commentId });
+        const comment = await Comment.findOne({ commentId });
         if (!comment) {
             return res.status(404).json({ message: "Comment not found." });
         }

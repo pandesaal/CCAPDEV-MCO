@@ -1,20 +1,27 @@
 <div class="comment">
+    
+    {{#if queried}}
+    <div class="comment-source">
+        <span class="material-symbols-outlined">notes</span> 
+        <p>Commented under: <a href="/post/{{rootPost.postId}}"><h4>{{rootPost.title}}</h4></a></p>
+    </div>
+    {{/if}}
 
     <div class="comment-header">
         <div class="comment-info">
             <div class="comment-icon"><img src="/image/{{author.decor.icon}}" alt="icon"></div>
             <div class="comment-info-text">
-                <h4 class="comment-username">{{author.credentials.username}}</h4>
+                <a href="/user/{{author.credentials.username}}"><h4 class="comment-username">{{author.credentials.username}}</h4></a>
                 <p class="comment-date">{{datePosted}}</p>
                 <p class="comment-edit hide">Edited</p>
             </div>
         </div>
         <div class="comment-options">
-            <span class="material-symbols-outlined comment-options-button" authorId="{{author._id}}">more_horiz</span> 
+            <span class="material-symbols-outlined comment-options-button" authorName="{{author.credentials.username}}">more_horiz</span> 
             <span class="material-symbols-outlined comment-options-button hide">done_outline</span>
             <ul class="comment-menu hide">
-                <li class="comment-menu-options editCommBtn" editCommentId="{{_id}}">Edit</li>
-                <li class="comment-menu-options deleteCommBtn" deleteCommentId="{{_id}}">Delete</li>
+                <li class="comment-menu-options editCommBtn" editCommentId="{{commentId}}">Edit</li>
+                <li class="comment-menu-options deleteCommBtn" deleteCommentId="{{commentId}}">Delete</li>
             </ul>
         </div>
     </div>

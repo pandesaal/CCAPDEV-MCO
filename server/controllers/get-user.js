@@ -10,11 +10,19 @@ const getUserData = async ({ username = null, exactMatch = false, page = 1, limi
             .select('credentials.username decor.bio decor.icon posts comments')
             .populate({
                 path: 'posts',
-                match: { deleted: false }
+                match: { deleted: false },
+                populate: {
+                    path: 'author',
+                    select: 'credentials.username decor.icon'
+                }
             })
             .populate({
                 path: 'comments',
-                match: { deleted: false }
+                match: { deleted: false },
+                populate: {
+                    path: 'author',
+                    select: 'credentials.username decor.icon'
+                }
             })
             .skip((page - 1) * limit)
             .limit(limit);

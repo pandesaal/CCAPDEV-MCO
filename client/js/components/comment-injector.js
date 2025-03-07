@@ -6,13 +6,13 @@ export const commentInjector = () => {
             if(userInfo){
                 currentUserName = userInfo.username;
             }
-            const authorId = button.getAttribute('authorId');
+            const authorName = button.getAttribute('authorName');
 
             try{
                 const response = await fetch('/checkCommentAccess', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ currentUserName, authorId })
+                    body: JSON.stringify({ currentUserName, authorName })
                 });            
 
                 const data = await response.json();

@@ -4,7 +4,7 @@ const getTags = async (req, res) => {
     try {
         const { searchQuery } = req.body;
 
-        let posts = await Post.find({}, 'tags datePosted').lean();
+        let posts = await Post.find({ deleted: { $ne: true } }, 'tags datePosted').lean();
 
         let tagData = {};
 

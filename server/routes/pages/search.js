@@ -1,6 +1,6 @@
 const getPostData = require('../../controllers/get-post');
 const getUserData = require('../../controllers/get-user');
-const getCommentsData = require('../../controllers/get-comments');
+const {getCommentsData, getRootPost} = require('../../controllers/get-comments');
 const page_renderer = require('../../utils/page-render');
 
 // search with tags, queries optional, search type auto posts, if not post then change to post
@@ -95,7 +95,10 @@ const search = async (req, res) => {
                 break;
     
             case 'comments':
-                content = filteredComments;
+                content = await Promise.all(filteredComments.map(async comment => ({
+                    ...comment,
+                    rootPost: await getRootPost(comment)
+                })));
                 type = { isComment: true };
                 break;
     

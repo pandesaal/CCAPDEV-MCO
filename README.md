@@ -11,7 +11,6 @@
 ## Packages Installed
 ```
 npm install express
-npm install nodemon
 npm install mongoose
 npm install express-handlebars
 npm install dotenv
@@ -31,14 +30,18 @@ client/
 │   ├── components/ (for part specific css)
 │   └── pages/
 ├── html/
-│   ├── components/ (templates, injectable parts not directly associated with page content)
-│   └── pages/
+│   ├── components/ (handlebars partials)
+│   └── pages/ (handlebars layouts)
 ├── js/
-│   ├── components/ (reusable code for other js files)
-│   └── pages/
-
-server/ (for express.js/database handling, saka na muna to)
+│   ├── components/ (reusable code for other js files/hbs components)
+│   └── pages/ 
+│
+server/
 ├── app.js
-├── api/ (mongoose schemas w/ getters and setters)
-└── utils/
+├── controllers/ (getter/setter logic for interacting with MongoDB models)
+├── models/ (MongoDB schemas for each table)
+├── routes/
+│   ├── index.js (container file for singular router export to app.js)
+│   └── pages/ (page-specific routing logic)
+└── utils/ (helper functions)
 ```

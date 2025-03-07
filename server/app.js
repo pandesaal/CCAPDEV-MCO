@@ -54,7 +54,7 @@ app.use(express.static(path.join(__dirname, '../client')));
 app.use('/', authRoutes)
 
 app.use((req, res) => {
-    res.status(404).render('404', {});
+    res.status(404).render('404', {layout: false});
 });
 
 mongoose.connect(process.env.MONGODB).then(() => {

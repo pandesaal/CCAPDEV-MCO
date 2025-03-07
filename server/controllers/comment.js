@@ -3,27 +3,28 @@ const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 
 const checkCommentAccess = async (req, res) => {    
-    const { currentUserName, authorName } = req.body;
+    const { currentUserName, authorId } = req.body;
     
     try {
-        console.log('Received comment data:', { currentUserName, authorName });
+        console.log('Received comment data:', { currentUserName, authorId });
         const user = await User.findOne({ 'credentials.username': currentUserName });
         if (!user) {
-            return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });
+            return res.json(false); // Return false if user not found
         }
         
-        const author = await User.findOne({ 'credentials.username': authorName });
+        const author = await User.findOne({ _id: authorId });
         if (!author) {
-            return res.status(404).json({ message: "Author not found." });
+            return res.json(false); // Return false if author not found
         }
 
         if (user._id.toString() !== author._id.toString()) {
-            return res.status(404).json({ message: "Unauthorized to edit/delete this comment." });
+            return res.json(false); // Return false if the user is not the same as the author
         }
 
-        res.status(201).json({ message: 'Comment menu options opened successfully.'});
+        return res.json(true); // Return true if user has access
     } catch (error) {
-        res.status(500).json({ message: 'Error accessing the comment menu options.', error });
+        console.error(error);
+        return res.json(false); // Return false in case of any error
     }
 };
 
@@ -99,7 +100,7 @@ const editComment = async (req, res) => {
 };
 
 const deleteComment = async (req, res) => {
-    const { commentId, authorName } = req.body;
+    const { commentId, postId, authorName } = req.body;
 
     try {
         const user = await User.findOne({ 'credentials.username': authorName });
@@ -107,7 +108,12 @@ const deleteComment = async (req, res) => {
             return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });
         }
 
-        const comment = await Comment.findOne({ commentId });
+        const post = await Post.findOne({ postId });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found." });
+        }
+
+        const comment = await Comment.findOne({ _id: commentId });
         if (!comment) {
             return res.status(404).json({ message: "Comment not found." });
         }
@@ -116,9 +122,17 @@ const deleteComment = async (req, res) => {
             return res.status(403).json({ message: "Unauthorized to delete this Comment." });
         }
 
-        user.comments.pull(comment._id);
-        await Comment.deleteOne({ commentId });
-        await user.save();
+        // user.comments.pull(comment._id);
+        // await user.save();
+        await User.findByIdAndUpdate(user._id, {
+            $pull: { comments: comment._id }
+        });
+        await Post.findByIdAndUpdate(post._id, {
+            $pull: { comments: comment._id }
+        });
+        comment.content = '[deleted]';
+        comment.deleted = true;
+        await comment.save();
 
         res.status(200).json({ message: 'Comment deleted successfully.' });
     } catch (error) {

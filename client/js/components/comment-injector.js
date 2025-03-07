@@ -1,32 +1,36 @@
 export const commentInjector = () => {
-    document.querySelectorAll('.comment-options-button').forEach(button => {
+    document.querySelectorAll('.comment-options-button').forEach(async button => {
+        if (button.textContent === 'more_horiz') {
+            const userInfo = JSON.parse(sessionStorage.getItem('user'));
+            let currentUserName; 
+            if(userInfo){
+                currentUserName = userInfo.username;
+            }
+            const authorId = button.getAttribute('authorId');
+
+            try{
+                const response = await fetch('/checkCommentAccess', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ currentUserName, authorId })
+                });            
+
+                const data = await response.json();
+                if (response.ok) {
+                    if (!data) { 
+                        button.classList.add('hide');
+                    }
+                } else {
+                    button.classList.add('hide');
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
         button.addEventListener('click', async (e) => {
             if (e.target.textContent === 'more_horiz') {
-                const userInfo = JSON.parse(sessionStorage.getItem('user'));
-                let currentUserName;
-                if(userInfo){
-                    currentUserName = userInfo.username;
-                }
-                const authorName = button.getAttribute('authorName');
-
-                try {
-                    const response = await fetch('/checkCommentAccess', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ currentUserName, authorName })
-                    });            
-    
-                    const data = await response.json();
-                    if (!response.ok) {
-                        alert(data.message);
-                        console.error('Error:', data.message);
-                    } else {
-                        button.closest('.comment').querySelector('.comment-menu').classList.toggle('hide'); // opens menu if it's the "..." icon
-                    }
-                } catch (err) {
-                    console.error(err);
-                    alert("Accessing the menu options for a comment failed, try again later.");
-                }
+                button.closest('.comment').querySelector('.comment-menu').classList.toggle('hide'); // opens menu if it's the "..." icon
             }
             else { // saves the edited comment if it's the check icon
                 const comment = button.closest('.comment');
@@ -36,7 +40,7 @@ export const commentInjector = () => {
                 comment.querySelector('.comment-content').classList.remove('editable');
                 comment.querySelector('.comment-edit').classList.remove('hide');
             }
-        })
+        });
     });
 
     // edit comment
@@ -66,8 +70,55 @@ export const commentInjector = () => {
 
     document.querySelectorAll('.deleteCommBtn').forEach(button => {
         button.addEventListener('click', (e) => {
+            const comment = button.closest('.comment');
+            const commentId = button.getAttribute('deleteCommentId');
+            sessionStorage.setItem("deleteCommentId", commentId);
+
             if (button.closest('.comment'))
                 document.getElementById('deleteCommentModal').classList.remove('hide');
+        });
+    });
+
+    // Delete Comment Modal Button: Delete
+    document.querySelectorAll('.deleteCommentBtn').forEach(button => {
+        button.addEventListener('click', async () => {
+            const userInfo = JSON.parse(sessionStorage.getItem('user'));
+            let authorName;
+            if(userInfo){
+                authorName = userInfo.username;
+            }
+            const postId = sessionStorage.getItem('viewPostId');
+            const commentId = sessionStorage.getItem('deleteCommentId');
+            try {
+                const response = await fetch('/deleteComment', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ commentId, postId, authorName })
+                });            
+
+                const data = await response.json();
+                if (!response.ok) {
+                    alert(data.message);
+                    console.error('Error:', data.message);
+                } else {
+                    alert("Comment deleted successfully!");
+                    console.log('Comment deleted successfully:', data);
+                    sessionStorage.removeItem("deleteCommentId");
+                    document.getElementById('deleteCommentModal').classList.add('hide');
+                    window.location.reload();
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Deleting a comment failed, try again later.");
+            }
+        });
+    });
+
+    // Delete Comment Modal Button: Cancel
+    document.querySelectorAll('.dlt-cancelCommentBtn').forEach(button => {
+        button.addEventListener('click', () => {
+            sessionStorage.removeItem("deleteCommentId");
+            document.getElementById('deleteCommentModal').classList.add('hide');
         });
     });
 };

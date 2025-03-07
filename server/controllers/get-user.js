@@ -22,7 +22,23 @@ const getUserData = async ({ username = null, exactMatch = false, page = 1, limi
         const users = await query.lean();
         const totalCount = await User.countDocuments(filters);
         
-        return { users, totalPages: Math.ceil(totalCount / limit), currentPage: page };
+        return { 
+            users: users.map(user => ({
+                        ...user,
+                        posts: user.posts.map(post => ({
+                            ...post,
+                            datePosted: new Date(post.datePosted).toISOString().split('T')[0],
+                            dateEdited: new Date(post.dateEdited).toISOString().split('T')[0],
+                        })),
+                        comments: user.comments.map(comment => ({
+                            ...comment,
+                            datePosted: new Date(comment.datePosted).toISOString().split('T')[0],
+                            dateEdited: new Date(comment.dateEdited).toISOString().split('T')[0]
+                        }))
+                    })), 
+            totalPages: Math.ceil(totalCount / limit), 
+            currentPage: page 
+        };
     } catch (error) {
         console.error(error);
         return { users: [], totalPages: 1, currentPage: 1 };

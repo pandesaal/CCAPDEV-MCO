@@ -105,7 +105,7 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
             sessionStorage.setItem('user', JSON.stringify(user));
             window.location.reload();
         } else {
-            alert(data.message);
+            alert(data.error);
         }
     } catch (err) {
         console.error(err);

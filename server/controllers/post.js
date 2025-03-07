@@ -83,6 +83,7 @@ const serverDeletePost = async (req) => {
         post.title = '[deleted]';
         post.content = '[deleted]';
         post.deleted = true;
+        post.tags = [];
         await post.save();
 
         return { success: true };

@@ -7,8 +7,8 @@ const userSchema = new mongoose.Schema({
         passwordHash: {type: String, required: function () { return !this.deleted; }}
     },
     decor : {
-        bio: {type: String},
-        icon: { type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId('67c9edf4a91a98104ce4f253') }
+        bio: {type: String, default: 'This is your bio!'},
+        icon: { type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId('67caf0890c6cb1c003672e7c') }
     },
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],

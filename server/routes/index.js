@@ -56,14 +56,6 @@ let gfs;
 
 conn.once('open', () => {
     gfs = new GridFSBucket(conn, { bucketName: 'uploads' });
-
-    // storage = new GridFsStorage({
-    //     db: conn.db,
-    //     file: (req, file) => ({
-    //         filename: `${file.originalname}_${Date.now()}`, 
-    //         bucketName: 'uploads'
-    //         })
-    //     });
 });
 const storage = multer.memoryStorage();
 const upload = multer({ storage });

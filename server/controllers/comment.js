@@ -127,12 +127,12 @@ const deleteComment = async (req, res) => {
 
         // user.comments.pull(comment._id);
         // await user.save();
-        await User.findByIdAndUpdate(user._id, {
-            $pull: { comments: comment._id }
-        });
-        await Post.findByIdAndUpdate(post._id, {
-            $pull: { comments: comment._id }
-        });
+        // await User.findByIdAndUpdate(user._id, {
+        //     $pull: { comments: comment._id }
+        // });
+        // await Post.findByIdAndUpdate(post._id, {
+        //     $pull: { comments: comment._id }
+        // });
         comment.content = '[deleted]';
         comment.deleted = true;
         await comment.save();

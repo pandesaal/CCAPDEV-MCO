@@ -145,4 +145,30 @@ const toggleDislike = async (req, res) => {
     
 };
 
-module.exports = { createPost, editPost, serverDeletePost, deletePost, toggleLike, toggleDislike };
+const checkLikeStatus = async (req, res) => {
+    const { postId, authorName } = req.query;
+
+    try {
+        const post = await Post.findOne({ postId }).populate('likes', 'credentials.username');
+        if (!post) {
+            return res.status(404).json({ message: "Post not found." });
+        }
+
+        const user = await User.findOne({ 'credentials.username': authorName });
+        if (!user) {
+            return res.status(404).json({ message: "You must be logged in to like a post." });
+        }
+
+        const hasLiked = post.likes.some(likedUser => likedUser._id.equals(user._id));
+
+        return res.status(200).json({ 
+            liked: hasLiked
+        });
+
+    } catch (error) {
+        console.error("Error toggling like:", error);
+        res.status(500).json({ message: "Error toggling like", error });
+    }
+}
+
+module.exports = { createPost, editPost, serverDeletePost, deletePost, toggleLike, toggleDislike, checkLikeStatus };

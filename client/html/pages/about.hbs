@@ -22,8 +22,13 @@
                 <p>The Archer's Freedom Wall is a site made by Lasallians for Lasallians to freely talk about campus life in one designated spot. To post, a user must log in.</p>
             </div>
             <div class="section">
-                <h2>Tech Stack Used</h2>
-                <p>HTML, CSS, Javascript with Node.js</p>
+                <h2>Tech Stack and External APIs Used</h2>
+                <ul>
+                    <li>HTML/Handlebars</li>
+                    <li>CSS</li>
+                    <li>Javascript with Node.js</li>
+                    <li><a href="https://fonts.google.com/icons?icon.size=24&icon.color=%23e8eaed&icon.platform=web">Material Symbols and Icons by Google</a></li>
+                </ul>
             </div>
             <div class="section">
                 <h2>Node Packages Used</h2>
@@ -33,12 +38,19 @@
                     <li><a href="http://npmjs.com/package/express-handlebars">express-handlebars</a></li>
                     <li><a href="http://npmjs.com/package/dotenv">dotenv</a></li>
                     <li><a href="http://npmjs.com/package/uuid">uuid</a></li>
-                    <li><a href="http://npmjs.com/package/gridfs-stream">gridfs-stream</a></li>
+                    <li><a href="http://npmjs.com/package/multer">multer</a></li>
                 </ul>
             </div>
         </div>
     </main>
     
+    <script type="module">
+        import { navInjector } from "../../js/components/nav-injector.js";
+        document.addEventListener('DOMContentLoaded', () => {
+            navInjector();
+        });
+    </script>
+
 
 </body>
 </html>

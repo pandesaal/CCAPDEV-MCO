@@ -164,6 +164,7 @@ export const postInjector = () => {
             const userInfo = JSON.parse(sessionStorage.getItem('user'));
             if (!userInfo) {
                 alert("Log in to like a post.");
+                return;
             }
     
             const postId = button.getAttribute('postId');
@@ -179,6 +180,7 @@ export const postInjector = () => {
                 if (!response.ok) {
                     const errorData = await response.json();
                     alert(errorData.message);
+                    return
                 }
     
                 const data = await response.json();
@@ -186,10 +188,10 @@ export const postInjector = () => {
                 const likeCountElement = button.querySelector('.post-count');
     
                 if (data.liked) {
-                    icon.style.color = "green";
+                    icon.classList.add('reacted');
                     button.setAttribute('liked', "true");
                 } else {
-                    icon.style.color = "inherit";
+                    icon.classList.remove('reacted');
                     button.setAttribute('liked', "false");
                 }
     

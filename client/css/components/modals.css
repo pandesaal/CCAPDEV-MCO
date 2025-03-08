@@ -20,7 +20,7 @@
     margin: 5% auto;
     padding: 1.5em;
     padding-top: 2em;
-    width: 80%;
+    width: 65%;
 
     border: var(--border);
     border-radius: 0.5em;
@@ -40,7 +40,7 @@
         font-size: 1em;
 
         border-bottom: var(--border-small);
-        border-color: var(--color-accent);
+        border-color: var(--color-accent-dark);
 
         width: 100%;
         resize: none;
@@ -56,7 +56,7 @@
         font-size: 0.9em;
 
         border: var(--border-small);
-        border-color: var(--color-accent);
+        border-color: var(--color-accent-dark);
         border-radius: 0.3em;
 
         resize: none;
@@ -72,7 +72,7 @@
     margin: 1% auto;
     width: 100%;
     border: var(--border-small);
-    border-color: var(--color-accent);
+    border-color: var(--color-accent-dark);
     border-radius: 0.3em;
     padding: 5px;
     overflow-y: auto; 
@@ -82,7 +82,7 @@
     display: inline-flex;
     padding: 5px;
     margin: 0.5%;
-    border: 1px solid var(--color-light-dark);
+    border: 1px solid var(--color-accent-dark);
     border-radius: 3px;
     background-color: var(--color-light); 
 }
@@ -96,15 +96,17 @@
 .post-new-tag-input, .edit-new-tag-input {
     padding: 5px;
     border: var(--border-small);
-    border-color: var(--color-accent);
+    border-color: var(--color-accent-dark);
     border-radius: 0.3em;
+    font-size: var(--font-smaller);
 }
 
 .add-tag-button{
     padding: 5px;
     border: var(--border-small);
-    border-color: var(--color-accent);
+    border-color: var(--color-accent-dark);
     border-radius: 0.3em;
+    font-size: var(--font-smaller);
 }
 
 .add-tag-button:hover {
@@ -112,10 +114,20 @@
 }
 
 .postButtons{
-    margin: 1% auto;
+    margin: 1.5% auto;
+    display: flex;
+    gap: 0.5em;
 
-    .uploadPostBtn, .discardPostBtn {
-        color: var(--color-dark);
+    button {
+        padding: 0.4em 1em;
+        border: var(--border);
+        border-radius: 0.5em;
+        font-size: var(--font-smaller);
+
+        &.uploadPostBtn, &#cancelPostBtn, &#dlt-cancelPostBtn, &#dlt-cancelCommentBtn {
+            background-color: var(--color-dark);
+            color: var(--color-light);
+        }
     }
 
     .uploadPostBtn:hover, .discardPostBtn:hover, .uploadPostBtn:focus, .discardPostBtn:focus {

@@ -2,11 +2,11 @@
     <div class="card-header">
         <div class="card-info">
             {{#if isUser}}
-            <a href="/{{credentials.username}}" class="card-icon">
+            <a href="/user/{{credentials.username}}?type=posts" class="card-icon">
                 <img src="/image/{{decor.icon}}" alt="icon">
             </a>
             <div class="card-info-text">
-                <a href="/user/{{credentials.username}}"><h3 class="card-username">{{credentials.username}}</h3></a>
+                <a href="/user/{{credentials.username}}?type=posts"><h3 class="card-username">{{credentials.username}}</h3></a>
             </div>
             {{else}}
             <a href="/search?tag={{@key}}" class="card-icon">

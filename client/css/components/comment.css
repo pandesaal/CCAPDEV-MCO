@@ -2,8 +2,6 @@
 
 .comment {
     padding: 0em 0.5em 1em 0.5em;
-    margin-bottom: 1em;
-    margin-top: 0.5em;
 
     border-bottom: var(--border-small);
     
@@ -14,8 +12,6 @@
     gap: 0.7em;
 
     .comment-source {
-
-        margin-bottom: 0.4em;
 
         display: flex;
         align-items: center;

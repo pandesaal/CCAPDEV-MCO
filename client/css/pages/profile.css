@@ -9,6 +9,14 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    #main-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        width: 95%;
+    }
 }
 
 #profileHeader {
@@ -104,16 +112,20 @@ main {
 #profileActivity {
     width: 80%;
     margin-top: 1em;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.7em;
 }
 
 #profileTabs {
-    margin-top: 1em;
+    margin-top: 0.1em;
     display: flex;
     gap: 0.7em;
     align-items: center;
 }
 
-#profileTabs button {
+#profileTabs a {
     font-weight: bold;
     font-size: 1.4em;
 }
@@ -142,8 +154,7 @@ main {
 }
 
 .tabContent {
-    margin-top: 1.3em;
-    width: 90%;
+    margin-top: 0.4em;
 }
 
 .tabContentWrap {

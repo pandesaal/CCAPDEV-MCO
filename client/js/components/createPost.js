@@ -30,6 +30,7 @@ function addTag(input, list) {
     tagElement.innerHTML = `<div class="tagValue">${tagValue}</div><span onclick="removeTag(this)"><button class="remove-tag-button">&times;</button></span>`;
 
     // Append tag to tagsArea
+    document.getElementById(list).classList.remove('hide');
     document.getElementById(list).appendChild(tagElement);
 
     // Clear input field
@@ -37,6 +38,10 @@ function addTag(input, list) {
 }
 
 function removeTag(element) {
+    if (element.parentElement.parentElement.children.length - 1 == 0) {
+        element.parentElement.parentElement.classList.add('hide');
+    }
+
     element.parentElement.remove();
 }
 

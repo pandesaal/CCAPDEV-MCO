@@ -1,6 +1,6 @@
 const page_renderer = async (view, req, res, data = {}) => {
     try {
-        const { user = null, posts = [], comments = [], searchTypes = {}, totalPages = 1 } = data;
+        const { user = null, posts = [], searchTypes = {}, totalPages = 1 } = data;
 
         let page = parseInt(req.query.page) || 1;
 
@@ -8,7 +8,6 @@ const page_renderer = async (view, req, res, data = {}) => {
             layout: false,
             user,
             posts,
-            comments,
             title: req.query.q ? `"${req.query.q}"` :
                     req.query.tag ? `"${req.query.tag}"` :
                     req.params.username ? `"${req.params.username}"` :

@@ -11,6 +11,7 @@ const getUserData = async ({ username = null, exactMatch = false, page = 1, limi
             .populate({
                 path: 'posts',
                 match: { deleted: false },
+                options: { sort: { datePosted: -1 } },
                 populate: {
                     path: 'author',
                     select: 'credentials.username decor.icon'
@@ -19,6 +20,7 @@ const getUserData = async ({ username = null, exactMatch = false, page = 1, limi
             .populate({
                 path: 'comments',
                 match: { deleted: false },
+                options: { sort: { datePosted: -1 } },
                 populate: {
                     path: 'author',
                     select: 'credentials.username decor.icon'

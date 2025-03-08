@@ -16,50 +16,56 @@
     {{> modals}}
 
     <main>
-        <div id="profileHeader">
-            <div id="iconWrapper">
-                <img src="/image/{{user.decor.icon}}" class="icon" id="profilePic">
-                <button id="editIconBtn" class="hide"><span class="material-symbols-outlined">add_a_photo</span></button>
-                <input type="file" name="icon" id="uploadIconInput" class="hide" accept="image/png, image/jpeg">
-            </div>
-            <div id="info">
-                <h1 id="username">{{user.credentials.username}}</h1>
-                <p id="bio">{{user.decor.bio}}</p>
-            </div>
-            <div id="btnWrap" class="hide">
-                <button class="profileBtn" id="editButton">Edit Profile</button>
-                {{!-- can implement in the future as bonus feature --}}
-                {{!-- <button class="profileBtn hide" id="changePassBtn">Change Password</button> --}}
-                <button class="profileBtn hide" id="discardChangesBtn">Discard Changes</button>
-                <button class="profileBtn hide" id="deleteProfileBtn">Delete Profile</button>
-            </div>
-            
-        </div>
-        <div id="profileActivity">
-            <h1 id="recentLabel">Recent Activity</h1>
-
-            <div id="profileTabs">
-                <button class="selected" id="postsTab">Posts</button>
-                <button id="commentsTab">Comments</button>
-            </div>
-
-            <div class="tabContent" id="profilePosts">
-                <div class="tabContentWrap" id="posts-wrapper">
-                    {{#each posts}}
-                        {{> post this fullContent=false}}
-                    {{/each}}
+        <div id="main-content">
+            <div id="profileHeader">
+                <div id="iconWrapper">
+                    <img src="/image/{{user.decor.icon}}" class="icon" id="profilePic">
+                    <button id="editIconBtn" class="hide"><span class="material-symbols-outlined">add_a_photo</span></button>
+                    <input type="file" name="icon" id="uploadIconInput" class="hide" accept="image/png, image/jpeg">
                 </div>
-            </div>
-
-            <div class="tabContent hide" id="profileComments">
-                <div class="tabContentWrap" id="comments-wrapper">
-                    {{#each comments}}
-                        {{> comment this queried=true}}
-                    {{/each}}
+                <div id="info">
+                    <h1 id="username">{{user.credentials.username}}</h1>
+                    <p id="bio">{{user.decor.bio}}</p>
                 </div>
+                <div id="btnWrap" class="hide">
+                    <button class="profileBtn" id="editButton">Edit Profile</button>
+                    {{!-- can implement in the future as bonus feature --}}
+                    {{!-- <button class="profileBtn hide" id="changePassBtn">Change Password</button> --}}
+                    <button class="profileBtn hide" id="discardChangesBtn">Discard Changes</button>
+                    <button class="profileBtn hide" id="deleteProfileBtn">Delete Profile</button>
+                </div>
+                
             </div>
+            <div id="profileActivity">
+                <h1 id="recentLabel">Recent Activity</h1>
 
-            <button id="viewAll">View all <span class="material-symbols-outlined">keyboard_double_arrow_down</span></button>
+                <div id="profileTabs">
+                    <a {{#if searchTypes.isPost}} class="selected" {{/if}} id="postsTab" href="#">Posts</a>
+                    <a {{#if searchTypes.isComment}} class="selected" {{/if}} id="commentsTab" href="#">Comments</a>
+                </div>
+
+                {{#if searchTypes.isPost}}
+                <div class="tabContent" id="profilePosts">
+                    <div class="tabContentWrap" id="posts-wrapper">
+                        {{#each posts}}
+                            {{> post this fullContent=false}}
+                        {{/each}}
+                    </div>
+                </div>
+                {{/if}}
+
+                {{#if searchTypes.isComment}}
+                <div class="tabContent" id="profileComments">
+                    <div class="tabContentWrap" id="comments-wrapper">
+                        {{#each posts}}
+                            {{> comment this queried=true}}
+                        {{/each}}
+                    </div>
+                </div>
+                {{/if}}
+
+                {{> pagination pagination}}
+            </div>
         </div>
     </main>
 

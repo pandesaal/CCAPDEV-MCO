@@ -1,4 +1,5 @@
 import { navInjector } from "../components/nav-injector.js";
+import { paginationSetup } from "../components/pagination.js";
 import { postInjector } from "../components/post-injector.js";
 
 const searchByFilters = (key, filter) => {
@@ -11,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     navInjector();
     postInjector();
+    paginationSetup();
 
     // Close modal when the close button is clicked
     document.querySelectorAll('.close').forEach(button => {

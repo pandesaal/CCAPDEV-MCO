@@ -1,10 +1,18 @@
 import { navInjector } from "../components/nav-injector.js";
+import { paginationSetup } from "../components/pagination.js";
 import { postInjector } from "../components/post-injector.js";
 
 document.addEventListener('DOMContentLoaded', () => {
 
     navInjector();
     postInjector();
+    paginationSetup();
+
+    const paths = window.location.pathname.split('/');
+    const username = paths[2];
+
+    document.getElementById('postsTab').href = `/user/${username}?type=posts`;
+    document.getElementById('commentsTab').href = `/user/${username}?type=comments`;
 });
 
 // shows edit profile buttons when it's logged-in user's profile

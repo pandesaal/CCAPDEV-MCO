@@ -26,11 +26,11 @@ export const navInjector = () => {
         }
 
         if (document.getElementById('sidebar-profile')) {
-            document.getElementById('sidebar-profile').href = `/user/${userInfo.username}`;
+            document.getElementById('sidebar-profile').href = `/user/${userInfo.username}?type=posts`;
         }
 
         if (document.getElementById('nav-profile')) {
-            document.getElementById('nav-profile').href = `/user/${userInfo.username}`;
+            document.getElementById('nav-profile').href = `/user/${userInfo.username}?type=posts`;
         }
 
         const imageId = userInfo.icon;

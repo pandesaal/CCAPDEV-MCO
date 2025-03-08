@@ -32,6 +32,10 @@
                     height: 2.5em;
                     max-width: 2.5em;
                     border-radius: 50%;
+
+                    &:hover {
+                        border-color: var(--color-accent-dark);
+                    }
                 }
             }
 
@@ -92,7 +96,9 @@
         .post-title {
             font-size: 1.2em;
             &:hover {
-                color: var(--color-accent-dark);
+                h3 {
+                    color: var(--color-accent-dark);
+                }
             }
         }
     }

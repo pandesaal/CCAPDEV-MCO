@@ -52,9 +52,15 @@ async function editProfile(e) {
     }
     else { // save changes
         viewState();
-        const bio = document.getElementById("bio").innerText;
+        const bio = document.getElementById("bio").textContent;
         const fileInput = document.getElementById("uploadIconInput");
         const icon = fileInput.files[0]; 
+
+        if (bio.length >= 126) {
+            alert('Bio is too long, shorten to 125 characters or below.');
+            document.getElementById("bio").textContent = originalBio;
+            return;
+        }
 
         const formData = new FormData();
         formData.append('bio', bio);
@@ -70,7 +76,7 @@ async function editProfile(e) {
             });
 
             if (!response.ok) {
-                throw new Error("Failed to update profile");
+                throw new Error("Something went wrong. Please try again.");
             }
 
             const result = await response.json();
@@ -82,8 +88,7 @@ async function editProfile(e) {
 
             originalBio = bio;
         } catch (error) {
-            console.error("Error updating profile:", error);
-            alert("Error updating profile. Please try again.");
+            alert("Error updating profile:", error);
         }
 
         if (changedIcon) {
@@ -99,7 +104,6 @@ async function editProfile(e) {
 
                     await response.json();
                     if (response.ok) {
-
                         changedIcon = false;
                     }
                 } catch (error) {
@@ -113,6 +117,17 @@ async function editProfile(e) {
     }
 }
 document.getElementById("editButton").addEventListener("click", editProfile);
+
+document.getElementById('bio').addEventListener('paste', function (e) { //to prevent copy-pasted formatting in bio editing
+    e.preventDefault();
+    const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    selection.deleteFromDocument();
+    selection.getRangeAt(0).insertNode(document.createTextNode(text));
+});
 
 document.getElementById('discardChangesBtn').addEventListener('click', () => {
     document.getElementById('bio').innerHTML = originalBio;

@@ -33,7 +33,7 @@
     cursor: pointer;
 }
 
-.regInput {
+.regInput, .regInput:focus {
     outline: 0.1em solid var(--color-dark);
     border-radius: 0.05em;
     margin: 0.2em;
@@ -97,16 +97,9 @@
 }
 
 .passWrap {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-}
-
-.visibilityBtn {
-    position: absolute;
-    top: 50%;
-    right: 0.5em;
-    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.2em;
 }
 
 .visibilityBtn:hover {

@@ -79,7 +79,7 @@ document.getElementById('createPostForm').addEventListener('submit', async (even
         if (response.ok) {
             alert("Post uploaded successfully!");
             uploadCreatePostModal(); 
-            window.location.reload(); 
+            window.location.replace('/'); 
         } else {
             alert(data.message);
         }

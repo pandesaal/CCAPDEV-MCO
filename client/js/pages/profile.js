@@ -160,26 +160,45 @@ document.getElementById('commentsTab').addEventListener('click', () => {
     commentsTab.classList.add('selected');
 });
 
-async function deleteProfile(e) {
-    // ADD CONFIRMATION MODAL
-    const username = JSON.parse(sessionStorage.getItem('user')).username;
-    try {
-        const response = await fetch('/deleteUser', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username })
-        });            
+function delProfileModal() {
+    return new Promise((resolve) => {
+        document.getElementById('deleteProfileModal').classList.remove('hide');
+        document.querySelector('.delProfileBtn').addEventListener('click', () => {
+            document.getElementById('deleteProfileModal').classList.add('hide');
+            resolve(true); 
+        });
 
-        const data = await response.json();
-        if (!response.ok) {
-            alert(data.message);
-        } else {
-            sessionStorage.setItem('isLoggedIn', false);
-            sessionStorage.removeItem('user');
-            window.location.replace('/');
+        document.querySelector('.dlt-cancelProfileBtn').addEventListener('click', () => {
+            document.getElementById('deleteProfileModal').classList.add('hide');
+            resolve(false); 
+        });
+    });
+}
+
+async function deleteProfile(e) {
+    const deleteUser = await delProfileModal();
+
+    if (deleteUser === true) {
+        const username = JSON.parse(sessionStorage.getItem('user')).username;
+        try {
+            const response = await fetch('/deleteUser', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username })
+            });            
+
+            const data = await response.json();
+            if (!response.ok) {
+                alert(data.message);
+            } else {
+                alert("Profile deleted successfully.");
+                sessionStorage.setItem('isLoggedIn', false);
+                sessionStorage.removeItem('user');
+                window.location.replace('/');
+            }
+        } catch (err) {
+            alert("Deleting user failed, try again later.");
         }
-    } catch (err) {
-        alert("Deleting user failed, try again later.");
     }
 }
 document.getElementById('deleteProfileBtn').addEventListener('click', deleteProfile);

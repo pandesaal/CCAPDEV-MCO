@@ -149,7 +149,7 @@ export const commentInjector = () => {
                     console.log('Comment deleted successfully:', data);
                     sessionStorage.removeItem("deleteCommentId");
                     document.getElementById('deleteCommentModal').classList.add('hide');
-                    window.location.reload();
+                    window.location.replace('/');
                 }
             } catch (err) {
                 console.error(err);
@@ -166,53 +166,3 @@ export const commentInjector = () => {
         });
     });
 };
-
-/*
-const getRandomDate = (startYear, endYear) => {
-    const start = new Date(startYear, 0, 1).getTime();
-    const end = new Date(endYear, 11, 31).getTime();
-    const randomTimestamp = Math.random() * (end - start) + start;
-    const randomDate = new Date(randomTimestamp);
-    return randomDate.toLocaleDateString('en-US', {
-        year: 'numeric', month: 'long', day: 'numeric'
-    });
-}
-
-export const comments = [
-    {
-      id: 1,
-      username: 'User12345',
-      content: "Feeling the pressure with finals coming up. Anyone else? How do you manage the stress?",
-      datePosted: getRandomDate(2020, 2025),
-      likes: 15
-    },
-    {
-      id: 2,
-      username: 'study_hard_24',
-      content: "Just pulled an all-nighter. I feel like I can't function properly without coffee now. Who else is on this grind?",
-      datePosted: getRandomDate(2020, 2025),
-      likes: 12
-    },
-    {
-      id: 3,
-      username: 'User12345',
-      content: "Why does it always feel like the workload is uneven in group projects? It's so frustrating when no one pulls their weight.",
-      datePosted: getRandomDate(2020, 2025),
-      likes: 22
-    },
-    {
-      id: 4,
-      username: 'artistic_angel',
-      content: "Whenever I'm overwhelmed with school work, I turn to drawing. It helps me relax and recharge. Anyone else use art as an escape?",
-      datePosted: getRandomDate(2020, 2025),
-      likes: 18
-    },
-    {
-      id: 5,
-      username: 'study_squad',
-      content: "Got any advice on how to balance school and personal life? I need a good routine to stick to.",
-      datePosted: getRandomDate(2020, 2025),
-      likes: 8
-    }
-];
-*/

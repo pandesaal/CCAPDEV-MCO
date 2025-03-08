@@ -1,5 +1,10 @@
 const User = require('../models/User');
 
+function isValidDate(date) {
+    const parsedDate = new Date(date);
+    return !isNaN(parsedDate.getTime());
+}
+
 const getUserData = async ({ username = null, exactMatch = false, page = 1, limit = 15 } = {}) => {
     const filters = username 
         ? { 'credentials.username': exactMatch ? username : { $regex: username, $options: 'i' } } 
@@ -37,13 +42,15 @@ const getUserData = async ({ username = null, exactMatch = false, page = 1, limi
                         ...user,
                         posts: user.posts.map(post => ({
                             ...post,
-                            datePosted: new Date(post.datePosted).toISOString().split('T')[0],
-                            dateEdited: new Date(post.dateEdited).toISOString().split('T')[0],
+                            isAuthor: true,
+                            datePosted: isValidDate(post.datePosted) ? new Date(post.datePosted).toISOString().split('T')[0] : null,
+                            dateEdited: isValidDate(post.dateEdited) ? new Date(post.dateEdited).toISOString().split('T')[0] : null,
                         })),
                         comments: user.comments.map(comment => ({
                             ...comment,
-                            datePosted: new Date(comment.datePosted).toISOString().split('T')[0],
-                            dateEdited: new Date(comment.dateEdited).toISOString().split('T')[0]
+                            isAuthor: true,
+                            datePosted: isValidDate(comment.datePosted) ? new Date(comment.datePosted).toISOString().split('T')[0] : null,
+                            dateEdited: isValidDate(comment.dateEdited) ? new Date(comment.dateEdited).toISOString().split('T')[0] : null,
                         }))
                     })), 
             totalPages: Math.ceil(totalCount / limit), 

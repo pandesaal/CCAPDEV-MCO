@@ -18,9 +18,10 @@ const loginUser = async (req, res) => {
         // user info for nav
         const response = await serverGetUser(user._id);
 
-        if (rememberMe) {
-            req.session.userid = user._id;
-        }
+        req.session.userid = user._id;
+        req.session.remember = false;
+        if (rememberMe) req.session.remember = true;
+
         res.status(200).json({ message: 'Login successful', user: response.userInfo });
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
@@ -39,7 +40,7 @@ const logoutUser = (req, res) => {
 
 const checkSession = async (req, res) => {
     try {
-        if (req.session && req.session.userid) {
+        if (req.session && req.session.userid && req.session.remember) {
             req.session.cookie.maxAge = 1.814e9;
             req.session.save();
             const response = await serverGetUser(req.session.userid);

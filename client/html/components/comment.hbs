@@ -17,14 +17,16 @@
             </div>
         </div>
         {{#unless deleted}}
-            <div class="comment-options">
-                <span class="material-symbols-outlined comment-options-button" authorName="{{author.credentials.username}}">more_horiz</span> 
-                <span class="material-symbols-outlined comment-options-button hide">done_outline</span>
-                <ul class="comment-menu hide">
-                    <li class="comment-menu-options editCommBtn" editCommentId="{{commentId}}">Edit</li>
-                    <li class="comment-menu-options deleteCommBtn" deleteCommentId="{{commentId}}">Delete</li>
-                </ul>
-            </div>
+            {{#if isAuthor}}
+                <div class="comment-options">
+                    <span class="material-symbols-outlined comment-options-button" authorName="{{author.credentials.username}}">more_horiz</span> 
+                    <span class="material-symbols-outlined comment-options-button hide">done_outline</span>
+                    <ul class="comment-menu hide">
+                        <li class="comment-menu-options editCommBtn" editCommentId="{{commentId}}">Edit</li>
+                        <li class="comment-menu-options deleteCommBtn" deleteCommentId="{{commentId}}">Delete</li>
+                    </ul>
+                </div>
+            {{/if}}
         {{/unless}}
     </div>
 

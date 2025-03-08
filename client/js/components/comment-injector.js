@@ -149,7 +149,7 @@ export const commentInjector = () => {
                     console.log('Comment deleted successfully:', data);
                     sessionStorage.removeItem("deleteCommentId");
                     document.getElementById('deleteCommentModal').classList.add('hide');
-                    window.location.replace('/');
+                    window.location.reload();
                 }
             } catch (err) {
                 console.error(err);

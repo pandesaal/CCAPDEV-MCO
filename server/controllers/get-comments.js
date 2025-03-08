@@ -1,6 +1,11 @@
 const Comment = require('../models/Comment');
 const Post = require('../models/Post');
 
+function isValidDate(date) {
+    const parsedDate = new Date(date);
+    return !isNaN(parsedDate.getTime());
+}
+
 const getRootPost = async (comment) => {
     let currentComment = comment;
 
@@ -17,7 +22,7 @@ const getRootPost = async (comment) => {
     return null;
 };
 
-const getCommentsData = async ({ postId = null, search = null, page = 1, limit = 15 } = {}) => {
+const getCommentsData = async ({ user = null, postId = null, search = null, page = 1, limit = 15 } = {}) => {
     const filters = postId ? { replyTo: postId } : {};
 
     if (search) {
@@ -37,8 +42,9 @@ const getCommentsData = async ({ postId = null, search = null, page = 1, limit =
         return { 
             comments: comments.map(comment => ({
                 ...comment,
-                datePosted: new Date(comment.datePosted).toISOString().split('T')[0],
-                dateEdited: new Date(comment.dateEdited).toISOString().split('T')[0]
+                isAuthor: user && (comment.author.credentials.username === user.credentials.username),
+                datePosted: isValidDate(comment.datePosted) ? new Date(comment.datePosted).toISOString().split('T')[0] : null,
+                dateEdited: isValidDate(comment.dateEdited) ? new Date(comment.dateEdited).toISOString().split('T')[0] : null
             })), 
             totalPages: Math.ceil(totalCount / limit), 
             currentPage: page 

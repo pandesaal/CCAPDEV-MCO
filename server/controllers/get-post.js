@@ -5,7 +5,7 @@ function isValidDate(date) {
     return !isNaN(parsedDate.getTime());
 }
 
-const getPostData = async ({ postId, search, comments = false, page = 1, limit = 15, deleted = false } = {}) => {
+const getPostData = async ({ user = null, postId, search, comments = false, page = 1, limit = 15, deleted = false } = {}) => {
     const filters = {};
 
     if (!deleted) filters.deleted = deleted;
@@ -65,11 +65,13 @@ const getPostData = async ({ postId, search, comments = false, page = 1, limit =
         return {
             posts: posts.map(post => ({
                 ...post,
+                isAuthor: user && (post.author.credentials.username === user.credentials.username),
                 datePosted: isValidDate(post.datePosted) ? new Date(post.datePosted).toISOString().split('T')[0] : null,
                 dateEdited: isValidDate(post.dateEdited) ? new Date(post.dateEdited).toISOString().split('T')[0] : null,
                 comments: comments
                     ? post.comments?.map(comment => ({
                         ...comment,
+                        isAuthor: user && (comment.author.credentials.username === user.credentials.username),
                         datePosted: isValidDate(comment.datePosted) ? new Date(comment.datePosted).toISOString().split('T')[0] : null,
                         dateEdited: isValidDate(comment.dateEdited) ? new Date(comment.dateEdited).toISOString().split('T')[0] : null
                     }))

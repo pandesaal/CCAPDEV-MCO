@@ -23,6 +23,10 @@ const signupUser = async (req, res) => {
         });
         await newUser.save();
         
+        const user = await User.findOne({ 'credentials.username': username });
+        req.session.userid = user._id;
+        req.session.remember = false;
+
         // user info for nav
         const userInfo = {
             username: newUser.credentials.username,

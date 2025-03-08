@@ -8,13 +8,15 @@
             </div>
         </div>
         {{#unless deleted}}
-        <div class="post-options">
-            <span class="material-symbols-outlined post-options-button">more_horiz</span>
-            <ul class="post-menu hide">
-                <li class="post-menu-options editBtn" editPostId="{{postId}}">Edit</li>
-                <li class="post-menu-options deleteBtn" deletePostId="{{postId}}">Delete</li>
-            </ul>
-        </div>
+            {{#if isAuthor}}
+                <div class="post-options">
+                    <span class="material-symbols-outlined post-options-button">more_horiz</span>
+                    <ul class="post-menu hide">
+                        <li class="post-menu-options editBtn" editPostId="{{postId}}">Edit</li>
+                        <li class="post-menu-options deleteBtn" deletePostId="{{postId}}">Delete</li>
+                    </ul>
+                </div>
+            {{/if}}
         {{/unless}}
 
     </div>

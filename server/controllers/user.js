@@ -1,5 +1,6 @@
 const User = require('../models/User');
-const postModule = require('./post');
+const { serverDeletePost } = require('./post');
+const { serverDeleteComment } = require('./comment');
 
 const mongoose = require('mongoose');
 const { GridFSBucket } = require('mongodb');
@@ -65,9 +66,10 @@ const deleteUser = async(req, res) => {
     const { username } = req.body;
 
     try {
-        const user = await User.findOne({ 'credentials.username': username }).populate('posts');
+        const user = await User.findOne({ 'credentials.username': username }).populate('posts').populate('comments');
 
         const posts = user.posts;
+        const comments = user.comments;
 
         let i;
         for (i = 0; i < posts.length; i++) {
@@ -78,19 +80,31 @@ const deleteUser = async(req, res) => {
                 }
             };
 
-            const res = await postModule.serverDeletePost(req);
+            const res = await serverDeletePost(req);
             if (!res.success) {
                 console.error('Failed to delete post: ', res.error);
             }
         }
 
-        // insert deleting comments here
+        for (i = 0; i < comments.length; i++) {
+            const req = {
+                body: {
+                    commentId: comments[i].commentId,
+                    authorName: user.credentials.username
+                }
+            };
+
+            const res = await serverDeleteComment(req);
+            if (!res.success) {
+                console.error('Failed to delete comment: ', res.error);
+            }
+        }
 
         user.credentials.username = `[deleted]_${user._id}`; // to bypass unique requirement
         user.credentials.passwordSalt = null;
         user.credentials.passwordHash = null;
 
-        user.decor.icon = '../../assets/defaulticon.png';
+        user.decor.icon = new mongoose.Types.ObjectId('67caf0890c6cb1c003672e7c');
         user.decor.bio = null;
 
         user.deleted = true;

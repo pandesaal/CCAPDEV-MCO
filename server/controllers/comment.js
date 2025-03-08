@@ -102,45 +102,44 @@ const editComment = async (req, res) => {
     }
 };
 
-const deleteComment = async (req, res) => {
-    const { commentId, postId, authorName } = req.body;
+const serverDeleteComment = async (req) => {
+    const { commentId, authorName } = req.body;
 
     try {
         const user = await User.findOne({ 'credentials.username': authorName });
         if (!user) {
-            return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });
-        }
-
-        const post = await Post.findOne({ postId });
-        if (!post) {
-            return res.status(404).json({ message: "Post not found." });
+            throw new Error('You are not currently logged in. Please log in to access this feature.');
         }
 
         const comment = await Comment.findOne({ commentId });
         if (!comment) {
-            return res.status(404).json({ message: "Comment not found." });
+            throw new Error('Comment not found.');
         }
 
         if (comment.author.toString() !== user._id.toString()) {
-            return res.status(403).json({ message: "Unauthorized to delete this Comment." });
+            throw new Error('Unauthorized to delete this Comment.');
         }
 
-        // user.comments.pull(comment._id);
-        // await user.save();
-        // await User.findByIdAndUpdate(user._id, {
-        //     $pull: { comments: comment._id }
-        // });
-        // await Post.findByIdAndUpdate(post._id, {
-        //     $pull: { comments: comment._id }
-        // });
         comment.content = '[deleted]';
         comment.deleted = true;
         await comment.save();
 
-        res.status(200).json({ message: 'Comment deleted successfully.' });
-    } catch (error) {
-        res.status(500).json({ message: 'Error deleting the Comment.', error });
+        return { success: true };
+    } catch (err) {
+        console.log('Error in deleting comment (server side): ', err);
+        return { success: false, error: err.message };
     }
 };
 
-module.exports = { checkCommentAccess, createComment, editComment, deleteComment };
+const deleteComment = async (req, res) => {
+    try {
+        const result = await serverDeleteComment(req);
+        if (result) res.status(200).json({ message: 'Comment deleted successfully' });
+        else res.status(500).json({ message: 'Error in deleting comment: ', error });
+    } catch (error) {
+        console.log('Error in deleting comment (client side): ', error);
+        res.status(500).json({ message: 'Error in deleting comment: ', error });
+    }
+};
+
+module.exports = { checkCommentAccess, createComment, editComment, serverDeleteComment, deleteComment };

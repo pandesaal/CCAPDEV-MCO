@@ -133,7 +133,7 @@ export const postInjector = () => {
                     console.log('Post deleted successfully:', data);
                     sessionStorage.removeItem("deletePostId");
                     document.getElementById('deletePostModal').classList.add('hide');
-                    window.location.reload();
+                    window.location.replace('/');
                 }
             } catch (err) {
                 console.error(err);

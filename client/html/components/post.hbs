@@ -7,6 +7,7 @@
                 <p class="post-date">{{datePosted}}</p>
             </div>
         </div>
+        {{#unless deleted}}
         <div class="post-options">
             <span class="material-symbols-outlined post-options-button">more_horiz</span>
             <ul class="post-menu hide">
@@ -14,6 +15,7 @@
                 <li class="post-menu-options deleteBtn" deletePostId="{{postId}}">Delete</li>
             </ul>
         </div>
+        {{/unless}}
 
     </div>
 
@@ -36,6 +38,8 @@
         {{/each}}
     </div>
     {{/if}}
+
+    {{#unless deleted}}
     <div class="post-buttons">
         <div class="post-button post-like" liked="false" postId="{{postId}}">
             <span class="material-symbols-outlined post-button-icon">thumb_up</span>
@@ -68,4 +72,5 @@
             </span>
         </div>
     </div>
+    {{/unless}}
 </div>

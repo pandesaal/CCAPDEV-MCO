@@ -131,12 +131,19 @@ if (document.getElementById('login-note-footer-button')) {
     })
 }
 
-document.getElementById('sidebar-logout').addEventListener('click', () => {
-
-    sessionStorage.setItem('isLoggedIn', false);
-    closeReg();
-    // clear sessions and cookies
-    sessionStorage.removeItem('user');
-    window.location.replace('/');
-    // window.location.reload();
+document.getElementById('sidebar-logout').addEventListener('click', async () => {
+    const response = await fetch('/logout', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    });
+    if (response.ok) {
+        closeReg();
+        sessionStorage.setItem('isLoggedIn', false);
+        sessionStorage.removeItem('user');
+        window.location.replace('/');
+        alert('Logged out successfully!');
+    }
+    else {
+        alert('Error in logging out: ' + response.error);
+    }
 });

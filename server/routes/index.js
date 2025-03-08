@@ -4,12 +4,15 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const { GridFSBucket } = require('mongodb');
 
+const session = require('express-session');
+const MongoDBSession =  require('connect-mongodb-session')(session);
+
 const home = require('./pages/home');
 const profile = require('./pages/profile');
 const search = require('./pages/search');
 const post = require('./pages/post');
 
-const { loginUser } = require('../controllers/login');
+const { loginUser, logoutUser, checkSession } = require('../controllers/login');
 const { signupUser } = require('../controllers/signup');
 const getTags = require('../controllers/get-tags');
 const { createPost, editPost, deletePost, toggleLike, toggleDislike, checkLikeStatus } = require('../controllers/post');
@@ -19,7 +22,23 @@ const { deleteFile, editUser, deleteUser } = require('../controllers/user');
 
 const router = express.Router();
 
+const store = new MongoDBSession({ 
+    uri: 'mongodb+srv://ccapdev:SC0Y4EuPlXnA9Lda@ccapdev-mco.ogasl.mongodb.net/ccapdev?retryWrites=true&w=majority', 
+    collection: 'sessions' 
+});
+
+router.use(
+    session({
+        secret: 'ccapdev mco yippee',
+        resave: false,
+        cookie: { maxAge: 1.814e9 }, // 3 weeks in ms.. atleast un sabi ni google...
+        saveUninitialized: false,
+        store: store
+    })
+);
+
 router.post('/login', loginUser);
+router.get('/logout', logoutUser);
 router.post('/register', signupUser);
 router.post('/createPost', createPost);
 router.put('/editPost', editPost);
@@ -32,6 +51,7 @@ router.put('/toggleLike', toggleLike);
 router.put('/toggleDislike', toggleDislike);
 
 router.delete('/deleteUser', deleteUser);
+router.get('/checkSession', checkSession);
 
 const verify = (req, res, next) => {
     const acceptHeader = req.get('Accept');

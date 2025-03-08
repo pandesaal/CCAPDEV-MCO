@@ -118,4 +118,30 @@ const deleteUser = async(req, res) => {
     }
 };
 
-module.exports = { deleteFile, editUser, deleteUser };
+const serverGetUser = async (userId) => {
+    try {
+        const user = await User.findById(userId);
+        const userInfo = {
+            username: user.credentials.username,
+            icon: user.decor.icon
+        };
+        return { success: true, userInfo };
+    } catch (error) {
+        console.log('Error in getting user (server side): ', error);
+        return { success: false };
+    }
+};
+
+const getUser = async (req, res) => {
+    const { userId } = req.body;
+    try {
+        const result = await serverGetUser(userId);
+        if (result.success) res.status(200).json({ userInfo: result.userInfo });
+        else res.status(500).json({ message: 'Error in getting user: ' });
+    } catch (error) {
+        console.log('Error in getting user (client side): ', error);
+        res.status(500).json({ message: 'Error in getting user: ', error });
+    }
+};
+
+module.exports = { deleteFile, editUser, deleteUser, serverGetUser, getUser };

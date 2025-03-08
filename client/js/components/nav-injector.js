@@ -8,10 +8,8 @@ const outsideNav = [
     'register.js'
 ]
 
-const isLoggedin = sessionStorage.getItem('isLoggedIn');
-
 export const navInjector = () => {
-    if (isLoggedin === 'true'){
+    if (JSON.parse(sessionStorage.getItem('isLoggedIn'))){
         const userInfo = JSON.parse(sessionStorage.getItem('user'));
 
         document.getElementById('nav-loggedin').classList.remove('hide')

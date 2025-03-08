@@ -2,7 +2,30 @@ import { navInjector } from "../components/nav-injector.js";
 import { paginationSetup } from "../components/pagination.js";
 import { postInjector } from "../components/post-injector.js";
 
-document.addEventListener('DOMContentLoaded', () => {
+const checkSession = async () => {
+    try {
+        const response = await fetch('/checkSession', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        if (response.ok) {
+            const data = await response.json();
+            if (data.active) {
+                const userInfo = data.userInfo;
+                sessionStorage.setItem('isLoggedIn', true);
+                sessionStorage.setItem('user', JSON.stringify(userInfo));
+            }
+            sessionStorage.setItem('sessionChecked', true);
+        }
+    } catch (err) {
+        alert('Error in checking session: ' + err);
+    }
+}
+
+const loadHome = async () => {
+
+    if (JSON.parse(sessionStorage.getItem('sessionChecked')) !== true) await checkSession();
+
     navInjector();
     postInjector();
     paginationSetup();
@@ -45,5 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
             tagsWrapper.appendChild(li) 
         }
     });
-    
+};
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadHome();
 });

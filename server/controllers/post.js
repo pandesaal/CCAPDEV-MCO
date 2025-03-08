@@ -90,7 +90,7 @@ const serverDeletePost = async (req) => {
 
     } catch (error) {
         console.log('Error in deleting post (server side): ', error);
-        return { success: false, error: error.message };
+        return { success: false };
     }
 };
 

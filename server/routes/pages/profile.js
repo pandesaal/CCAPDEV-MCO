@@ -7,7 +7,7 @@ const profile = async (req, res) => {
     const {users} = await getUserData( { username: req.params.username, exactMatch: true });
 
     let searchTypes = {}
-    let content, totalContent, limit = 15;
+    let content, totalContent, limit = 5;
 
     const user = users[0];
     console.log(user);

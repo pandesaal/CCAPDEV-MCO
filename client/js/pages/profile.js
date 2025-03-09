@@ -153,7 +153,7 @@ document.getElementById('uploadIconInput').addEventListener('change', (e) => {
     if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
         const reader = new FileReader();
         reader.onload = (e) => {
-            originalIcon = document.getElementById('profilePic').src;
+            if (!changedIcon) originalIcon = document.getElementById('profilePic').src;
             document.getElementById('profilePic').src = e.target.result;
             changedIcon = true;
         };

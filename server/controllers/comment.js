@@ -2,31 +2,6 @@ const User = require('../models/User');
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 
-const checkCommentAccess = async (req, res) => {    
-    const { currentUserName, authorName } = req.body;
-    
-    try {
-        const user = await User.findOne({ 'credentials.username': currentUserName });
-        if (!user) {
-            return res.json(false); // Return false if user not found
-        }
-        
-        const author = await User.findOne({ 'credentials.username': authorName });
-        if (!author) {
-            return res.json(false); // Return false if author not found
-        }
-
-        if (user._id.toString() !== author._id.toString()) {
-            return res.json(false); // Return false if the user is not the same as the author
-        }
-
-        return res.json(true); // Return true if user has access
-    } catch (error) {
-        console.error(error);
-        return res.json(false); // Return false in case of any error
-    }
-};
-
 const createComment = async (req, res) => {    
     const { authorName, postId, replyToRefPath, content } = req.body;
     
@@ -165,4 +140,4 @@ const checkIfEditedComment = async (req, res) => {
     }
 };
 
-module.exports = { checkCommentAccess, createComment, editComment, serverDeleteComment, deleteComment, checkIfEditedComment };
+module.exports = { createComment, editComment, serverDeleteComment, deleteComment, checkIfEditedComment };

@@ -4,7 +4,11 @@ const page_renderer = require('../../utils/page-render');
 
 const profile = async (req, res) => {
     const {type, page = 1} = req.query;
-    const {users} = await getUserData( { username: req.params.username, exactMatch: true });
+
+    let userId = null;
+    if (req.session && req.session.userid) userId = req.session.userid;
+
+    const {users} = await getUserData( { userId, username: req.params.username, exactMatch: true });
 
     let searchTypes = {}
     let content, totalContent, limit = 5;

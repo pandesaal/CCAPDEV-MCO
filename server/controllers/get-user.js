@@ -5,10 +5,17 @@ function isValidDate(date) {
     return !isNaN(parsedDate.getTime());
 }
 
-const getUserData = async ({ username = null, exactMatch = false, page = 1, limit = 15 } = {}) => {
+const getUserData = async ({ userId = null, username = null, exactMatch = false, page = 1, limit = 15 } = {}) => {
     const filters = username 
         ? { 'credentials.username': exactMatch ? username : { $regex: username, $options: 'i' } } 
         : {};
+
+    let loggedInUser;
+    try {
+        if (userId) loggedInUser = await User.findById(userId);
+    } catch (error) {
+        return console.error(error);
+    }
 
     try {
         const query = User.find(filters)
@@ -42,13 +49,13 @@ const getUserData = async ({ username = null, exactMatch = false, page = 1, limi
                         ...user,
                         posts: user.posts.map(post => ({
                             ...post,
-                            isAuthor: true,
+                            isAuthor: loggedInUser && (post.author.credentials.username === loggedInUser.credentials.username),
                             datePosted: isValidDate(post.datePosted) ? new Date(post.datePosted).toISOString().split('T')[0] : null,
                             dateEdited: isValidDate(post.dateEdited) ? new Date(post.dateEdited).toISOString().split('T')[0] : null,
                         })),
                         comments: user.comments.map(comment => ({
                             ...comment,
-                            isAuthor: true,
+                            isAuthor: loggedInUser && (comment.author.credentials.username === loggedInUser.credentials.username),
                             datePosted: isValidDate(comment.datePosted) ? new Date(comment.datePosted).toISOString().split('T')[0] : null,
                             dateEdited: isValidDate(comment.dateEdited) ? new Date(comment.dateEdited).toISOString().split('T')[0] : null,
                         }))

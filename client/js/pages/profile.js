@@ -1,11 +1,13 @@
 import { navInjector } from "../components/nav-injector.js";
 import { paginationSetup } from "../components/pagination.js";
 import { postInjector } from "../components/post-injector.js";
+import { commentInjector } from "../components/comment-injector.js";
 
 document.addEventListener('DOMContentLoaded', () => {
 
     navInjector();
     postInjector();
+    commentInjector();
     paginationSetup();
 
     const paths = window.location.pathname.split('/');

@@ -11,10 +11,13 @@ const outsideNav = [
 export const navInjector = () => {
     if (JSON.parse(sessionStorage.getItem('isLoggedIn'))){
         const userInfo = JSON.parse(sessionStorage.getItem('user'));
+        console.log(userInfo)
 
         document.getElementById('nav-loggedin').classList.remove('hide')
         document.getElementById('sidebar-button').classList.remove('hide')
         document.getElementById('nav-loggedout').classList.add('hide')
+
+        if (document.getElementById('pagination')) document.getElementById('pagination').classList.remove('hide');
 
         if (document.getElementById('login-note-footer')){
             document.getElementById('login-note-footer').classList.add('hide');

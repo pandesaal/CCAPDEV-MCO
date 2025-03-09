@@ -21,35 +21,8 @@ export const commentInjector = () => {
     });
 
     document.querySelectorAll('.comment-options-button').forEach(async button => {
-        if (button.textContent === 'more_horiz') {
-            const userInfo = JSON.parse(sessionStorage.getItem('user'));
-            let currentUserName; 
-            if(userInfo){
-                currentUserName = userInfo.username;
-            }
-            const authorName = button.getAttribute('authorName');
-
-            try{
-                const response = await fetch('/checkCommentAccess', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ currentUserName, authorName })
-                });            
-
-                const data = await response.json();
-                if (response.ok) {
-                    if (!data) { 
-                        button.classList.add('hide');
-                    }
-                } else {
-                    button.classList.add('hide');
-                }
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
         button.addEventListener('click', async (e) => {
+            alert('clicked!');
             const comment = button.closest('.comment');
             if (e.target.textContent === 'more_horiz') {
                 comment.querySelector('.comment-menu').classList.toggle('hide'); // opens menu if it's the "..." icon

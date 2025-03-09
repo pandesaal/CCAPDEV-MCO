@@ -19,7 +19,6 @@ export const postInjector = () => {
         const postId = element.getAttribute('itemId');
         const postDate = element.parentElement.querySelector('.post-date'); 
         const postEditDate = element.parentElement.querySelector('.post-edit');
-        console.log("Post id: " + postId);
 
         try{
             const response = await fetch('/checkIfEditedPost', {
@@ -33,6 +32,7 @@ export const postInjector = () => {
                 postEditDate.classList.remove('hide');
             }
 
+            console.log("Post id: " + postId);
             console.log("dateEdited: " + data.dateEdited);
         } catch (err) {
             console.error(err);

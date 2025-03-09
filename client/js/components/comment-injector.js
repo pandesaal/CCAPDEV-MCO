@@ -3,7 +3,6 @@ export const commentInjector = () => {
         const commentId = element.getAttribute('itemId');
         const commentDate = element.parentElement.querySelector('.comment-date'); 
         const commentEditDate = element.parentElement.querySelector('.comment-edit');
-        console.log("Comment id: " + commentId);
 
         try{
             const response = await fetch('/checkIfEditedComment', {
@@ -17,6 +16,7 @@ export const commentInjector = () => {
                 commentEditDate.classList.remove('hide');
             }
 
+            console.log("Comment id: " + commentId);
             console.log("dateEdited: " + data.dateEdited);
         } catch (err) {
             console.error(err);

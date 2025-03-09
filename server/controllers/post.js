@@ -179,7 +179,7 @@ const checkIfEditedPost = async (req, res) => {
         const post = await Post.findOne({ postId });
         const edited = !!post.dateEdited;
         if (post) {
-            if (edited /* Change this condition into returning true if the post.dateEdited has a Date stored in DB*/){
+            if (edited){
                 hasEdited = true;
                 dateEdited = post.dateEdited;
             }
@@ -195,30 +195,5 @@ const checkIfEditedPost = async (req, res) => {
         res.status(500).json({ message: "Error showing edit status", error });
     }
 };
-
-/*
-const checkIfEditedPost = async (req, res) => {
-    try {
-        const { postId } = req.body;
-
-        if (!postId) {
-            return res.status(400).json({ message: "Post ID is required" });
-        }
-
-        const post = await Post.findById(postId);
-
-        if (!post) {
-            return res.status(404).json({ message: "Post not found" });
-        }
-
-        const isEdited = post.dateEdited && post.dateEdited !== post.datePosted;
-
-        res.status(200).json({ edited: isEdited, dateEdited: post.dateEdited });
-    } catch (error) {
-        console.error("Error checking post edit status:", error);
-        res.status(500).json({ message: "Internal server error" });
-    }
-};
-*/
 
 module.exports = { createPost, editPost, serverDeletePost, deletePost, toggleLike, toggleDislike, checkLikeStatus, checkIfEditedPost };

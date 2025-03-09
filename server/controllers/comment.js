@@ -142,4 +142,29 @@ const deleteComment = async (req, res) => {
     }
 };
 
-module.exports = { checkCommentAccess, createComment, editComment, serverDeleteComment, deleteComment };
+const checkIfEditedComment = async (req, res) => {
+    const { commentId } = req.body;
+    let hasEdited = false;
+
+    try {
+        const comment = await Comment.findOne({ commentId });
+        const edited = !!comment.dateEdited;
+        if (comment) {
+            if (edited){
+                hasEdited = true;
+                dateEdited = comment.dateEdited;
+            }
+        }
+
+        return res.status(200).json({ 
+            edited: hasEdited,
+            dateEdited: comment.dateEdited || null
+        });
+
+    } catch (error) {
+        console.error("Error showing edit status", error);
+        res.status(500).json({ message: "Error showing edit status", error });
+    }
+};
+
+module.exports = { checkCommentAccess, createComment, editComment, serverDeleteComment, deleteComment, checkIfEditedComment };

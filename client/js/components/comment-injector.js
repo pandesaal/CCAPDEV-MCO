@@ -1,4 +1,28 @@
 export const commentInjector = () => {
+    document.querySelectorAll('.comment-info-text').forEach(async element => {
+        const commentId = element.getAttribute('itemId');
+        const commentDate = element.parentElement.querySelector('.comment-date'); 
+        const commentEditDate = element.parentElement.querySelector('.comment-edit');
+        console.log("Comment id: " + commentId);
+
+        try{
+            const response = await fetch('/checkIfEditedComment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ commentId })
+            });            
+
+            const data = await response.json();
+            if (data.edited) { 
+                commentEditDate.classList.remove('hide');
+            }
+
+            console.log("dateEdited: " + data.dateEdited);
+        } catch (err) {
+            console.error(err);
+        }
+    });
+
     document.querySelectorAll('.comment-options-button').forEach(async button => {
         if (button.textContent === 'more_horiz') {
             const userInfo = JSON.parse(sessionStorage.getItem('user'));

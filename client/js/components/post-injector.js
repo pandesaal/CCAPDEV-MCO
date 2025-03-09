@@ -14,6 +14,30 @@ export const postInjector = () => {
             sessionStorage.setItem("viewPostId", postId);
         });
     });
+
+    document.querySelectorAll('.post-info-text').forEach(async element => {
+        const postId = element.getAttribute('itemId');
+        const postDate = element.parentElement.querySelector('.post-date'); 
+        const postEditDate = element.parentElement.querySelector('.post-edit');
+        console.log("Post id: " + postId);
+
+        try{
+            const response = await fetch('/checkIfEditedPost', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ postId })
+            });            
+
+            const data = await response.json();
+            if (data.edited) { 
+                postEditDate.classList.remove('hide');
+            }
+
+            console.log("dateEdited: " + data.dateEdited);
+        } catch (err) {
+            console.error(err);
+        }
+    });
     
     // Post Menu Button: Edit
     document.querySelectorAll('.editBtn').forEach(button => {

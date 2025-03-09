@@ -5,7 +5,7 @@ const postSchema = new mongoose.Schema({
     postId: {type: String, unique: true, default: uuidv4},
     author: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
     datePosted: {type: Date, required: true, default: () => Date.now()},
-    dateEdited: {type: Date, required: true, default: () => Date.now()},
+    dateEdited: {type: Date},
     title: {type: String, required: true},
     content: {type: String, required: true},
     tags: [{type: String}],

@@ -2,9 +2,10 @@
     <div class="post-header">
         <div class="post-info">
             <a href="/user/{{author.credentials.username}}?type=posts" class="post-icon"><img src="/image/{{author.decor.icon}}" alt="icon"></a>
-            <div class="post-info-text">
+            <div class="post-info-text" itemId="{{postId}}">
                 <a href="/user/{{author.credentials.username}}?type=posts"><h4 class="post-username">{{author.credentials.username}}</h4></a>
                 <p class="post-date">{{datePosted}}</p>
+                <p class="post-edit hide">Edited {{dateEdited}}</p>
             </div>
         </div>
         {{#unless deleted}}

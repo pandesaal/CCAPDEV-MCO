@@ -53,6 +53,10 @@
                 .post-date {
                     font-size: var(--font-smaller);
                 }
+                .post-edit {
+                    font-size: var(--font-smaller);
+                    color: var(--color-accent);
+                }
             }
         }
 

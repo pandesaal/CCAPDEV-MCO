@@ -22,7 +22,6 @@ export const commentInjector = () => {
 
     document.querySelectorAll('.comment-options-button').forEach(async button => {
         button.addEventListener('click', async (e) => {
-            alert('clicked!');
             const comment = button.closest('.comment');
             if (e.target.textContent === 'more_horiz') {
                 comment.querySelector('.comment-menu').classList.toggle('hide'); // opens menu if it's the "..." icon

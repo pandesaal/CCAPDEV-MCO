@@ -3,8 +3,6 @@ const page_renderer = require('../../utils/page-render');
 const User = require('../../models/User');
 
 const post = async (req, res) => {
-    let deleted = false;
-    if (req.get('Referer').includes('/user')) deleted = true;
 
     let user = null;
     if (req.session && req.session.userid) {
@@ -15,7 +13,7 @@ const post = async (req, res) => {
         }
     }
 
-    const postObject = await getPostData({ user, postId: req.params.id, comments: true, deleted: deleted })
+    const postObject = await getPostData({ user, postId: req.params.id, comments: true, deleted: true })
     const post = postObject.posts[0]
     
     if (post)

@@ -32,7 +32,7 @@ const getTags = async (req, res) => {
         
         for (const tag in tagData) {
             if (tagData[tag].latestPostDate) {
-                tagData[tag].latestPostDate = new Date(tagData[tag].latestPostDate).toISOString().split('T')[0];
+                tagData[tag].latestPostDate = new Date(tagData[tag].latestPostDate).toISOString().replace('T', ' ').slice(0, 16);
             }
         }
 

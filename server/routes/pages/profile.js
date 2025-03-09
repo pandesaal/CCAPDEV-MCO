@@ -23,6 +23,7 @@ const profile = async (req, res) => {
         searchTypes.isPost = true;
 
         totalContent = user.posts.length;
+        if (totalContent < 1) totalContent = 1; 
         content = user.posts.slice((page - 1) * limit, page * limit);
     } else if (type === 'comments') {
         searchTypes.isComment = true;

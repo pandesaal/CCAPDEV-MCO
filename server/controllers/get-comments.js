@@ -43,8 +43,8 @@ const getCommentsData = async ({ user = null, postId = null, search = null, page
             comments: comments.map(comment => ({
                 ...comment,
                 isAuthor: user && (comment.author.credentials.username === user.credentials.username),
-                datePosted: isValidDate(comment.datePosted) ? new Date(comment.datePosted).toISOString().split('T')[0] : null,
-                dateEdited: isValidDate(comment.dateEdited) ? new Date(comment.dateEdited).toISOString().split('T')[0] : null
+                datePosted: isValidDate(comment.datePosted) ? new Date(comment.datePosted).toISOString().replace('T', ' ').slice(0, 16) : null,
+                dateEdited: isValidDate(comment.dateEdited) ? new Date(comment.dateEdited).toISOString().replace('T', ' ').slice(0, 16) : null
             })), 
             totalPages: Math.ceil(totalCount / limit), 
             currentPage: page 

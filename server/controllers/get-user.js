@@ -50,14 +50,14 @@ const getUserData = async ({ userId = null, username = null, exactMatch = false,
                         posts: user.posts.map(post => ({
                             ...post,
                             isAuthor: loggedInUser && (post.author.credentials.username === loggedInUser.credentials.username),
-                            datePosted: isValidDate(post.datePosted) ? new Date(post.datePosted).toISOString().split('T')[0] : null,
-                            dateEdited: isValidDate(post.dateEdited) ? new Date(post.dateEdited).toISOString().split('T')[0] : null,
+                            datePosted: isValidDate(post.datePosted) ? new Date(post.datePosted).toISOString().replace('T', ' ').slice(0, 16) : null,
+                            dateEdited: isValidDate(post.dateEdited) ? new Date(post.dateEdited).toISOString().replace('T', ' ').slice(0, 16) : null,
                         })),
                         comments: user.comments.map(comment => ({
                             ...comment,
                             isAuthor: loggedInUser && (comment.author.credentials.username === loggedInUser.credentials.username),
-                            datePosted: isValidDate(comment.datePosted) ? new Date(comment.datePosted).toISOString().split('T')[0] : null,
-                            dateEdited: isValidDate(comment.dateEdited) ? new Date(comment.dateEdited).toISOString().split('T')[0] : null,
+                            datePosted: isValidDate(comment.datePosted) ? new Date(comment.datePosted).toISOString().replace('T', ' ').slice(0, 16) : null,
+                            dateEdited: isValidDate(comment.dateEdited) ? new Date(comment.dateEdited).toISOString().replace('T', ' ').slice(0, 16) : null,
                         }))
                     })), 
             totalPages: Math.ceil(totalCount / limit), 

@@ -66,14 +66,14 @@ const getPostData = async ({ user = null, postId, search, comments = false, page
             posts: posts.map(post => ({
                 ...post,
                 isAuthor: user && (post.author.credentials.username === user.credentials.username),
-                datePosted: isValidDate(post.datePosted) ? new Date(post.datePosted).toISOString().split('T')[0] : null,
-                dateEdited: isValidDate(post.dateEdited) ? new Date(post.dateEdited).toISOString().split('T')[0] : null,
+                datePosted: isValidDate(post.datePosted) ? new Date(post.datePosted).toISOString().replace('T', ' ').slice(0, 16) : null,
+                dateEdited: isValidDate(post.dateEdited) ? new Date(post.dateEdited).toISOString().replace('T', ' ').slice(0, 16) : null,
                 comments: comments
                     ? post.comments?.map(comment => ({
                         ...comment,
                         isAuthor: user && (comment.author.credentials.username === user.credentials.username),
-                        datePosted: isValidDate(comment.datePosted) ? new Date(comment.datePosted).toISOString().split('T')[0] : null,
-                        dateEdited: isValidDate(comment.dateEdited) ? new Date(comment.dateEdited).toISOString().split('T')[0] : null
+                        datePosted: isValidDate(comment.datePosted) ? new Date(comment.datePosted).toISOString().replace('T', ' ').slice(0, 16) : null,
+                        dateEdited: isValidDate(comment.dateEdited) ? new Date(comment.dateEdited).toISOString().replace('T', ' ').slice(0, 16) : null
                     }))
                     : post.comments
             })),

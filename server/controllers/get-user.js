@@ -10,6 +10,8 @@ const getUserData = async ({ userId = null, username = null, exactMatch = false,
         ? { 'credentials.username': exactMatch ? username : { $regex: username, $options: 'i' } } 
         : {};
 
+    filters.deleted = false;
+
     let loggedInUser;
     try {
         if (userId) loggedInUser = await User.findById(userId);

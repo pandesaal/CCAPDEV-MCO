@@ -29,6 +29,8 @@ const getCommentsData = async ({ user = null, postId = null, search = null, page
         filters.content = { $regex: search.get('q'), $options: 'i' };
     }
 
+    filters.deleted = false;
+
     try {
         const query = Comment.find(filters)
             .populate('author', 'credentials.username decor.icon')

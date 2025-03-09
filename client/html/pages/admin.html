@@ -1,0 +1,33 @@
+<!-- PATH: /html/pages/admin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+</head>
+<body style="display: flex; flex-direction: column; align-items: center;">
+    <h1>Admin Page</h1>
+    <p>Only run when application is not in use!</p>
+    <button id="clearDbBtn">Clear Database</button><br/>
+    <h3 id="result"></h3>
+
+    <script>
+        document.getElementById('clearDbBtn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/clearDb', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({})
+                });
+
+                const data = await response.json();
+                if (response.ok) document.getElementById('result').innerText = data.message; 
+                else document.getElementById('result').innerText = data.message;
+            } catch (error) {
+                alert('Error in clearing database.');
+            }
+        });
+    </script>
+</body>
+</html>

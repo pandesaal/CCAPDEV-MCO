@@ -104,7 +104,11 @@ const search = async (req, res) => {
     
             case 'tags':
                 // filter tags based on query
-                content = Object.fromEntries(filteredTags);                
+                content = filteredTags.map(([tag, details]) => ({
+                    tag,
+                    count: details.count,
+                    latestPostDate: details.latestPostDate
+                }));   
                 type = { isTag: true };
                 break;
     

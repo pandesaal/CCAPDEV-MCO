@@ -9,11 +9,11 @@
                 <a href="/user/{{credentials.username}}?type=posts"><h3 class="card-username">{{credentials.username}}</h3></a>
             </div>
             {{else}}
-            <a href="/search?tag={{@key}}" class="card-icon">
+            <a href="/search?tag={{tag}}" class="card-icon">
                 <span class="material-symbols-outlined">tag</span>
             </a>
             <div class="card-info-text">
-                <a href="/search?tag={{@key}}"><h3 class="card-username">{{@key}} ({{count}} post/s)</h3></a>
+                <a href="/search?tag={{tag}}"><h3 class="card-username">{{tag}} ({{count}} post/s)</h3></a>
             </div>
             {{/if}}
         </div>

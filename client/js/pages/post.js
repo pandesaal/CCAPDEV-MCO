@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close modal when the close button is clicked
     document.querySelectorAll('.close').forEach(button => {
         button.addEventListener('click', () => {
-            console.log('click')
             const modal = button.closest('.modal');
             modal.classList.add('hide');
         });

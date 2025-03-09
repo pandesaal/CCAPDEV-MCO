@@ -15,9 +15,6 @@ export const commentInjector = () => {
             if (data.edited) { 
                 commentEditDate.classList.remove('hide');
             }
-
-            console.log("Comment id: " + commentId);
-            console.log("dateEdited: " + data.dateEdited);
         } catch (err) {
             console.error(err);
         }
@@ -170,7 +167,6 @@ export const commentInjector = () => {
                     console.error('Error:', data.message);
                 } else {
                     alert("Comment deleted successfully!");
-                    console.log('Comment deleted successfully:', data);
                     sessionStorage.removeItem("deleteCommentId");
                     document.getElementById('deleteCommentModal').classList.add('hide');
                     window.location.reload();

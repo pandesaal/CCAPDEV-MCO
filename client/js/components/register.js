@@ -114,9 +114,13 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
 });
 
 document.querySelectorAll('.post-button').forEach(button => {
+    let isLoggedIn = sessionStorage.getItem('isLoggedIn');
+
+    if (button.classList.contains('post-comment') && isLoggedIn === 'true') {
+        let postId = button.getAttribute('commentpostid');
+        button.href = `/post/${postId}`
+    }
     button.addEventListener('click', () => {
-        let isLoggedIn = sessionStorage.getItem('isLoggedIn');
-        console.log(isLoggedIn);
         if (isLoggedIn === 'false' || isLoggedIn === null) {
             openReg();
             showLogin();

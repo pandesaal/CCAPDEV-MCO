@@ -16,8 +16,10 @@ export const navInjector = () => {
         document.getElementById('sidebar-button').classList.remove('hide')
         document.getElementById('nav-loggedout').classList.add('hide')
 
-        if (document.getElementById('login-note-footer'))
-            document.getElementById('login-note-footer').classList.add('hide')
+        if (document.getElementById('login-note-footer')){
+            document.getElementById('login-note-footer').classList.add('hide');
+            document.getElementById('pagination').classList.remove('hide');
+        }
 
         if (document.getElementById('nav-username')) {
             document.getElementById('nav-username').textContent = userInfo.username;

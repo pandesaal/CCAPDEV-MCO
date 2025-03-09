@@ -78,7 +78,7 @@
             
         }
 
-        #footer {
+        #sidebar-footer {
 
             &::before {
                 content: '';

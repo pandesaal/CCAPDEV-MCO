@@ -10,7 +10,6 @@ const profile = async (req, res) => {
     let content, totalContent, limit = 5;
 
     const user = users[0];
-    console.log(user);
 
     if (type === "posts") {
         searchTypes.isPost = true;
@@ -22,7 +21,6 @@ const profile = async (req, res) => {
 
         totalContent = user.comments.length;
         if (totalContent < 1) totalContent = 1; 
-        console.log("total content", totalContent);
         content = await Promise.all(
             user.comments
                 .slice((page - 1) * limit, page * limit)

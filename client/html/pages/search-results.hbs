@@ -21,7 +21,7 @@
                 <h4>Search by</h4>
                 <div id="filters">
                     {{#unless searchTypes.type.tagOnlySearch}}
-                    <div class="filter-groups">
+                    <div class="filter-groups" id="filter-by-type">
                         <ul>
                             <li>
                                 <a href="#" id="filter-users">
@@ -69,6 +69,14 @@
                         <h5>Filter by tag</h5>
                         {{/unless}}
                         <ul>
+                            <li>
+                                <a href="#" id="filter-remove-tags">
+                                    <div class="labels">
+                                        <span class="material-symbols-outlined">cancel</span>
+                                        <p>Remove Filters</p>
+                                    </div>
+                                </a>
+                            </li>
                             {{!-- filter every post by their tag present --}}
                             {{#each searchTypes.tagCounts}}
                             <li>
@@ -118,9 +126,9 @@
             </div>
             <p id="login-note-footer">Want to see more? <span id="login-note-footer-button">Register</span></p>
             {{> pagination pagination}}
+            {{> footer}}
         </div>
     </main>
-    {{> footer}}
 
     <script type="module" src="../../js/pages/search.js"></script>
 </body>

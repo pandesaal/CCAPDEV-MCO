@@ -5,7 +5,6 @@ const createPost = async (req, res) => {
     const { authorName, title, content, tags} = req.body;
     
     try {
-        console.log('Received post data:', { authorName, title, content, tags });
         const user = await User.findOne({ 'credentials.username': authorName });
         if (!user) {
             return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });

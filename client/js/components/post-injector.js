@@ -31,9 +31,6 @@ export const postInjector = () => {
             if (data.edited) { 
                 postEditDate.classList.remove('hide');
             }
-
-            console.log("Post id: " + postId);
-            console.log("dateEdited: " + data.dateEdited);
         } catch (err) {
             console.error(err);
         }
@@ -102,7 +99,6 @@ export const postInjector = () => {
                 console.error('Error:', data.message);
             } else {
                 alert("Post updated successfully!");
-                console.log('Post updated successfully:', data);
                 sessionStorage.removeItem("editPostId");
                 document.getElementById('editModal').classList.add('hide');
                 window.location.reload();
@@ -153,7 +149,6 @@ export const postInjector = () => {
                     console.error('Error:', data.message);
                 } else {
                     alert("Post deleted successfully!");
-                    console.log('Post deleted successfully:', data);
                     sessionStorage.removeItem("deletePostId");
                     document.getElementById('deletePostModal').classList.add('hide');
                     window.location.reload();

@@ -6,7 +6,6 @@ const checkCommentAccess = async (req, res) => {
     const { currentUserName, authorName } = req.body;
     
     try {
-        console.log('Received comment data:', { currentUserName, authorName });
         const user = await User.findOne({ 'credentials.username': currentUserName });
         if (!user) {
             return res.json(false); // Return false if user not found
@@ -32,7 +31,6 @@ const createComment = async (req, res) => {
     const { authorName, postId, replyToRefPath, content } = req.body;
     
     try {
-        console.log('Received comment data:', { authorName, postId, replyToRefPath, content });
         const user = await User.findOne({ 'credentials.username': authorName });
         if (!user) {
             return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });

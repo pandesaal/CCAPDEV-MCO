@@ -7,7 +7,7 @@ main {
 
     #main-content {
         height: 100%;
-        padding: 10em 20em;
+        padding: 5em 20em;
 
         display: flex;
         justify-content: center;

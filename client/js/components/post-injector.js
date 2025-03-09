@@ -53,6 +53,9 @@ export const postInjector = () => {
             const editPostTagsContainer = document.getElementById('editPostTagList');
             editPostTagsContainer.innerHTML = ''; // Clear existing tags
     
+            console.log(editPostTagsContainer.classList);
+
+            if (tags.length !== 0) editPostTagsContainer.classList.remove('hide');
             tags.forEach(tag => {
                 const tagElement = document.createElement('div');
                 tagElement.className = 'tag';
@@ -100,6 +103,7 @@ export const postInjector = () => {
                 alert("Post updated successfully!");
                 sessionStorage.removeItem("editPostId");
                 document.getElementById('editModal').classList.add('hide');
+                document.getElementById('editModal').querySelector('.postText-tagArea').classList.add('hide');
                 window.location.reload();
             }
         } catch (err) {
@@ -111,6 +115,7 @@ export const postInjector = () => {
     // Edit Post Button: Cancel
     document.getElementById('cancelPostBtn').addEventListener('click', () => {
         document.getElementById('editModal').classList.add('hide');
+        document.getElementById('editModal').querySelector('.postText-tagArea').classList.add('hide');
         sessionStorage.removeItem("editPostId");
     });
     
@@ -171,6 +176,7 @@ export const postInjector = () => {
     document.querySelectorAll('.close').forEach(button => {
         button.addEventListener('click', () => {
             const modal = button.closest('.modal');
+            if (modal.querySelector('.postText-tagArea')) modal.querySelector('.postText-tagArea').classList.add('hide');
             modal.classList.add('hide');
         });
     });

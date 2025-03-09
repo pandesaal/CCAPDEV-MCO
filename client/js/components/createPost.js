@@ -50,11 +50,13 @@ function discardCreatePostModal() {
     postTextTitle.value = '';
     postTextContent.value = '';
     postTextTagList.innerHTML = '';
+    postTextTagList.classList.add('hide');
     postTextTagInput.value = '';
 }
 
 function uploadCreatePostModal() {
     postModal.classList.add('hide');
+    postTextTagList.classList.add('hide');
     
     postTextTitle.value = '';
     postTextContent.value = '';

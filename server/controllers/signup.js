@@ -7,7 +7,7 @@ const signupUser = async (req, res) => {
         const existingUser = await User.findOne({ 'credentials.username': username });
         
         if (existingUser) {
-            return res.status(400).json({ message: 'Username already taken' });
+            return res.status(400).json({ message: 'Username already taken.' });
         }
 
         if (password != confirmPassword) {
@@ -33,7 +33,7 @@ const signupUser = async (req, res) => {
             icon: newUser.decor.icon
         };
 
-        res.status(201).json({ message: 'User registered successfully', user: userInfo });
+        res.status(201).json({ message: 'User registered successfully!', user: userInfo });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: 'Error registering user', error });

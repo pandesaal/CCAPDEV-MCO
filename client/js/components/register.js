@@ -59,7 +59,7 @@ document.getElementById('resignupPassVisibility').addEventListener('click', (e) 
 
 document.getElementById('loginForm').addEventListener('submit', async (event) => {
     event.preventDefault();
-    const username = document.querySelector('[name="username"]').value;
+    const username = document.querySelector('[name="username"]').value.trim();
     const password = document.querySelector('[name="password"]').value;
     const rememberMe = document.querySelector('[name="rememberMe"]').checked;
 
@@ -87,9 +87,15 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
 
 document.getElementById('signupForm').addEventListener('submit', async (event) => {
     event.preventDefault();
-    const username = document.querySelector('[name="signupUser"]').value;
-    const password = document.querySelector('[name="signupPass"]').value;
-    const confirmPassword = document.querySelector('[name="resignupPass"]').value;
+    const username = document.querySelector('[name="signupUser"]').value.trim();
+    const password = document.querySelector('[name="signupPass"]').value.trim();
+    const confirmPassword = document.querySelector('[name="resignupPass"]').value.trim();
+
+    if (username.length < 5) return alert('Username must at least be 5 characters.');
+    if (password.length < 8) return alert('Password must at least be 8 characters.');
+    if (username.includes(' ')) return alert('Username must not contain any spaces.');
+    if (username.match(/\W/)) return alert('Username must only contain alphanumeric characters.');
+    if (password.includes(' ')) return alert('Password must not contain any spaces.');
 
     try {
         const response = await fetch('/register', {
@@ -105,7 +111,7 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
             sessionStorage.setItem('user', JSON.stringify(user));
             window.location.reload();
         } else {
-            alert(data.error);
+            alert(data.message);
         }
     } catch (err) {
         console.error(err);

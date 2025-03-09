@@ -21,6 +21,7 @@ const profile = async (req, res) => {
         searchTypes.isComment = true;
 
         totalContent = user.comments.length;
+        if (totalContent < 1) totalContent = 1; 
         console.log("total content", totalContent);
         content = await Promise.all(
             user.comments

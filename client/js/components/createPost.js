@@ -69,7 +69,6 @@ document.getElementById('createPostForm').addEventListener('submit', async (even
     const authorName = userInfo.username;
     const title = document.querySelector('[name="postTextTitle"]').value.trim();
     const content = document.querySelector('[name="postTextContent"]').value.trim(); 
-    let contentShort = content.substring(0, 200); 
     
     const tags = Array.from(document.querySelectorAll('.postText-tagArea .tag .tagValue')).map(tag => tag.textContent.trim());
 
@@ -77,7 +76,7 @@ document.getElementById('createPostForm').addEventListener('submit', async (even
         const response = await fetch('/createPost', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ authorName, title, content, contentShort, tags }) 
+            body: JSON.stringify({ authorName, title, content, tags }) 
         });
 
         const data = await response.json();

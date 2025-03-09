@@ -1,0 +1,10 @@
+@import url('../base/default.css');
+
+#footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+
+    margin-bottom: 2em;
+}

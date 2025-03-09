@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -23,7 +25,7 @@ const { deleteFile, editUser, deleteUser } = require('../controllers/user');
 const router = express.Router();
 
 const store = new MongoDBSession({ 
-    uri: 'mongodb+srv://ccapdev:SC0Y4EuPlXnA9Lda@ccapdev-mco.ogasl.mongodb.net/ccapdev?retryWrites=true&w=majority', 
+    uri: process.env.MONGODB, 
     collection: 'sessions' 
 });
 
@@ -37,8 +39,18 @@ router.use(
     })
 );
 
+const verify = (req, res, next) => {
+    const acceptHeader = req.get('Accept');
+
+    if (!acceptHeader || acceptHeader.includes('text/html')) {
+        return res.status(404).render('404', {layout: false});
+    }
+
+    next();
+}
+
 router.post('/login', loginUser);
-router.get('/logout', logoutUser);
+router.get('/logout', verify, logoutUser);
 router.post('/register', signupUser);
 router.post('/createPost', createPost);
 router.put('/editPost', editPost);
@@ -53,17 +65,7 @@ router.post('/checkIfEditedPost', checkIfEditedPost);
 router.post('/checkIfEditedComment', checkIfEditedComment);
 
 router.delete('/deleteUser', deleteUser);
-router.get('/checkSession', checkSession);
-
-const verify = (req, res, next) => {
-    const acceptHeader = req.get('Accept');
-
-    if (!acceptHeader || acceptHeader.includes('text/html')) {
-        return res.status(404).render('404', {layout: false});
-    }
-
-    next();
-}
+router.get('/checkSession', verify, checkSession);
 
 router.get('/api/likedPosts', verify, checkLikeStatus);
 router.get('/api/tags', verify, getTags);
@@ -86,7 +88,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 // for icons to appear in pages
-router.get('/image/:id', async (req, res) => {
+router.get('/image/:id', verify, async (req, res) => {
     try {
         if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
             return res.status(400).send('Invalid ID format');

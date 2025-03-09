@@ -2,10 +2,10 @@ const User = require('../models/User');
 const Post = require('../models/Post');
 
 const createPost = async (req, res) => {    
-    const { authorName, title, content, contentShort, tags} = req.body;
+    const { authorName, title, content, tags} = req.body;
     
     try {
-        console.log('Received post data:', { authorName, title, content, contentShort, tags });
+        console.log('Received post data:', { authorName, title, content, tags });
         const user = await User.findOne({ 'credentials.username': authorName });
         if (!user) {
             return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });
@@ -15,7 +15,6 @@ const createPost = async (req, res) => {
             author: user._id, 
             title: title.trim(),
             content: content.trim(),
-            contentShort: contentShort.trim(),
             tags: Array.isArray(tags) ? tags.map(tag => tag.trim()) : []
         });
 
@@ -31,7 +30,7 @@ const createPost = async (req, res) => {
 };
 
 const editPost = async (req, res) => {
-    const { postId, title, content, contentShort, tags, authorName } = req.body;
+    const { postId, title, content, tags, authorName } = req.body;
 
     try {
         const user = await User.findOne({ 'credentials.username': authorName });
@@ -50,7 +49,6 @@ const editPost = async (req, res) => {
 
         post.title = title.trim();
         post.content = content.trim();
-        post.contentShort = contentShort.trim();
         post.tags = Array.isArray(tags) ? tags.map(tag => tag.trim()) : [];
         post.dateEdited = new Date();
 

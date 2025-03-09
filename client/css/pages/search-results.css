@@ -4,6 +4,7 @@
 @import url("../components/modals.css");
 @import url("../components/register.css");
 @import url("../components/pagination.css");
+@import url("../components/footer.css");
 
 main {
 
@@ -114,6 +115,14 @@ main {
             gap: 0.75em;
         }
 
+        #login-note-footer {
+            align-self: center;
+
+            #login-note-footer-button {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
        
     }
 }

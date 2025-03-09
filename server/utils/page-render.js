@@ -10,7 +10,7 @@ const page_renderer = async (view, req, res, data = {}) => {
             posts,
             title: req.query.q ? `"${req.query.q}"` :
                     req.query.tag ? `"${req.query.tag}"` :
-                    req.params.username ? `"${req.params.username}"` :
+                    req.params.username ? `${req.params.username}` :
                     "Search",
             searchTypes,
             pagination: {

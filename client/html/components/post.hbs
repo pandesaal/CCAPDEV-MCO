@@ -64,7 +64,7 @@
             {{/if}}
             </span>
         </div>
-        <div class="post-button post-comment" commentPostId="{{postId}}">
+        <a href="/post/{{postId}}" class="post-button post-comment" commentPostId="{{postId}}">
             <span class="material-symbols-outlined post-button-icon">chat_bubble</span>
             <span class="post-count">
             {{#if comments.length}}
@@ -73,7 +73,7 @@
                 Comment
             {{/if}}
             </span>
-        </div>
+        </a>
     </div>
     {{/unless}}
 </div>

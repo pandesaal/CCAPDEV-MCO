@@ -86,7 +86,6 @@ export const postInjector = () => {
         const postId = sessionStorage.getItem('editPostId');
         const title = document.getElementById('editPostTextTitle').value.trim();
         const content = document.getElementById('editPostTextContent').value.trim();
-        let contentShort = content.substring(0, 200);
         
         const tags = Array.from(document.querySelectorAll('#editPostTagList .tag .tagValue')).map(tag => tag.textContent.trim());
     
@@ -94,7 +93,7 @@ export const postInjector = () => {
             const response = await fetch('/editPost', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ postId, title, content, contentShort, tags, authorName })
+                body: JSON.stringify({ postId, title, content, tags, authorName })
             });            
 
             const data = await response.json();

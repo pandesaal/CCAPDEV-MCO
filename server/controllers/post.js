@@ -106,7 +106,7 @@ const toggleLike = async (req, res) => {
     const { postId, authorName } = req.body;
 
     try {
-        const post = await Post.findOne({ postId });
+        const post = await Post.findOne({ postId });;
         if (!post) {
             return res.status(404).json({ message: "Post not found." });
         }
@@ -122,14 +122,15 @@ const toggleLike = async (req, res) => {
         if (hasLiked) {
             await Post.findByIdAndUpdate(post._id, { $pull: { likes: userId } });
         } else {
-            await Post.findByIdAndUpdate(post._id, { $push: { likes: userId } });
+            await Post.findByIdAndUpdate(post._id, { $push: { likes: userId }, $pull: { dislikes: userId } });
         }
 
         const updatedPost = await Post.findOne({ postId });
 
         return res.status(200).json({ 
             liked: !hasLiked, 
-            likeCount: updatedPost.likes.length 
+            likeCount: updatedPost.likes.length,
+            dislikeCount: updatedPost.dislikes.length
         });
 
     } catch (error) {
@@ -139,7 +140,40 @@ const toggleLike = async (req, res) => {
 };
 
 const toggleDislike = async (req, res) => {
-    
+    const { postId, authorName } = req.body;
+
+    try {
+        const post = await Post.findOne({ postId });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found." });
+        }
+
+        const user = await User.findOne({ 'credentials.username': authorName });
+        if (!user) {
+            return res.status(404).json({ message: "You must be logged in to dislike a post." });
+        }
+
+        const userId = user._id;
+        const hasDisliked = post.dislikes.includes(userId);
+
+        if (hasDisliked) {
+            await Post.findByIdAndUpdate(post._id, { $pull: { dislikes: userId } });
+        } else {
+            await Post.findByIdAndUpdate(post._id, { $push: { dislikes: userId }, $pull: { likes: userId } });
+        }
+
+        const updatedPost = await Post.findOne({ postId });
+
+        return res.status(200).json({ 
+            disliked: !hasDisliked, 
+            dislikeCount: updatedPost.dislikes.length,
+            likeCount: updatedPost.likes.length
+        });
+
+    } catch (error) {
+        console.error("Error toggling dislike:", error);
+        res.status(500).json({ message: "Error toggling dislike", error });
+    }
 };
 
 const checkLikeStatus = async (req, res) => {
@@ -168,6 +202,33 @@ const checkLikeStatus = async (req, res) => {
     }
 };
 
+const checkDislikeStatus = async (req, res) => {
+    const { postId, authorName } = req.query;
+
+    try {
+        const post = await Post.findOne({ postId }).populate('dislikes', 'credentials.username');
+        if (!post) {
+            return res.status(404).json({ message: "Post not found." });
+        }
+
+        const user = await User.findOne({ 'credentials.username': authorName });
+        if (!user) {
+            return res.status(404).json({ message: "You must be logged in to dislike a post." });
+        }
+
+        const hasDisliked = post.dislikes.some(dislikedUser => dislikedUser._id.equals(user._id));
+
+        return res.status(200).json({ 
+            disliked: hasDisliked,
+            count: post.dislikes.length
+        });
+
+    } catch (error) {
+        console.error("Error toggling dislike:", error);
+        res.status(500).json({ message: "Error toggling dislike", error });
+    }
+};
+
 const checkIfEditedPost = async (req, res) => {
     const { postId } = req.body;
     let hasEdited = false;
@@ -193,4 +254,4 @@ const checkIfEditedPost = async (req, res) => {
     }
 };
 
-module.exports = { createPost, editPost, serverDeletePost, deletePost, toggleLike, toggleDislike, checkLikeStatus, checkIfEditedPost };
+module.exports = { createPost, editPost, serverDeletePost, deletePost, toggleLike, toggleDislike, checkLikeStatus, checkDislikeStatus, checkIfEditedPost };

@@ -15,6 +15,10 @@ const profile = async (req, res) => {
 
     const user = users[0];
 
+    if (!user) {
+        return res.status(404).render('404', {layout: false});
+    }
+
     if (type === "posts") {
         searchTypes.isPost = true;
 

@@ -38,12 +38,12 @@ main {
 
     #posts-wrapper {
 
-        width: 100%;
-        max-width: 45vw;
+        width: 45vw;
 
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
 
         gap: 0.75em;
 

@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+const clearDb = require('../controllers/admin');
+
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -48,6 +50,9 @@ const verify = (req, res, next) => {
 
     next();
 }
+
+// admin commands
+router.delete('/clearDb', clearDb);
 
 router.post('/login', loginUser);
 router.get('/logout', verify, logoutUser);

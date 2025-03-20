@@ -4,6 +4,7 @@ const { serverDeleteComment } = require('./comment');
 
 const mongoose = require('mongoose');
 const { GridFSBucket } = require('mongodb');
+const sharp = require('sharp');
 
 const gfs = new GridFSBucket(mongoose.connection, { bucketName: 'uploads' });
 
@@ -28,11 +29,15 @@ const editUser = async(req, res) => {
 
         if (req.file) {
             const icon = req.file;
+            const resizedBuffer = await sharp(icon.buffer)
+                .resize({ width: 400, height: 400, fit: 'inside' }) 
+                .toBuffer(); 
+
             const uploadStream = gfs.openUploadStream(icon.originalname, {
                 filename: `${icon.originalname}_${Date.now()}`, 
                 contentType: icon.mimetype
             });
-            uploadStream.end(icon.buffer);
+            uploadStream.end(resizedBuffer);
 
             await new Promise((resolve, reject) => {
                 uploadStream.on('finish', resolve);

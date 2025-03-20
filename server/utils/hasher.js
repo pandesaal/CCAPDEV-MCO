@@ -1,7 +1,7 @@
-const crypto = require('crypto')
+import { randomBytes, scryptSync } from 'node:crypto';
 
-export const generateSalt = () => crypto.randomBytes(16).toString('hex');
+export const generateSalt = () => randomBytes(16).toString('hex');
 
 export const hashPassword = (password, salt) => {
-    return crypto.scryptSync(password, salt, 64).toString('hex');
+    return scryptSync(password, salt, 64).toString('hex');
 };

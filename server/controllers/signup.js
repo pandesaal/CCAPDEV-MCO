@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const { generateSalt, hashPassword } = require('../utils/hasher');
 
 const signupUser = async (req, res) => {
     const { username, password, confirmPassword } = req.body;
@@ -14,11 +15,12 @@ const signupUser = async (req, res) => {
             return res.status(400).json({ message: 'Passwords do not match. Please ensure both fields are identical.' });
         }
 
+        const salt = generateSalt();
         const newUser = new User({
             credentials: {
                 username: username,
-                passwordSalt: password,
-                passwordHash: password
+                passwordSalt: salt,
+                passwordHash: hashPassword(password, salt)
             }
         });
         await newUser.save();

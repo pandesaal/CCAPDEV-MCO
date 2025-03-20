@@ -1,5 +1,11 @@
 const User = require('../models/User');
 const { serverGetUser } = require('./user');
+const { hashPassword } = require('../utils/hasher');
+
+function checkPassword(inpPassword, userPassword, salt) {
+        if (hashPassword(inpPassword, salt) === userPassword) return true;
+        return false;
+}
 
 const loginUser = async (req, res) => {
     const { username, password, rememberMe } = req.body;
@@ -11,7 +17,7 @@ const loginUser = async (req, res) => {
             return res.status(400).json({ message: "Username doesn't exist" });
         }
 
-        if ((user.credentials.passwordSalt !== password) && (user.credentials.passwordHash !== password)) {
+        if (!checkPassword(password, user.credentials.passwordHash, user.credentials.passwordSalt)) {
             return res.status(401).json({ message: 'Incorrect password' });
         }
 

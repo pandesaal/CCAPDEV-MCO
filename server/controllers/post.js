@@ -232,6 +232,7 @@ const checkDislikeStatus = async (req, res) => {
 const checkIfEditedPost = async (req, res) => {
     const { postId } = req.body;
     let hasEdited = false;
+    let dateEdited = null;
 
     try {
         const post = await Post.findOne({ postId });
@@ -245,7 +246,7 @@ const checkIfEditedPost = async (req, res) => {
 
         return res.status(200).json({ 
             edited: hasEdited,
-            dateEdited: post.dateEdited || null
+            dateEdited: dateEdited
         });
 
     } catch (error) {

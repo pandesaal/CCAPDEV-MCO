@@ -118,6 +118,7 @@ const deleteComment = async (req, res) => {
 const checkIfEditedComment = async (req, res) => {
     const { commentId } = req.body;
     let hasEdited = false;
+    let dateEdited = null;
 
     try {
         const comment = await Comment.findOne({ commentId });
@@ -131,7 +132,7 @@ const checkIfEditedComment = async (req, res) => {
 
         return res.status(200).json({ 
             edited: hasEdited,
-            dateEdited: comment.dateEdited || null
+            dateEdited: dateEdited
         });
 
     } catch (error) {

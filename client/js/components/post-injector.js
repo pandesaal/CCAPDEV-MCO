@@ -290,7 +290,7 @@ export const postInjector = () => {
                 }
     
             } catch (error) {
-                console.error("Error toggling like:", error);
+                console.error("Error toggling dislike:", error);
             }
         }
 

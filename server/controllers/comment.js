@@ -152,6 +152,43 @@ const toggleLikeComment = async (req, res) => {
     }
 };
 
+const toggleDisLikeComment = async (req, res) => {
+    const { commentId, authorName } = req.body;
+
+    try {
+        const comment = await Comment.findOne({ commentId });
+        if (!comment) {
+            return res.status(404).json({ message: "Comment not found." });
+        }
+
+        const user = await User.findOne({ 'credentials.username': authorName });
+        if (!user) {
+            return res.status(404).json({ message: "You must be logged in to dislike a Comment." });
+        }
+
+        const userId = user._id;
+        const hasDisliked = comment.dislikes.includes(userId);
+
+        if (hasDisliked) {
+            await Comment.findByIdAndUpdate(comment._id, { $pull: { dislikes: userId } });
+        } else {
+            await Comment.findByIdAndUpdate(comment._id, { $push: { dislikes: userId }, $pull: { likes: userId } });
+        }
+
+        const updatedComment = await Comment.findOne({ commentId });
+
+        return res.status(200).json({ 
+            disliked: !hasDisliked, 
+            dislikeCount: updatedComment.dislikes.length,
+            likeCount: updatedComment.likes.length
+        });
+
+    } catch (error) {
+        console.error("Error toggling dislike:", error);
+        res.status(500).json({ message: "Error toggling dislike", error });
+    }
+};
+
 const checkLikeCommentStatus = async (req, res) => {
     const { commentId, authorName } = req.query;
 
@@ -175,6 +212,33 @@ const checkLikeCommentStatus = async (req, res) => {
     } catch (error) {
         console.error("Error toggling like:", error);
         res.status(500).json({ message: "Error toggling like", error });
+    }
+};
+
+const checkDislikeCommentStatus = async (req, res) => {
+    const { commentId, authorName } = req.query;
+
+    try {
+        const comment = await Comment.findOne({ commentId }).populate('dislikes', 'credentials.username');
+        if (!comment) {
+            return res.status(404).json({ message: "Comment not found." });
+        }
+
+        const user = await User.findOne({ 'credentials.username': authorName });
+        if (!user) {
+            return res.status(404).json({ message: "You must be logged in to dislike a comment." });
+        }
+
+        const hasDisliked = comment.dislikes.some(dislikedUser => dislikedUser._id.equals(user._id));
+
+        return res.status(200).json({ 
+            disliked: hasDisliked,
+            count: comment.dislikes.length
+        });
+
+    } catch (error) {
+        console.error("Error toggling dislike:", error);
+        res.status(500).json({ message: "Error toggling dislike", error });
     }
 };
 
@@ -204,4 +268,4 @@ const checkIfEditedComment = async (req, res) => {
     }
 };
 
-module.exports = { createComment, editComment, serverDeleteComment, deleteComment, toggleLikeComment, checkLikeCommentStatus, checkIfEditedComment };
+module.exports = { createComment, editComment, serverDeleteComment, deleteComment, toggleLikeComment, toggleDisLikeComment, checkLikeCommentStatus, checkDislikeCommentStatus, checkIfEditedComment };

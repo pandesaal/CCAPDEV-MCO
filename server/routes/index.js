@@ -20,7 +20,7 @@ const { loginUser, logoutUser, checkSession } = require('../controllers/login');
 const { signupUser } = require('../controllers/signup');
 const getTags = require('../controllers/get-tags');
 const { createPost, editPost, deletePost, toggleLike, toggleDislike, checkLikeStatus, checkDislikeStatus, checkIfEditedPost } = require('../controllers/post');
-const { createComment, editComment, deleteComment, toggleLikeComment, checkLikeCommentStatus, checkIfEditedComment } = require('../controllers/comment');
+const { createComment, editComment, deleteComment, toggleLikeComment, toggleDisLikeComment, checkLikeCommentStatus, checkDislikeCommentStatus, checkIfEditedComment } = require('../controllers/comment');
 
 const { deleteFile, editUser, deleteUser } = require('../controllers/user');
 
@@ -69,6 +69,7 @@ router.post('/createComment', createComment);
 router.put('/editComment', editComment);
 router.delete('/deleteComment', deleteComment);
 router.put('/toggleLikeComment', toggleLikeComment);
+router.put('/toggleDisLikeComment', toggleDisLikeComment);
 router.post('/checkIfEditedComment', checkIfEditedComment);
 
 router.delete('/deleteUser', deleteUser);
@@ -77,6 +78,7 @@ router.get('/checkSession', verify, checkSession);
 router.get('/api/likedPosts', verify, checkLikeStatus);
 router.get('/api/dislikedPosts', verify, checkDislikeStatus);
 router.get('/api/likedComments', verify, checkLikeCommentStatus);
+router.get('/api/dislikedComments', verify, checkDislikeCommentStatus);
 router.get('/api/tags', verify, getTags);
 
 router.get('/', home);

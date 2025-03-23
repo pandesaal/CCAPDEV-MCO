@@ -236,4 +236,83 @@ export const commentInjector = () => {
             }
         });
     }); 
+
+    // Dislike Button
+    document.querySelectorAll('.comment-dislike').forEach(async button => {
+        const userInfo = JSON.parse(sessionStorage.getItem('user'));
+        if (userInfo) {
+            const commentId = button.getAttribute('commentId');
+
+            try {
+                const response = await fetch(`/api/dislikedComments?commentId=${commentId}&authorName=${encodeURIComponent(userInfo.username)}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    alert(errorData.message);
+                    return
+                }
+    
+                const data = await response.json();
+                const icon = button.querySelector('.comment-button-icon');
+    
+                if (data.disliked) {
+                    icon.classList.add('reacted');
+                    button.setAttribute('disliked', "true");
+                } else {
+                    icon.classList.remove('reacted');
+                    button.setAttribute('disliked', "false");
+                }
+    
+            } catch (error) {
+                console.error("Error toggling dislike:", error);
+            }
+        }
+
+        // Function when Dislike button is clicked
+        button.addEventListener('click', async () => {
+            const commentId = button.getAttribute('commentId');
+            let liked = button.getAttribute('disliked') === "true";
+    
+            try {
+                const response = await fetch('/toggleDisLikeComment', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ commentId, authorName: userInfo.username })
+                });
+    
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    alert(errorData.message);
+                    return
+                }
+    
+                const data = await response.json();
+                const icon = button.querySelector('.comment-button-icon');
+                const dislikeCountElement = button.querySelector('.comment-count');
+
+                const commentLikeButton = button.closest('.comment').querySelector('.comment-like');
+                const commentLikeIcon = commentLikeButton.querySelector('.comment-button-icon');
+                const likeCountElement = commentLikeButton.querySelector('.comment-count');
+    
+                if (data.disliked) {
+                    icon.classList.add('reacted');
+                    button.setAttribute('disliked', "true");
+                    commentLikeButton.setAttribute('liked', "false");
+                    commentLikeIcon.classList.remove('reacted');
+                } else {
+                    icon.classList.remove('reacted');
+                    button.setAttribute('disliked', "false");
+                }
+    
+                likeCountElement.textContent = data.likeCount > 0 ? data.likeCount : "Like";
+                dislikeCountElement.textContent = data.dislikeCount > 0 ? data.dislikeCount : "Dislike";
+    
+            } catch (error) {
+                console.error("Error toggling like:", error);
+            }
+        });
+    }); 
 };

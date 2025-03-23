@@ -38,7 +38,7 @@
 
     {{#unless deleted}}
         <div class="comment-buttons">
-            <div class="comment-button">
+            <div class="comment-button comment-like" liked="false" commentId="{{commentId}}">
                 <span class="material-symbols-outlined comment-button-icon">thumb_up</span>
                 <span class="comment-count">
                 {{#if likes.length}}
@@ -48,7 +48,7 @@
                 {{/if}}
                 </span>
             </div>
-            <div class="comment-button">
+            <div class="comment-button comment-dislike" disliked="false" commentId="{{commentId}}">
                 <span class="material-symbols-outlined comment-button-icon">thumb_down</span>
                 <span class="comment-count">
                 {{#if dislikes.length}}

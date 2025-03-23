@@ -120,6 +120,10 @@
                 font-size: 0.9em;
                 &.comment-button-icon {
                     font-size: 1.1em;
+                    &.reacted {
+                        font-variation-settings: 'FILL' 1;
+                        color: var(--color-accent-dark);
+                    }
                 }
             }
         }

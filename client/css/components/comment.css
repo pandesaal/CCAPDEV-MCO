@@ -139,6 +139,12 @@
 
 }
 
+.nested-comment {
+    margin-left: 1em;
+    padding-left: 1em;
+    border-left: var(--border-small);
+}
+
 .editable {
     outline: 0.1em solid var(--color-accent);
     border-radius: 0.5em;

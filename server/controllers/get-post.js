@@ -38,29 +38,17 @@ const getPostData = async ({ user = null, postId, search, comments = false, page
                     path: 'author',
                     select: 'credentials.username decor.icon'
                 }
+            }).populate({
+                path: 'comments.comments',
+                populate: {
+                    path: 'author',
+                    select: 'credentials.username decor.icon'
+                }
             });
         }
 
         const posts = await query.lean();
         const totalCount = await Post.countDocuments(filters);
-
-        // previous code; encountered error from this (RangeError: Invalid time value at Date.toISOString)
-        // return {
-        //     posts: posts.map(post => ({
-        //         ...post,
-        //         datePosted: new Date(post.datePosted).toISOString().split('T')[0],
-        //         dateEdited: new Date(post.dateEdited).toISOString().split('T')[0],
-        //         comments: comments
-        //         ? post.comments?.map(comment => ({
-        //             ...comment,
-        //             datePosted: new Date(comment.datePosted).toISOString().split('T')[0],
-        //             dateEdited: new Date(comment.dateEdited).toISOString().split('T')[0]
-        //         }))
-        //         : post.comments
-        //     })),
-        //     totalPages: Math.ceil(totalCount / limit),
-        //     currentPage: page
-        // };
 
         return {
             posts: posts.map(post => ({

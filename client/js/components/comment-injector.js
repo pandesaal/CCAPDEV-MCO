@@ -315,4 +315,70 @@ export const commentInjector = () => {
             }
         });
     }); 
+
+    document.querySelectorAll('.comment-reply').forEach(button => {
+        button.addEventListener('click', () => {
+            const commentId = button.getAttribute('commentId');
+            const replyInputBox = document.querySelector(`.reply-input-box[commentId="${commentId}"]`);
+            
+            document.querySelectorAll('.reply-input-box').forEach(box => {
+                if (box !== replyInputBox) {
+                    box.classList.add('hide');
+                }
+            });
+            
+            if (replyInputBox) {
+                replyInputBox.classList.toggle('hide');
+            }
+        });
+    });
+
+    // replying to a comment
+    document.querySelectorAll('.createReplyForm').forEach(form => {
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            const formData = new FormData(form);
+            const commentId = form.getAttribute('commentId'); 
+            const content = formData.get('reply-content'); 
+
+            const userInfo = JSON.parse(sessionStorage.getItem('user'));
+            let authorName;
+            if(userInfo){
+                authorName = userInfo.username;
+            }
+            
+            if (!content.trim()) {
+                alert("Reply content cannot be empty.");
+                return;
+            }
+
+            const replyToRefPath = 'Comment';
+
+            try {
+                const response = await fetch('/createComment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        authorName: authorName,
+                        postId: commentId,
+                        content: content,
+                        replyToRefPath: replyToRefPath
+                    })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert("Comment uploaded successfully!");
+                    window.location.reload(); 
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                console.error(err);
+                alert("Uploading a comment failed, try again later.");
+            }
+        });
+    });
+
 };

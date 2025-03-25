@@ -18,6 +18,9 @@ const getRootPost = async (comment) => {
     if (currentComment && currentComment.replyToRefPath === 'Post') {
         return await Post.findById(currentComment.replyTo).lean();
     }
+    else if (currentComment && currentComment.replyToRefPath === 'Comment') {
+        return getRootPost(currentComment.replyTo).lean();
+    }
 
     return null;
 };
@@ -33,7 +36,7 @@ const getCommentsData = async ({ user = null, postId = null, search = null, page
 
     try {
         const query = Comment.find(filters)
-            .populate('author', 'credentials.username decor.icon')
+            .populate('author', 'credentials.username decor.icon', 'comments')
             .sort({ datePosted: -1 })
             .skip((page - 1) * limit)
             .limit(limit);

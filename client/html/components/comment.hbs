@@ -58,7 +58,7 @@
                 {{/if}}
                 </span>
             </div>
-            <div class="comment-button">
+            <div class="comment-button comment-reply" commentId="{{commentId}}">
                 <span class="material-symbols-outlined comment-button-icon">chat_bubble</span>
                 <span class="comment-count">
                 {{#if comments.length}}
@@ -69,6 +69,19 @@
                 </span>
             </div>
         </div>
+
+        <div class="reply-input-box hide" commentId="{{commentId}}">
+            <form class="createReplyForm" method="post" commentId="{{commentId}}">
+                <input name="reply-content" class="reply-input" placeholder="Add a reply..." />
+                <button><span class="material-symbols-outlined" type="submit">send</span></button>
+            </form> 
+        </div>
     {{/unless}}
+
+    {{#if comments.length}}
+        <div class="nested-comments">
+            {{> nested-comment comments}}
+        </div>
+    {{/if}}
 
 </div>

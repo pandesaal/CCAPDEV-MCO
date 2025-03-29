@@ -139,10 +139,11 @@
 
 }
 
-.nested-comment {
+.nested-comment .comment {
     margin-left: 1em;
     padding-left: 1em;
     border-left: var(--border-small);
+    border-bottom: none !important;
 }
 
 .editable {

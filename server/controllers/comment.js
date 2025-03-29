@@ -57,7 +57,7 @@ const editComment = async (req, res) => {
         if (!comment) {
             return res.status(404).json({ message: "Comment not found." });
         }
-        if (comment.author.toString() !== user._id.toString()) {
+        if (comment.author._id.toString() !== user._id.toString()) {
             return res.status(403).json({ message: "Unauthorized to edit this comment." });
         }
 

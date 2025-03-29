@@ -1,5 +1,10 @@
-
 {{#each this}}
+    <div class="nested-comment">
+        {{> comment this}}
+    </div>
+{{/each}}
+
+{{!-- {{#each this}}
     <div class="nested-comment">
         {{> comment this}}
         {{#if comments.length}}
@@ -8,4 +13,4 @@
             </div>
         {{/if}}
     </div>
-{{/each}}
+{{/each}} --}}

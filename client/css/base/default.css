@@ -37,7 +37,8 @@
 *::after {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     background-color: var(--color-light);
 
     list-style: none;
@@ -93,11 +94,18 @@ html, body {
     ul {
 
         border: var(--border);
+        min-width: -webkit-max-content;
+        min-width: -moz-max-content;
         min-width: max-content;
 
         position: absolute;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
         gap: 1em;
     }
 }

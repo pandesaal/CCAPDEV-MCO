@@ -7,7 +7,9 @@
     top: 0;
     z-index: 990;
 
-    box-shadow: 0px 3px 6px #00000029;
+    -webkit-box-shadow: 0px 3px 6px #00000029;
+
+            box-shadow: 0px 3px 6px #00000029;
 
     nav {
         border-bottom: var(--border);
@@ -16,14 +18,26 @@
         position: sticky;
         top: 0;
 
+        display: -webkit-box;
+
+        display: -ms-flexbox;
+
         display: flex;
-        justify-content: space-between;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
         gap: 0.5em;
-        align-items: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
 
         #nav-title {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            align-items: center;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
             gap: 1.5em;
             cursor: pointer;
 
@@ -43,20 +57,34 @@
             max-width: 50em;
 
             #search-query {
+                display: -webkit-box;
+                display: -ms-flexbox;
                 display: flex;
-                justify-content: space-between;
-                align-items: center;
+                -webkit-box-pack: justify;
+                    -ms-flex-pack: justify;
+                        justify-content: space-between;
+                -webkit-box-align: center;
+                    -ms-flex-align: center;
+                        align-items: center;
                 gap: 0.3em;
                 
                 input {
-                    flex: 1 1 50em;
+                    -webkit-box-flex: 1;
+                        -ms-flex: 1 1 50em;
+                            flex: 1 1 50em;
                     font-size: var(--font-smaller);
                 }
 
                 button {
+                    display: -webkit-box;
+                    display: -ms-flexbox;
                     display: flex;
-                    justify-content: center;
-                    align-items: center;
+                    -webkit-box-pack: center;
+                        -ms-flex-pack: center;
+                            justify-content: center;
+                    -webkit-box-align: center;
+                        -ms-flex-align: center;
+                            align-items: center;
 
                     &:hover {
                         span {
@@ -72,7 +100,8 @@
                 display: block;
                 border: var(--border-small);
                 border-radius: 0.5em;
-                box-shadow: 0px 3px 6px #00000029;
+                -webkit-box-shadow: 0px 3px 6px #00000029;
+                        box-shadow: 0px 3px 6px #00000029;
 
                 overflow: hidden;
 
@@ -82,8 +111,13 @@
                 top: 2.5em;
 
                 li {
+                    display: -webkit-box;
+                    display: -ms-flexbox;
                     display: flex;
-                    flex-direction: column;
+                    -webkit-box-orient: vertical;
+                    -webkit-box-direction: normal;
+                        -ms-flex-direction: column;
+                            flex-direction: column;
                     border-bottom: var(--border-small);
                     overflow: hidden;
 
@@ -103,14 +137,28 @@
         
         #nav-account {
 
+            display: -webkit-box;
+
+            display: -ms-flexbox;
+
             display: flex;
-            align-items: center;
-            flex-grow: 0;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            -webkit-box-flex: 0;
+                -ms-flex-positive: 0;
+                    flex-grow: 0;
 
             #nav-loggedin {
 
+                display: -webkit-box;
+
+                display: -ms-flexbox;
+
                 display: flex;
-                align-items: center;
+                -webkit-box-align: center;
+                    -ms-flex-align: center;
+                        align-items: center;
                 gap: 2em;
 
                 .create-post-btn {
@@ -119,8 +167,14 @@
                     border: var(--border-small);
                     border-radius: 9999em;
 
+                    display: -webkit-box;
+
+                    display: -ms-flexbox;
+
                     display: flex;
-                    align-items: center;
+                    -webkit-box-align: center;
+                        -ms-flex-align: center;
+                            align-items: center;
                     gap: 0.25em;
 
                     font-size: var(--font-smaller);
@@ -136,10 +190,20 @@
 
                 #nav-profile {
 
+                    display: -webkit-box;
+
+                    display: -ms-flexbox;
+
                     display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    flex-grow: 0;
+                    -webkit-box-pack: justify;
+                        -ms-flex-pack: justify;
+                            justify-content: space-between;
+                    -webkit-box-align: center;
+                        -ms-flex-align: center;
+                            align-items: center;
+                    -webkit-box-flex: 0;
+                        -ms-flex-positive: 0;
+                            flex-grow: 0;
                     gap: 0.5em;
 
                     #nav-username {
@@ -147,9 +211,15 @@
                     }
 
                     #nav-icon {
+                        display: -webkit-box;
+                        display: -ms-flexbox;
                         display: flex;
-                        align-items: center;
-                        justify-content: center;
+                        -webkit-box-align: center;
+                            -ms-flex-align: center;
+                                align-items: center;
+                        -webkit-box-pack: center;
+                            -ms-flex-pack: center;
+                                justify-content: center;
                         width: 2em;
                         height: 2em;
 
@@ -157,7 +227,8 @@
                             border-radius: 9999em;
                             max-width: 100%;
                             max-height: 100%;
-                            object-fit: cover;
+                            -o-object-fit: cover;
+                               object-fit: cover;
                         }
                     }
 
@@ -176,9 +247,15 @@
             }
 
             #nav-loggedout {
+                display: -webkit-box;
+                display: -ms-flexbox;
                 display: flex;
-                align-items: center;
-                flex: 0 1 auto;
+                -webkit-box-align: center;
+                    -ms-flex-align: center;
+                        align-items: center;
+                -webkit-box-flex: 0;
+                    -ms-flex: 0 1 auto;
+                        flex: 0 1 auto;
                 gap: 0.75em;
 
                 button {

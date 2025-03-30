@@ -7,32 +7,59 @@
     
     width: 100%;
 
+    display: -webkit-box;
+
+    display: -ms-flexbox;
+
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     gap: 0.7em;
 
     .comment-source {
 
+        display: -webkit-box;
+
+        display: -ms-flexbox;
+
         display: flex;
-        align-items: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
         font-size: 0.9em;
         gap: 0.5em;
     }
 
     .comment-header {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        align-items: center;
-        justify-content: space-between;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
         gap: 1em;
 
         .comment-info {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            align-items: center;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
             gap: 0.5em;
 
             .comment-icon {
+                display: -webkit-box;
+                display: -ms-flexbox;
                 display: flex;
-                align-items: center;
+                -webkit-box-align: center;
+                    -ms-flex-align: center;
+                        align-items: center;
         
                 img {
                     width: 2.2em;
@@ -40,14 +67,19 @@
                     border-radius: 50%;
                     max-width: 100%;
                     max-height: 100%;
-                    object-fit: cover;
+                    -o-object-fit: cover;
+                       object-fit: cover;
                 }
             }
 
             .comment-info-text {
                 font-size: 0.9em;
+                display: -webkit-box;
+                display: -ms-flexbox;
                 display: flex;
-                align-items: center;
+                -webkit-box-align: center;
+                    -ms-flex-align: center;
+                        align-items: center;
                 gap: 0.4em;
 
                 .comment-date {
@@ -76,7 +108,8 @@
             .comment-menu {
                 background-color: var(--color-light);
                 min-width: 100px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
                 z-index: 1;
     
                 position: absolute;
@@ -108,12 +141,18 @@
 
     .comment-buttons {
         margin-top: 0.3em;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
         gap: 1em;
 
         .comment-button {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            align-items: center;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
             gap: 0.3em;
 
             span {

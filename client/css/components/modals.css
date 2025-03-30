@@ -27,9 +27,15 @@
 }
 
 .modal-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .postText-title{
@@ -79,6 +85,8 @@
 }
   
 .tag {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
     display: inline-flex;
     padding: 5px;
     margin: 0.5%;
@@ -115,6 +123,8 @@
 
 .postButtons{
     margin: 1.5% auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 0.5em;
 

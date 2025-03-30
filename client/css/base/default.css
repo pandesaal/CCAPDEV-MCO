@@ -18,6 +18,20 @@
     --border-small: 0.1rem solid var(--color-dark);
 }
 
+.dark-mode {
+    --color-light: hsl(144, 16%, 6%);
+    --color-light-dark: hsl(140, 6%, 19%);
+    
+    --color-dark: hsl(120, 15%, 84%);
+    --color-dark-dark: hsl(132, 100%, 90%);
+
+    --color-accent: hsl(123, 29%, 58%);
+    --color-accent-dark: hsl(123, 29%, 45%);
+
+    --border: 0.15rem solid var(--color-light-dark);
+    --border-small: 0.1rem solid var(--color-light-dark);
+}
+
 *,
 *::before,
 *::after {

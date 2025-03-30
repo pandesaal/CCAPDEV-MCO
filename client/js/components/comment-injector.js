@@ -20,6 +20,8 @@ export const commentInjector = () => {
         }
     });
 
+    let currentContent;
+
     document.querySelectorAll('.comment-options-button').forEach(async button => {
         button.addEventListener('click', async (e) => {
             const comment = button.closest('.comment');
@@ -79,6 +81,21 @@ export const commentInjector = () => {
     document.querySelectorAll('.editCommBtn').forEach(button => {
         button.addEventListener('click', (e) => {
             const comment = button.closest('.comment');
+
+            document.querySelectorAll('.comment').forEach(c => {
+                if (c !== comment) {
+                    const doneButton = Array.from(c.querySelectorAll('.comment-options-button'))
+                        .find(btn => btn.textContent === 'done_outline');
+                    const moreButton = Array.from(c.querySelectorAll('.comment-options-button'))
+                        .find(btn => btn.textContent === 'more_horiz');
+    
+                    if (doneButton) doneButton.classList.add('hide');
+                    if (moreButton) moreButton.classList.remove('hide');
+
+                    c.querySelector('.comment-content').setAttribute('contenteditable', 'false');
+                    c.querySelector('.comment-content').classList.remove('editable');
+                }
+            });
 
             const hiddenButton = comment.querySelector('.comment-options-button.hide');
 

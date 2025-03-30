@@ -147,6 +147,10 @@
 }
 
 .editable {
-    outline: 0.1em solid var(--color-accent);
+    outline: 0.07em solid var(--color-accent);
+    border-radius: 0.5em;
+}
+.editable:focus {
+    outline: 0.07em solid var(--color-accent);
     border-radius: 0.5em;
 }

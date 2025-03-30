@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Post = require('../models/Post');
+const { contentFilterMatcher } = require('../utils/content-filtering');
 
 const createPost = async (req, res) => {    
     const { authorName, title, content, tags} = req.body;
@@ -9,6 +10,16 @@ const createPost = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });
         }
+
+        if (contentFilterMatcher.hasMatch(title) || contentFilterMatcher.hasMatch(content)) {
+            throw new Error('Profanity found in post information.');
+        }
+
+        tags.forEach(tag => {
+            if (contentFilterMatcher.hasMatch(tag)) {
+                throw new Error('Profanity found in post information.');
+            }
+        });
 
         const newPost = new Post({
             author: user._id, 
@@ -24,7 +35,7 @@ const createPost = async (req, res) => {
 
         res.status(201).json({ message: 'Post created successfully', post: newPost});
     } catch (error) {
-        res.status(500).json({ message: 'Error uploading a post.', error });
+        res.status(500).json({ message: 'Error uploading a post: ' + error.message });
     }
 };
 
@@ -36,6 +47,16 @@ const editPost = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });
         }
+
+        if (contentFilterMatcher.hasMatch(title) || contentFilterMatcher.hasMatch(content)) {
+            throw new Error('Profanity found in post information.');
+        }
+
+        tags.forEach(tag => {
+            if (contentFilterMatcher.hasMatch(tag)) {
+                throw new Error('Profanity found in post information.');
+            }
+        });
 
         const post = await Post.findOne({ postId });
         if (!post) {
@@ -55,7 +76,7 @@ const editPost = async (req, res) => {
 
         res.status(200).json({ message: 'Post updated successfully', post });
     } catch (error) {
-        res.status(500).json({ message: 'Error editing the post', error });
+        res.status(500).json({ message: 'Error editing the post: ' + error.message });
     }
 };
 

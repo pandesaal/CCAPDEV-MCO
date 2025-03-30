@@ -5,6 +5,7 @@ const { serverDeleteComment } = require('./comment');
 const mongoose = require('mongoose');
 const { GridFSBucket } = require('mongodb');
 const sharp = require('sharp');
+const { contentFilterMatcher } = require('../utils/content-filtering');
 
 const gfs = new GridFSBucket(mongoose.connection, { bucketName: 'uploads' });
 
@@ -26,6 +27,10 @@ const editUser = async(req, res) => {
     let iconId;
 
     try {
+
+        if (contentFilterMatcher.hasMatch(bio)) {
+            throw new Error('Profanity found while editing bio.');
+        }
 
         if (req.file) {
             const icon = req.file;
@@ -62,8 +67,7 @@ const editUser = async(req, res) => {
 
         res.status(200).json({ icon: iconId });
     } catch (error) {
-        console.error("Error updating user profile:", error);
-        res.status(500).send("Error updating profile");
+        res.status(500).send("Error updating user profile: " + error.message);
     }
 };
 

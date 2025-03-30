@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
+const { contentFilterMatcher } = require('../utils/content-filtering');
 
 const createComment = async (req, res) => {    
     const { authorName, postId, replyToRefPath, content } = req.body;
@@ -9,6 +10,10 @@ const createComment = async (req, res) => {
         const user = await User.findOne({ 'credentials.username': authorName });
         if (!user) {
             return res.status(404).json({ message: "You are not currently logged in. Please log in to access this feature." });
+        }
+
+        if (contentFilterMatcher.hasMatch(content)) {
+            throw new Error('Profanity found in comment information.');
         }
 
         const post = await Post.findOne({ postId });
@@ -35,7 +40,7 @@ const createComment = async (req, res) => {
 
         res.status(201).json({ message: 'Comment created successfully.', comment: newComment});
     } catch (error) {
-        res.status(500).json({ message: 'Error uploading a comment.', error });
+        res.status(500).json({ message: 'Error uploading a comment: ' + error.message });
     }
 };
 
@@ -61,6 +66,10 @@ const editComment = async (req, res) => {
             return res.status(403).json({ message: "Unauthorized to edit this comment." });
         }
 
+        if (contentFilterMatcher.hasMatch(content)) {
+            throw new Error('Profanity found in comment information.');
+        }
+
         // Only update dateEdited if content changes
         if (comment.content !== content) {
             comment.content = content;
@@ -71,7 +80,7 @@ const editComment = async (req, res) => {
 
         res.status(200).json({ message: 'Comment updated successfully.', comment });
     } catch (error) {
-        res.status(500).json({ message: 'Error editing the comment.', error });
+        res.status(500).json({ message: 'Error editing the comment: ' + error.message });
     }
 };
 

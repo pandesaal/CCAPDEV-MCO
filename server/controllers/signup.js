@@ -1,10 +1,15 @@
 const User = require('../models/User');
+const { contentFilterMatcher } = require('../utils/content-filtering');
 const { generateSalt, hashPassword } = require('../utils/hasher');
 
 const signupUser = async (req, res) => {
     const { username, password, confirmPassword } = req.body;
 
     try {
+        if (contentFilterMatcher.hasMatch(username) || contentFilterMatcher.hasMatch(password)) {
+            throw new Error('Profanity found in signup credentials.');
+        }
+
         const existingUser = await User.findOne({ 'credentials.username': username });
         
         if (existingUser) {
@@ -37,8 +42,7 @@ const signupUser = async (req, res) => {
 
         res.status(201).json({ message: 'User registered successfully!', user: userInfo });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: 'Error registering user', error });
+        res.status(500).json({ message: 'Error registering user: ' + error.message });
     }
 };
 

@@ -18,6 +18,8 @@ npm install uuid
 npm install multer
 npm install express-session
 npm install connect-mongodb-session
+npm install obscenity
+npm install sharp
 ```
 ## External Sources
 - for icons: https://fonts.google.com/icons?icon.size=24&icon.color=%23e8eaed&icon.platform=web

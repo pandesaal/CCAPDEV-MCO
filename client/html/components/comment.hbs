@@ -79,9 +79,11 @@
     {{/unless}}
 
     {{#if comments.length}}
-        <div class="nested-comments">
-            {{> nested-comment comments}}
-        </div>
+        {{#unless queried}}
+            <div class="nested-comments">
+                {{> nested-comment comments}}
+            </div>
+        {{/unless}}
     {{/if}}
 
 </div>

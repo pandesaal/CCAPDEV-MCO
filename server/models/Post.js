@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
-const autopopulate = require('../utils/autopopulate');
+const { autopopulate } = require('../utils/population');
 
 const postSchema = new mongoose.Schema({
     postId: {type: String, unique: true, default: uuidv4},

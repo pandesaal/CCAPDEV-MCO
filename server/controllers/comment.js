@@ -104,7 +104,7 @@ const serverDeleteComment = async (req) => {
             throw new Error('Comment not found.');
         }
 
-        if (comment.author.toString() !== user._id.toString()) {
+        if (comment.author._id.toString() !== user._id.toString()) {
             throw new Error('Unauthorized to delete this Comment.');
         }
 

@@ -63,7 +63,7 @@ const editPost = async (req, res) => {
             return res.status(404).json({ message: "Post not found" });
         }
 
-        if (post.author.toString() !== user._id.toString()) {
+        if (post.author._id.toString() !== user._id.toString()) {
             return res.status(403).json({ message: "Unauthorized to edit this post" });
         }
 

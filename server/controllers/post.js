@@ -94,7 +94,7 @@ const serverDeletePost = async (req) => {
             throw new Error('Post not found.');
         }
 
-        if (post.author.toString() !== user._id.toString()) {
+        if (post.author._id.toString() !== user._id.toString()) {
             throw new Error('Unauthorized to delete this post.');
         }
 

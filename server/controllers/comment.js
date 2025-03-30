@@ -16,27 +16,42 @@ const createComment = async (req, res) => {
             throw new Error('Profanity found in comment information.');
         }
 
-        const post = await Post.findOne({ postId });
-        if (!post) {
+        const post = replyToRefPath === 'Post' ? await Post.findOne({ postId }) : null;
+        const comment = replyToRefPath === 'Comment' ? await Comment.findOne({ "commentId": postId }) : null;
+        if (!post && !comment) {
             return res.status(404).json({ message: "Post not found." });
         }
 
-        const newComment = new Comment({
-            author: user._id, 
-            replyTo: post._id,
-            replyToRefPath: replyToRefPath,
-            content: content
-        });
-
+        let newComment;
+        if (post) {
+            newComment = new Comment({
+                author: user._id, 
+                replyTo: post._id,
+                replyToRefPath: replyToRefPath,
+                content: content
+            });
+        }
+        else if (comment) {
+            newComment = new Comment({
+                author: user._id, 
+                replyTo: comment._id,
+                replyToRefPath: replyToRefPath,
+                content: content
+            });
+        }
+        
         await newComment.save();
 
         await User.findByIdAndUpdate(user._id, {
             $push: { comments: newComment._id }
         });
 
-        await Post.findByIdAndUpdate(post._id, {
-            $push: { comments: newComment._id }
-        });
+        if (post) {
+            await Post.findByIdAndUpdate(post._id, { $push: { comments: newComment._id } });
+        }
+        else if (comment) {
+            await Comment.findByIdAndUpdate(comment._id, { $push: { comments: newComment._id } });
+        }
 
         res.status(201).json({ message: 'Comment created successfully.', comment: newComment});
     } catch (error) {
@@ -98,7 +113,7 @@ const serverDeleteComment = async (req) => {
             throw new Error('Comment not found.');
         }
 
-        if (comment.author.toString() !== user._id.toString()) {
+        if (comment.author._id.toString() !== user._id.toString()) {
             throw new Error('Unauthorized to delete this Comment.');
         }
 

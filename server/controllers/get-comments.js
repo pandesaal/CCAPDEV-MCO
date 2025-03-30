@@ -18,6 +18,9 @@ const getRootPost = async (comment) => {
     if (currentComment && currentComment.replyToRefPath === 'Post') {
         return await Post.findById(currentComment.replyTo).lean();
     }
+    else if (currentComment && currentComment.replyToRefPath === 'Comment') {
+        return getRootPost(currentComment.replyTo).lean();
+    }
 
     return null;
 };
@@ -33,7 +36,7 @@ const getCommentsData = async ({ user = null, postId = null, search = null, page
 
     try {
         const query = Comment.find(filters)
-            .populate('author', 'credentials.username decor.icon')
+            .populate('author', 'credentials.username decor.icon', 'comments')
             .sort({ datePosted: -1 })
             .skip((page - 1) * limit)
             .limit(limit);
@@ -46,8 +49,17 @@ const getCommentsData = async ({ user = null, postId = null, search = null, page
                 ...comment,
                 isAuthor: user && (comment.author.credentials.username === user.credentials.username),
                 datePosted: isValidDate(comment.datePosted) ? new Date(comment.datePosted).toISOString().replace('T', ' ').slice(0, 16) : null,
-                dateEdited: isValidDate(comment.dateEdited) ? new Date(comment.dateEdited).toISOString().replace('T', ' ').slice(0, 16) : null
+                dateEdited: isValidDate(comment.dateEdited) ? new Date(comment.dateEdited).toISOString().replace('T', ' ').slice(0, 16) : null,
+                comments: comments
+                    ? comment.comments?.map(comment => ({
+                        ...comment,
+                        isAuthor: user && (comment.author.credentials.username === user.credentials.username),
+                        datePosted: isValidDate(comment.datePosted) ? new Date(comment.datePosted).toISOString().replace('T', ' ').slice(0, 16) : null,
+                        dateEdited: isValidDate(comment.dateEdited) ? new Date(comment.dateEdited).toISOString().replace('T', ' ').slice(0, 16) : null
+                    }))
+                    : comment.comments
             })), 
+            // comments: transformData(comments, user),
             totalPages: Math.ceil(totalCount / limit), 
             currentPage: page 
         };

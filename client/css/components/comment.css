@@ -139,7 +139,18 @@
 
 }
 
+.nested-comment .comment {
+    margin-left: 1em;
+    padding-left: 1em;
+    border-left: var(--border-small);
+    border-bottom: none !important;
+}
+
 .editable {
-    outline: 0.1em solid var(--color-accent);
+    outline: 0.07em solid var(--color-accent);
+    border-radius: 0.5em;
+}
+.editable:focus {
+    outline: 0.07em solid var(--color-accent);
     border-radius: 0.5em;
 }

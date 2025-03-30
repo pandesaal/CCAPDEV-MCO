@@ -5,6 +5,24 @@ function isValidDate(date) {
     return !isNaN(parsedDate.getTime());
 }
 
+function processComments(comments, user) {
+    if (!comments) return comments;
+  
+    return comments.map(comment => ({
+      ...comment,
+      isAuthor: user && comment.author && comment.author.credentials && 
+                (comment.author.credentials.username === user.credentials.username),
+      datePosted: isValidDate(comment.datePosted) 
+                  ? new Date(comment.datePosted).toISOString().replace('T', ' ').slice(0, 16) 
+                  : null,
+      dateEdited: isValidDate(comment.dateEdited) 
+                  ? new Date(comment.dateEdited).toISOString().replace('T', ' ').slice(0, 16) 
+                  : null,
+      comments: processComments(comment.comments, user)
+    }));
+  }
+  
+
 const getPostData = async ({ user = null, postId, search, comments = false, page = 1, limit = 15, deleted = false } = {}) => {
     const filters = {};
 
@@ -38,44 +56,26 @@ const getPostData = async ({ user = null, postId, search, comments = false, page
                     path: 'author',
                     select: 'credentials.username decor.icon'
                 }
+            }).populate({
+                path: 'comments.comments',
+                populate: {
+                    path: 'author',
+                    select: 'credentials.username decor.icon'
+                }
             });
         }
 
         const posts = await query.lean();
         const totalCount = await Post.countDocuments(filters);
 
-        // previous code; encountered error from this (RangeError: Invalid time value at Date.toISOString)
-        // return {
-        //     posts: posts.map(post => ({
-        //         ...post,
-        //         datePosted: new Date(post.datePosted).toISOString().split('T')[0],
-        //         dateEdited: new Date(post.dateEdited).toISOString().split('T')[0],
-        //         comments: comments
-        //         ? post.comments?.map(comment => ({
-        //             ...comment,
-        //             datePosted: new Date(comment.datePosted).toISOString().split('T')[0],
-        //             dateEdited: new Date(comment.dateEdited).toISOString().split('T')[0]
-        //         }))
-        //         : post.comments
-        //     })),
-        //     totalPages: Math.ceil(totalCount / limit),
-        //     currentPage: page
-        // };
-
         return {
             posts: posts.map(post => ({
                 ...post,
-                isAuthor: user && (post.author.credentials.username === user.credentials.username),
+                isAuthor: user && post.author && post.author.credentials &&
+                    (post.author.credentials.username === user.credentials.username),
                 datePosted: isValidDate(post.datePosted) ? new Date(post.datePosted).toISOString().replace('T', ' ').slice(0, 16) : null,
                 dateEdited: isValidDate(post.dateEdited) ? new Date(post.dateEdited).toISOString().replace('T', ' ').slice(0, 16) : null,
-                comments: comments
-                    ? post.comments?.map(comment => ({
-                        ...comment,
-                        isAuthor: user && (comment.author.credentials.username === user.credentials.username),
-                        datePosted: isValidDate(comment.datePosted) ? new Date(comment.datePosted).toISOString().replace('T', ' ').slice(0, 16) : null,
-                        dateEdited: isValidDate(comment.dateEdited) ? new Date(comment.dateEdited).toISOString().replace('T', ' ').slice(0, 16) : null
-                    }))
-                    : post.comments
+                comments: post.comments ? processComments(post.comments, user) : post.comments
             })),
             totalPages: Math.ceil(totalCount / limit),
             currentPage: page

@@ -150,10 +150,10 @@
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                        width: 2em;
+                        height: 2em;
 
                         img {
-                            width: 2em;
-                            height: 2em;
                             border-radius: 9999em;
                             max-width: 100%;
                             max-height: 100%;

@@ -1,3 +1,11 @@
+function popup(message) {
+    const alert = document.querySelector('.alert');
+    alert.innerText = message;
+    alert.classList.remove('hide');
+
+    setTimeout(() => { alert.classList.add('hide'); }, 5000);
+}
+
 export const commentInjector = () => {
     document.querySelectorAll('.comment-info-text').forEach(async element => {
         const commentId = element.getAttribute('itemId');
@@ -49,7 +57,7 @@ export const commentInjector = () => {
 
                     const data = await response.json();
                     if (!response.ok) {
-                        alert(data.message);
+                        popup(data.message);
                         console.error('Error:', data.message);
                         return;
                     }
@@ -67,11 +75,11 @@ export const commentInjector = () => {
                     contentDiv.setAttribute('contenteditable', 'false');
                     comment.querySelector('.comment-edit').classList.remove('hide');
 
-                    alert("Comment updated successfully!");
+                    popup("Comment updated successfully!");
 
                 } catch (err) {
                     console.error(err);
-                    alert("Updating the comment failed, try again later.");
+                    popup("Updating the comment failed, try again later.");
                 }
             }
         });
@@ -152,17 +160,17 @@ export const commentInjector = () => {
 
                 const data = await response.json();
                 if (!response.ok) {
-                    alert(data.message);
+                    popup(data.message);
                     console.error('Error:', data.message);
                 } else {
-                    alert("Comment deleted successfully!");
+                    popup("Comment deleted successfully!");
                     sessionStorage.removeItem("deleteCommentId");
                     document.getElementById('deleteCommentModal').classList.add('hide');
-                    window.location.reload();
+                    setTimeout(() => { window.location.reload(); }, 2000);
                 }
             } catch (err) {
                 console.error(err);
-                alert("Deleting a comment failed, try again later.");
+                popup("Deleting a comment failed, try again later.");
             }
         });
     });
@@ -189,7 +197,7 @@ export const commentInjector = () => {
                 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    alert(errorData.message);
+                    popup(errorData.message);
                     return
                 }
     
@@ -223,7 +231,7 @@ export const commentInjector = () => {
     
                 if (!response.ok) {
                     const errorData = await response.json();
-                    alert(errorData.message);
+                    popup(errorData.message);
                     return
                 }
     
@@ -268,7 +276,7 @@ export const commentInjector = () => {
                 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    alert(errorData.message);
+                    popup(errorData.message);
                     return
                 }
     
@@ -302,7 +310,7 @@ export const commentInjector = () => {
     
                 if (!response.ok) {
                     const errorData = await response.json();
-                    alert(errorData.message);
+                    popup(errorData.message);
                     return
                 }
     
@@ -366,7 +374,7 @@ export const commentInjector = () => {
             }
             
             if (!content.trim()) {
-                alert("Reply content cannot be empty.");
+                popup("Reply content cannot be empty.");
                 return;
             }
 
@@ -386,14 +394,14 @@ export const commentInjector = () => {
 
                 const data = await response.json();
                 if (response.ok) {
-                    alert("Comment uploaded successfully!");
-                    window.location.reload(); 
+                    popup("Comment uploaded successfully!");
+                    setTimeout(() => { window.location.reload(); }, 2000);
                 } else {
-                    alert(data.message);
+                    popup(data.message);
                 }
             } catch (error) {
                 console.error(err);
-                alert("Uploading a comment failed, try again later.");
+                popup("Uploading a comment failed, try again later.");
             }
         });
     });

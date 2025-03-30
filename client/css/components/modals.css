@@ -167,3 +167,14 @@
         margin-top: 0.25em;
     }
 }
+
+.alert {
+    z-index: 99999999;
+    position: fixed;
+    bottom: 1em;
+    left: 2em;
+    padding: 1em;
+    color: var(--color-light);
+    border-radius: 5em;
+    background-color: var(--color-dark);
+  }

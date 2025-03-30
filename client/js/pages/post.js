@@ -2,6 +2,14 @@ import { navInjector } from "../components/nav-injector.js";
 import { postInjector } from "../components/post-injector.js";
 import { commentInjector } from "../components/comment-injector.js";
 
+function popup(message) {
+    const alert = document.querySelector('.alert');
+    alert.innerText = message;
+    alert.classList.remove('hide');
+
+    setTimeout(() => { alert.classList.add('hide'); }, 5000);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
     navInjector();
@@ -43,14 +51,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
             if (response.ok) {
-                alert("Comment uploaded successfully!");
-                window.location.reload(); 
+                popup("Comment uploaded successfully!");
+                setTimeout(() => { window.location.reload(); }, 2000); 
             } else {
-                alert(data.message);
+                popup(data.message);
             }
         } catch (err) {
             console.error(err);
-            alert("Uploading a comment failed, try again later.");
+            popup("Uploading a comment failed, try again later.");
         }
     });
 });

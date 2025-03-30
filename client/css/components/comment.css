@@ -193,3 +193,40 @@
     outline: 0.07em solid var(--color-accent);
     border-radius: 0.5em;
 }
+
+.reply-input-box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    -webkit-box-align: left;
+        -ms-flex-align: left;
+            align-items: left;
+    -webkit-box-pack: left;
+        -ms-flex-pack: left;
+            justify-content: left;
+
+    form {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        padding: 0.3em 1em;
+        border: var(--border-small);
+        border-radius: 10em;
+        margin: 0.2em;
+
+        #reply-input {
+            font-size: var(--font-smaller);
+        }
+
+        span {
+            font-size: 1.7em;
+            margin-left: 0.5em;
+
+            &:hover {
+                color: var(--color-accent);
+                cursor: pointer;
+            }
+        }
+    }
+}

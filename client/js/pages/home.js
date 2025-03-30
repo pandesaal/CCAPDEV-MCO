@@ -2,6 +2,14 @@ import { navInjector } from "../components/nav-injector.js";
 import { paginationSetup } from "../components/pagination.js";
 import { postInjector } from "../components/post-injector.js";
 
+function popup(message) {
+    const alert = document.querySelector('.alert');
+    alert.innerText = message;
+    alert.classList.remove('hide');
+
+    setTimeout(() => { alert.classList.add('hide'); }, 5000);
+}
+
 const checkSession = async () => {
     try {
         const response = await fetch('/checkSession', {
@@ -18,7 +26,7 @@ const checkSession = async () => {
             sessionStorage.setItem('sessionChecked', true);
         }
     } catch (err) {
-        alert('Error in checking session: ' + err);
+        popup('Error in checking session: ' + err);
     }
 }
 

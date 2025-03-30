@@ -5,6 +5,14 @@ const postTextContent = document.getElementById('postTextContent');
 const postTextTagList = document.getElementById('createPostTagList');
 const postTextTagInput = document.getElementById('createPostTagInput');
 
+function popup(message) {
+    const alert = document.querySelector('.alert');
+    alert.innerText = message;
+    alert.classList.remove('hide');
+
+    setTimeout(() => { alert.classList.add('hide'); }, 5000);
+}
+
 function openCreatePostModal() {
     postModal.classList.remove('hide');
 }
@@ -83,14 +91,14 @@ document.getElementById('createPostForm').addEventListener('submit', async (even
 
         const data = await response.json();
         if (response.ok) {
-            alert("Post uploaded successfully!");
+            popup("Post uploaded successfully!");
             uploadCreatePostModal(); 
-            window.location.replace('/'); 
+            setTimeout(() => { window.location.replace('/'); }, 2000); 
         } else {
-            alert(data.message);
+            popup(data.message);
         }
     } catch (err) {
         console.error(err);
-        alert("Uploading a post failed, try again later.");
+        popup("Uploading a post failed, try again later.");
     }
 });

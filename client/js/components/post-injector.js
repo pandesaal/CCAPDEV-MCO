@@ -1,3 +1,11 @@
+function popup(message) {
+    const alert = document.querySelector('.alert');
+    alert.innerText = message;
+    alert.classList.remove('hide');
+
+    setTimeout(() => { alert.classList.add('hide'); }, 5000);
+}
+
 export const postInjector = () => {
     document.querySelectorAll('.post-options-button').forEach(button => {
         button.addEventListener('click', () => {
@@ -97,18 +105,18 @@ export const postInjector = () => {
 
             const data = await response.json();
             if (!response.ok) {
-                alert(data.message);
+                popup(data.message);
                 console.error('Error:', data.message);
             } else {
-                alert("Post updated successfully!");
+                popup("Post updated successfully!");
                 sessionStorage.removeItem("editPostId");
                 document.getElementById('editModal').classList.add('hide');
                 document.getElementById('editModal').querySelector('.postText-tagArea').classList.add('hide');
-                window.location.reload();
+                setTimeout(() => { window.location.reload(); }, 2000);
             }
         } catch (err) {
             console.error(err);
-            alert("Editing post failed, try again later.");
+            popup("Editing post failed, try again later.");
         }
     });
     
@@ -149,17 +157,17 @@ export const postInjector = () => {
 
                 const data = await response.json();
                 if (!response.ok) {
-                    alert(data.message);
+                    popup(data.message);
                     console.error('Error:', data.message);
                 } else {
-                    alert("Post deleted successfully!");
+                    popup("Post deleted successfully!");
                     sessionStorage.removeItem("deletePostId");
                     document.getElementById('deletePostModal').classList.add('hide');
-                    window.location.reload();
+                    setTimeout(() => { window.location.reload(); }, 2000);
                 }
             } catch (err) {
                 console.error(err);
-                alert("Deleting a post failed, try again later.");
+                popup("Deleting a post failed, try again later.");
             }
         });
     });
@@ -195,7 +203,7 @@ export const postInjector = () => {
                 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    alert(errorData.message);
+                    popup(errorData.message);
                     return
                 }
     
@@ -229,7 +237,7 @@ export const postInjector = () => {
     
                 if (!response.ok) {
                     const errorData = await response.json();
-                    alert(errorData.message);
+                    popup(errorData.message);
                     return
                 }
     
@@ -274,7 +282,7 @@ export const postInjector = () => {
                 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    alert(errorData.message);
+                    popup(errorData.message);
                     return
                 }
     
@@ -308,7 +316,7 @@ export const postInjector = () => {
     
                 if (!response.ok) {
                     const errorData = await response.json();
-                    alert(errorData.message);
+                    popup(errorData.message);
                     return
                 }
     

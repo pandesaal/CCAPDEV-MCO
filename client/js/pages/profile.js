@@ -3,6 +3,14 @@ import { paginationSetup } from "../components/pagination.js";
 import { postInjector } from "../components/post-injector.js";
 import { commentInjector } from "../components/comment-injector.js";
 
+function popup(message) {
+    const alert = document.querySelector('.alert');
+    alert.innerText = message;
+    alert.classList.remove('hide');
+
+    setTimeout(() => { alert.classList.add('hide'); }, 5000);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
     navInjector();
@@ -67,7 +75,7 @@ async function editProfile(e) {
         const icon = fileInput.files[0]; 
 
         if (bio.length >= 126) {
-            alert('Bio is too long, shorten to 125 characters or below.');
+            popup('Bio is too long, shorten to 125 characters or below.');
             document.getElementById("bio").textContent = originalBio;
             return;
         }
@@ -98,7 +106,7 @@ async function editProfile(e) {
 
             originalBio = bio;
         } catch (error) {
-            alert("Error updating profile:", error);
+            popup("Error updating profile:", error);
         }
 
         if (changedIcon) {
@@ -118,7 +126,7 @@ async function editProfile(e) {
                     }
                 } catch (error) {
                     console.error("Error deleting file:", error);
-                    alert(error);
+                    popup(error);
                 }
             }
         }
@@ -161,7 +169,7 @@ document.getElementById('uploadIconInput').addEventListener('change', (e) => {
         };
         reader.readAsDataURL(file);
     } else {
-        alert('Please upload a PNG or JPEG image.');
+        popup('Please upload a PNG or JPEG image.');
     }
 });
 
@@ -214,15 +222,15 @@ async function deleteProfile(e) {
 
             const data = await response.json();
             if (!response.ok) {
-                alert(data.message);
+                popup(data.message);
             } else {
-                alert("Profile deleted successfully.");
+                popup("Profile deleted successfully.");
                 sessionStorage.setItem('isLoggedIn', false);
                 sessionStorage.removeItem('user');
-                window.location.replace('/');
+                setTimeout(() => { window.location.replace('/'); }, 2000);
             }
         } catch (err) {
-            alert("Deleting user failed, try again later.");
+            popup("Deleting user failed, try again later.");
         }
     }
 }

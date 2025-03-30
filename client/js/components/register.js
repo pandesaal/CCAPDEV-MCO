@@ -1,3 +1,11 @@
+function popup(message) {
+    const alert = document.querySelector('.alert');
+    alert.innerText = message;
+    alert.classList.remove('hide');
+
+    setTimeout(() => { alert.classList.add('hide'); }, 5000);
+}
+
 function closeReg() {
     document.getElementById("regWindow").classList.add("hide");
     document.getElementById("overlay").classList.add("hide");
@@ -78,10 +86,10 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
             window.location.reload();
         } 
         else {
-            alert(data.message);
+            popup(data.message);
         }
     } catch (err) {
-        alert("Login failed, try again later.");
+        popup("Login failed, try again later.");
     }
 });
 
@@ -91,11 +99,11 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
     const password = document.querySelector('[name="signupPass"]').value.trim();
     const confirmPassword = document.querySelector('[name="resignupPass"]').value.trim();
 
-    if (username.length < 5) return alert('Username must at least be 5 characters.');
-    if (password.length < 8) return alert('Password must at least be 8 characters.');
-    if (username.includes(' ')) return alert('Username must not contain any spaces.');
-    if (username.match(/\W/)) return alert('Username must only contain alphanumeric characters.');
-    if (password.includes(' ')) return alert('Password must not contain any spaces.');
+    if (username.length < 5) return popup('Username must at least be 5 characters.');
+    if (password.length < 8) return popup('Password must at least be 8 characters.');
+    if (username.includes(' ')) return popup('Username must not contain any spaces.');
+    if (username.match(/\W/)) return popup('Username must only contain alphanumeric characters.');
+    if (password.includes(' ')) return popup('Password must not contain any spaces.');
 
     try {
         const response = await fetch('/register', {
@@ -111,11 +119,11 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
             sessionStorage.setItem('user', JSON.stringify(user));
             window.location.reload();
         } else {
-            alert(data.message);
+            popup(data.message);
         }
     } catch (err) {
         console.error(err);
-        alert("Sign up failed, try again later.");
+        popup("Sign up failed, try again later.");
     }
 });
 
@@ -150,10 +158,10 @@ document.getElementById('sidebar-logout').addEventListener('click', async () => 
         closeReg();
         sessionStorage.setItem('isLoggedIn', false);
         sessionStorage.removeItem('user');
-        window.location.replace('/');
-        alert('Logged out successfully!');
+        popup('Logged out successfully!');
+        setTimeout(() => { window.location.replace('/'); }, 1000);
     }
     else {
-        alert('Error in logging out: ' + response.error);
+        popup('Error in logging out: ' + response.error);
     }
 });

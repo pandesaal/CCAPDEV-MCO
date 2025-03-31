@@ -61,6 +61,8 @@ const createComment = async (req, res) => {
 
 const editComment = async (req, res) => {
     const { authorName, postId, commentId, content } = req.body;
+    let message = "Comment updated successfully.";
+    let edited = false;
 
     try {
         const user = await User.findOne({ 'credentials.username': authorName });
@@ -85,15 +87,21 @@ const editComment = async (req, res) => {
             throw new Error('Profanity found in comment information.');
         }
 
-        // Only update dateEdited if content changes
-        if (comment.content !== content) {
+        const trimmedContent = content.trim();
+        const trimmedSavedContent = comment.content.trim();
+
+        // Only update if content is different after trimming
+        if (trimmedSavedContent !== trimmedContent) {
             comment.content = content;
             comment.dateEdited = new Date();
+            edited = true;
+            await comment.save();
+        } else {
+            message = "No changes made."
+            edited = false;
         }
 
-        await comment.save();
-
-        res.status(200).json({ message: 'Comment updated successfully.', comment });
+        res.status(200).json({ message, comment, edited });
     } catch (error) {
         res.status(500).json({ message: 'Error editing the comment: ' + error.message });
     }

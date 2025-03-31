@@ -28,6 +28,13 @@ export const commentInjector = () => {
         }
     });
 
+    document.querySelectorAll('.comment-options').forEach(element => {
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+        if(!isLoggedIn){
+            element.classList.add('hide');
+        }
+    });
+
     let currentContent;
 
     document.querySelectorAll('.comment-options-button').forEach(async button => {
@@ -75,10 +82,17 @@ export const commentInjector = () => {
 
                     // Remove contenteditable and show "Edited" label
                     contentDiv.setAttribute('contenteditable', 'false');
-                    comment.querySelector('.comment-edit').classList.remove('hide');
-
-                    popup("Comment updated successfully!");
-
+                    popup(data.message);
+                    
+                    const scrollPosition = window.scrollY;
+                    if(data.edited){
+                        setTimeout(() => {
+                            window.location.reload();
+                            window.onload = () => {
+                                window.scrollTo(0, scrollPosition);
+                            };
+                        }, 2000);
+                    }
                 } catch (err) {
                     console.error(err);
                     popup("Updating the comment failed, try again later.");

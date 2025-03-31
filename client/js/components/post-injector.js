@@ -13,6 +13,13 @@ export const postInjector = () => {
         })
     });
 
+    document.querySelectorAll('.post-options').forEach(element => {
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+        if(!isLoggedIn){
+            element.classList.add('hide');
+        }
+    });
+
     // View a Single Post
     document.querySelectorAll('.viewPost').forEach(button => {
         button.addEventListener('click', () => {
@@ -104,11 +111,12 @@ export const postInjector = () => {
             });            
 
             const data = await response.json();
-            if (!response.ok) {
+            if (!response.ok || !data.edited) {
                 popup(data.message);
                 console.error('Error:', data.message);
+                document.getElementById('editModal').classList.remove('hide');
             } else {
-                popup("Post updated successfully!");
+                popup(data.message);
                 sessionStorage.removeItem("editPostId");
                 document.getElementById('editModal').classList.add('hide');
                 document.getElementById('editModal').querySelector('.postText-tagArea').classList.add('hide');

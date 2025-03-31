@@ -41,6 +41,8 @@ const createPost = async (req, res) => {
 
 const editPost = async (req, res) => {
     const { postId, title, content, tags, authorName } = req.body;
+    let message = "Post updated successfully.";
+    let edited = false;
 
     try {
         const user = await User.findOne({ 'credentials.username': authorName });
@@ -67,14 +69,32 @@ const editPost = async (req, res) => {
             return res.status(403).json({ message: "Unauthorized to edit this post" });
         }
 
-        post.title = title.trim();
-        post.content = content.trim();
-        post.tags = Array.isArray(tags) ? tags.map(tag => tag.trim()) : [];
-        post.dateEdited = new Date();
+        const trimmedTitle = title.trim();
+        const trimmedSavedTitle = post.title.trim();
+        const trimmedContent = content.trim();
+        const trimmedSavedContent = post.content.trim();
+        const newTags = Array.isArray(tags) ? tags.map(tag => tag.trim()) : [];
+        const savedTags = post.tags.map(tag => tag.trim());
 
-        await post.save();
+        const differentTitle = trimmedTitle !== trimmedSavedTitle;
+        const differentContent = trimmedContent !== trimmedSavedContent;
+        const sortedNewTags = [...newTags].sort();
+        const sortedSavedTags = [...savedTags].sort();
+        const differentTags = sortedNewTags.length !== sortedSavedTags.length || sortedNewTags.some((tag, index) => tag !== sortedSavedTags[index]);        
 
-        res.status(200).json({ message: 'Post updated successfully', post });
+        // Only update if content is different after trimming
+        if (differentTitle || differentContent || differentTags) {
+            post.title = trimmedTitle;
+            post.content = trimmedContent;
+            post.tags = newTags;
+            post.dateEdited = new Date();
+            await post.save();
+            edited = true;
+        } else {
+            message = "No changes made."
+            edited = false;
+        }
+        res.status(200).json({ message, post, edited, differentTitle, differentContent, differentTags });
     } catch (error) {
         res.status(500).json({ message: 'Error editing the post: ' + error.message });
     }

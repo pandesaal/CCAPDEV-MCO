@@ -104,11 +104,11 @@ export const postInjector = () => {
             });            
 
             const data = await response.json();
-            if (!response.ok) {
+            if (!response.ok || !data.edited) {
                 popup(data.message);
                 console.error('Error:', data.message);
             } else {
-                popup("Post updated successfully!");
+                popup(data.message);
                 sessionStorage.removeItem("editPostId");
                 document.getElementById('editModal').classList.add('hide');
                 document.getElementById('editModal').querySelector('.postText-tagArea').classList.add('hide');

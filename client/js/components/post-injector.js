@@ -13,6 +13,13 @@ export const postInjector = () => {
         })
     });
 
+    document.querySelectorAll('.post-options').forEach(element => {
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+        if(!isLoggedIn){
+            element.classList.add('hide');
+        }
+    });
+
     // View a Single Post
     document.querySelectorAll('.viewPost').forEach(button => {
         button.addEventListener('click', () => {

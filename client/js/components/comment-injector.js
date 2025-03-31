@@ -28,6 +28,13 @@ export const commentInjector = () => {
         }
     });
 
+    document.querySelectorAll('.comment-options').forEach(element => {
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+        if(!isLoggedIn){
+            element.classList.add('hide');
+        }
+    });
+
     let currentContent;
 
     document.querySelectorAll('.comment-options-button').forEach(async button => {

@@ -46,19 +46,14 @@ function addTag(input, list) {
 }
 
 function removeTag(element) {
-    if (!element.parentElement) return;
-
-    const tagContainer = element.parentElement.parentElement;
-    if (tagContainer) {
-        element.parentElement.remove();
-        if (tagContainer.children.length === 0) {
-            tagContainer.classList.add('hide');
-        }
-
-        if (tagContainer.children.length - 1 == 0) {
-            tagContainer.classList.add('hide');
+    const hasTags = element.parentElement?.parentElement?.children?.length > 0;
+    if (hasTags){
+        if (element.parentElement.parentElement.children.length - 1 == 0) {
+            element.parentElement.parentElement.classList.add('hide');
         }
     }
+    
+    element.parentElement.remove();
 }
 
 function discardCreatePostModal() {

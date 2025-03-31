@@ -107,6 +107,7 @@ export const postInjector = () => {
             if (!response.ok || !data.edited) {
                 popup(data.message);
                 console.error('Error:', data.message);
+                document.getElementById('editModal').classList.remove('hide');
             } else {
                 popup(data.message);
                 sessionStorage.removeItem("editPostId");

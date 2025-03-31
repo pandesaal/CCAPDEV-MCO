@@ -16,16 +16,17 @@ sidebarOverlay.addEventListener("click", () => {
     sidebar.classList.toggle("hide")
 })
 
-const darkMode = document.getElementById('sidebar-dark-mode');
+const darkMode = document.getElementById('nav-dark-mode');
 
 if (localStorage.getItem('darkMode') === 'enabled') {
-    document.body.classList.add('dark-mode');
+    document.documentElement.classList.add('dark-mode');
+    document.html
 }
 
 darkMode.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
+    document.documentElement.classList.toggle('dark-mode');
     
-    if (document.body.classList.contains('dark-mode')) {
+    if (document.documentElement.classList.contains('dark-mode')) {
         localStorage.setItem('darkMode', 'enabled');
     } else {
         localStorage.setItem('darkMode', 'disabled');

@@ -67,7 +67,7 @@ const editUser = async(req, res) => {
 
         res.status(200).json({ icon: iconId });
     } catch (error) {
-        res.status(500).send("Error updating user profile: " + error.message);
+        res.status(500).json({message: "Error updating user profile: " + error.message});
     }
 };
 

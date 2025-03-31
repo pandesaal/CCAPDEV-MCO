@@ -59,6 +59,8 @@ export const commentInjector = () => {
                     if (!response.ok) {
                         popup(data.message);
                         console.error('Error:', data.message);
+
+                        contentDiv.classList.add('editable');
                         return;
                     }
 

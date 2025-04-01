@@ -2,6 +2,22 @@ const User = require('../models/User');
 const Post = require('../models/Post');
 const { contentFilterMatcher } = require('../utils/content-filtering');
 
+const getPostData = async (req, res) => {
+    const { postId } = req.query;
+
+    try {
+        const post = await Post.findOne({ postId });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        const { title, content } = post;
+
+        res.status(200).json({ message: "Post data received successfully.", title, content });
+    } catch (error) {
+        res.status(500).json({ message: 'Error getting the post data: ' + error.message });
+    }
+};
+
 const createPost = async (req, res) => {    
     const { authorName, title, content, tags} = req.body;
     
@@ -296,4 +312,4 @@ const checkIfEditedPost = async (req, res) => {
     }
 };
 
-module.exports = { createPost, editPost, serverDeletePost, deletePost, toggleLike, toggleDislike, checkLikeStatus, checkDislikeStatus, checkIfEditedPost };
+module.exports = { getPostData, createPost, editPost, serverDeletePost, deletePost, toggleLike, toggleDislike, checkLikeStatus, checkDislikeStatus, checkIfEditedPost };

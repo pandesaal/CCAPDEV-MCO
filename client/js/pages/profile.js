@@ -106,7 +106,8 @@ async function editProfile(e) {
 
             originalBio = bio;
             viewState();
-            window.location.reload();
+            popup("Profile saved successfully!");
+            setTimeout(() => { window.location.reload(); }, 2000);
         } catch (error) {
             popup(error.message);
         }
@@ -126,7 +127,8 @@ async function editProfile(e) {
                     if (response.ok) {
                         changedIcon = false;
                         viewState();
-                        window.location.reload();
+                        popup("Profile saved successfully!");
+                        setTimeout(() => { window.location.reload(); }, 2000);
                     }
                 } catch (error) {
                     console.error("Error deleting file:", error);

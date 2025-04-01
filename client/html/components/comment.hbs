@@ -58,24 +58,32 @@
                 {{/if}}
                 </span>
             </div>
-            <div class="comment-button comment-reply" commentId="{{commentId}}">
-                <span class="material-symbols-outlined comment-button-icon">chat_bubble</span>
-                <span class="comment-count">
-                {{#if comments.length}}
-                    {{comments.length}}
-                {{else}}
-                    Reply
-                {{/if}}
-                </span>
-            </div>
+            {{#if queried}}
+                <a href="/post/{{rootPost.postId}}">
+            {{/if}}
+                <div class="comment-button comment-reply" commentId="{{commentId}}">
+                    <span class="material-symbols-outlined comment-button-icon">chat_bubble</span>
+                    <span class="comment-count">
+                    {{#if comments.length}}
+                        {{comments.length}}
+                    {{else}}
+                        Reply
+                    {{/if}}
+                    </span>
+                </div>
+            {{#if queried}}
+                </a>
+            {{/if}}
         </div>
 
-        <div class="reply-input-box hide" commentId="{{commentId}}">
-            <form class="createReplyForm" method="post" commentId="{{commentId}}">
-                <input name="reply-content" class="reply-input" placeholder="Add a reply..." />
-                <button><span class="material-symbols-outlined" type="submit">send</span></button>
-            </form> 
-        </div>
+        {{#unless queried}}
+            <div class="reply-input-box hide" commentId="{{commentId}}">
+                <form class="createReplyForm" method="post" commentId="{{commentId}}">
+                    <input name="reply-content" class="reply-input" placeholder="Add a reply..." />
+                    <button><span class="material-symbols-outlined" type="submit">send</span></button>
+                </form> 
+            </div>
+        {{/unless}}
     {{/unless}}
 
     {{#if comments.length}}

@@ -19,7 +19,7 @@ const post = require('./pages/post');
 const { loginUser, logoutUser, checkSession } = require('../controllers/login');
 const { signupUser } = require('../controllers/signup');
 const getTags = require('../controllers/get-tags');
-const { createPost, editPost, deletePost, toggleLike, toggleDislike, checkLikeStatus, checkDislikeStatus, checkIfEditedPost } = require('../controllers/post');
+const { getPostData, createPost, editPost, deletePost, toggleLike, toggleDislike, checkLikeStatus, checkDislikeStatus, checkIfEditedPost } = require('../controllers/post');
 const { createComment, editComment, deleteComment, toggleLikeComment, toggleDisLikeComment, checkLikeCommentStatus, checkDislikeCommentStatus, checkIfEditedComment } = require('../controllers/comment');
 
 const { deleteFile, editUser, deleteUser } = require('../controllers/user');
@@ -58,6 +58,7 @@ router.post('/login', loginUser);
 router.get('/logout', verify, logoutUser);
 router.post('/register', signupUser);
 
+router.get('/getPostData', getPostData);
 router.post('/createPost', createPost);
 router.put('/editPost', editPost);
 router.delete('/deletePost', deletePost);

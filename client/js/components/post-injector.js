@@ -6,6 +6,22 @@ function popup(message) {
     setTimeout(() => { alert.classList.add('hide'); }, 5000);
 }
 
+async function getPostData(postId) {
+    try {
+        const response = await fetch(`/getPostData?postId=${postId}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });            
+
+        const data = await response.json();
+        const { title, content } = data;
+        return { title, content };
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
+}  
+
 export const postInjector = () => {
     document.querySelectorAll('.post-options-button').forEach(button => {
         button.addEventListener('click', () => {
@@ -61,16 +77,18 @@ export const postInjector = () => {
     
     // Post Menu Button: Edit
     document.querySelectorAll('.editBtn').forEach(button => {
-        button.addEventListener('click', () => {
+        button.addEventListener('click', async () => {
             const post = button.closest('.post');
             const postId = button.getAttribute('editPostId');
             sessionStorage.setItem("editPostId", postId);
 
-            const title = post.querySelector('.post-title h3').innerText;
-            const content = post.querySelector('.post-content').innerText;
-    
-            document.getElementById('editPostTextTitle').value = title;
-            document.getElementById('editPostTextContent').value = content;
+            const postData = await getPostData(postId);
+            if (postData) {
+                document.getElementById('editPostTextTitle').value = postData.title;
+                document.getElementById('editPostTextContent').value = postData.content;
+            } else {
+                popup("Post data not found.");
+            }
     
             // Get the tags from the post and display them in the edit modal
             const tags = post.querySelectorAll('.post-tag');
@@ -92,7 +110,7 @@ export const postInjector = () => {
     
             document.querySelectorAll('.remove-tag-button').forEach(removeButton => {
                 removeButton.addEventListener('click', (e) => {
-                    e.target.closest('.tag').remove(); // Remove the tag element
+                    e.target.closest('.tag').remove();
                 });
             });
         });

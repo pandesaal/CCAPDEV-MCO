@@ -62,7 +62,7 @@ main {
 }
 
 #bio {
-    padding: 0.5em;
+    padding-top: 0.5em;
     width: 25em;
     height: 8em;
     text-wrap: wrap;
@@ -154,6 +154,7 @@ main {
 
 .editable {
     outline: 0.1em solid var(--color-accent);
+    padding: 0.5em;
     border-radius: 0.5em;
     white-space: pre-wrap;
     overflow: auto;

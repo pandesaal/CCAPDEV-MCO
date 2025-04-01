@@ -19,17 +19,27 @@
 }
 
 .dark-mode {
-    --color-light: hsl(144, 16%, 6%);
-    --color-light-dark: hsl(140, 6%, 19%);
-    
-    --color-dark: hsl(120, 15%, 84%);
-    --color-dark-dark: hsl(132, 100%, 90%);
 
-    --color-accent: hsl(123, 29%, 58%);
-    --color-accent-dark: hsl(123, 29%, 45%);
+    --color-light: hsl(107, 53%, 3%);
+    --color-light-dark: hsl(132, 20%, 18%);
 
-    --border: 0.15rem solid var(--color-light-dark);
-    --border-small: 0.1rem solid var(--color-light-dark);
+    --color-dark: hsl(139, 15%, 67%);
+    --color-dark-dark: hsl(140, 6%, 48%);
+
+    --color-accent: hsl(123, 50%, 70%);
+    --color-accent-dark: hsl(124, 29%, 46%);
+
+    --border: 0.1rem solid hsl(143, 28%, 27%);
+    --border-small: 0.08rem solid hsl(143, 28%, 27%);
+
+    #signupbtn, .uploadPostBtn, #cancelPostBtn, #dlt-cancelPostBtn, #dlt-cancelCommentBtn {
+        background-color: hsl(143, 28%, 27%) !important;
+        color: hsl(150, 33%, 99%) !important;
+    }
+
+    #nav-dark-mode {
+        font-variation-settings: 'FILL' 1;
+    }
 }
 
 *,

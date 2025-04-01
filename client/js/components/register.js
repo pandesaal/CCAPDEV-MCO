@@ -100,7 +100,9 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
     const confirmPassword = document.querySelector('[name="resignupPass"]').value.trim();
 
     if (username.length < 5) return popup('Username must at least be 5 characters.');
+    if (username.length > 16) return popup('Username must not be more than 15 characters.');
     if (password.length < 8) return popup('Password must at least be 8 characters.');
+    if (password.length > 16) return popup('Password must not be more than 15 characters.');
     if (username.includes(' ')) return popup('Username must not contain any spaces.');
     if (username.match(/\W/)) return popup('Username must only contain alphanumeric characters.');
     if (password.includes(' ')) return popup('Password must not contain any spaces.');

@@ -69,7 +69,7 @@ async function editProfile(e) {
         selection.addRange(range);
     }
     else { // save changes
-        viewState();
+        
         const bio = document.getElementById("bio").textContent;
         const fileInput = document.getElementById("uploadIconInput");
         const icon = fileInput.files[0]; 
@@ -93,11 +93,11 @@ async function editProfile(e) {
                 body: formData,
             });
 
+            const result = await response.json();
             if (!response.ok) {
-                throw new Error("Something went wrong. Please try again.");
+                throw new Error(result.message);
             }
 
-            const result = await response.json();
             const userInfo = JSON.parse(sessionStorage.getItem('user'));
             if (changedIcon) {
                 userInfo.icon = result.icon;
@@ -105,8 +105,11 @@ async function editProfile(e) {
             }
 
             originalBio = bio;
+            viewState();
+            popup("Profile saved successfully!");
+            setTimeout(() => { window.location.reload(); }, 2000);
         } catch (error) {
-            popup("Error updating profile:", error);
+            popup(error.message);
         }
 
         if (changedIcon) {
@@ -123,6 +126,9 @@ async function editProfile(e) {
                     await response.json();
                     if (response.ok) {
                         changedIcon = false;
+                        viewState();
+                        popup("Profile saved successfully!");
+                        setTimeout(() => { window.location.reload(); }, 2000);
                     }
                 } catch (error) {
                     console.error("Error deleting file:", error);
@@ -130,8 +136,6 @@ async function editProfile(e) {
                 }
             }
         }
-
-        window.location.reload();
     }
 }
 document.getElementById("editButton").addEventListener("click", editProfile);

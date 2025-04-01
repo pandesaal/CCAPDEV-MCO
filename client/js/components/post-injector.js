@@ -9,7 +9,16 @@ function popup(message) {
 export const postInjector = () => {
     document.querySelectorAll('.post-options-button').forEach(button => {
         button.addEventListener('click', () => {
-            button.closest('.post').querySelector('.post-menu').classList.toggle('hide')
+            const menu = button.closest('.post').querySelector('.post-menu');
+            document.querySelectorAll('.post-menu').forEach(m => {
+                if (m !== menu) {
+                    m.classList.add('hide');
+                }
+            });
+
+            if (menu) {
+                menu.classList.toggle('hide');
+            }
         })
     });
 

@@ -35,13 +35,21 @@ export const commentInjector = () => {
         }
     });
 
-    let currentContent;
-
     document.querySelectorAll('.comment-options-button').forEach(async button => {
         button.addEventListener('click', async (e) => {
             const comment = button.closest('.comment');
+            const menu = comment.querySelector('.comment-menu');
+
             if (e.target.textContent === 'more_horiz') {
-                comment.querySelector('.comment-menu').classList.toggle('hide'); // opens menu if it's the "..." icon
+                document.querySelectorAll('.comment-menu').forEach(m => {
+                    if (m !== menu) {
+                        m.classList.add('hide');
+                    }
+                });
+    
+                if (menu) {
+                    menu.classList.toggle('hide'); // opens menu if it's the "..." icon
+                }
             }
             else if (e.target.textContent === 'done_outline') { // Saves the edited comment
                 const contentDiv = comment.querySelector('.comment-content');
@@ -66,6 +74,8 @@ export const commentInjector = () => {
                     if (!response.ok) {
                         popup(data.message);
                         console.error('Error:', data.message);
+
+                        contentDiv.classList.add('editable');
                         return;
                     }
 

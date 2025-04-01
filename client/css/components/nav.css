@@ -271,5 +271,16 @@
                 }
             }
         }
+
+        #nav-dark-mode {
+            position: fixed;
+            display: flex;
+            align-items: center;
+            left: 1em;
+            bottom: 1em;
+            padding: 0.5em;
+            border-radius: 0.3em;
+            border: var(--border-small);
+        }
     }
 }

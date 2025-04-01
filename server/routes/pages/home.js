@@ -18,11 +18,11 @@ const home = async (req, res) => {
     const { posts, totalPages } = await getPostData({
         user, 
         page, 
-        limit 
+        limit,
+        comments: true 
     });
 
     await page_renderer('home', req, res, { posts, page, totalPages });
-
 };
 
 module.exports = home;

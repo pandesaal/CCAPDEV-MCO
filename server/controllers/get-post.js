@@ -20,8 +20,19 @@ function processComments(comments, user) {
                   : null,
       comments: processComments(comment.comments, user)
     }));
-  }
-  
+}
+
+function totalComments(comments) {
+    if (!comments || comments.length === 0) {
+        return 0;
+    }
+    let count = 0;
+    for (let comment of comments) {
+        count += 1; 
+        count += totalComments(comment.comments);
+    }
+    return count;
+}
 
 const getPostData = async ({ user = null, postId, search, comments = false, page = 1, limit = 15, deleted = false } = {}) => {
     const filters = {};
@@ -75,7 +86,8 @@ const getPostData = async ({ user = null, postId, search, comments = false, page
                     (post.author.credentials.username === user.credentials.username),
                 datePosted: isValidDate(post.datePosted) ? new Date(post.datePosted).toISOString().replace('T', ' ').slice(0, 16) : null,
                 dateEdited: isValidDate(post.dateEdited) ? new Date(post.dateEdited).toISOString().replace('T', ' ').slice(0, 16) : null,
-                comments: post.comments ? processComments(post.comments, user) : post.comments
+                comments: post.comments ? processComments(post.comments, user) : post.comments,
+                totalComments: totalComments(post.comments)
             })),
             totalPages: Math.ceil(totalCount / limit),
             currentPage: page

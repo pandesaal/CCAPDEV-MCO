@@ -1,11 +1,8 @@
-import {
-	RegExpMatcher,
-	TextCensor,
-	englishDataset,
-	englishRecommendedTransformers,
-} from 'obscenity';
+const { RegExpMatcher, englishDataset, englishRecommendedTransformers } = require('obscenity');
 
-export const contentFilterMatcher = new RegExpMatcher({
+const contentFilterMatcher = new RegExpMatcher({
 	...englishDataset.build(),
 	...englishRecommendedTransformers,
 });
+
+module.exports = {contentFilterMatcher};

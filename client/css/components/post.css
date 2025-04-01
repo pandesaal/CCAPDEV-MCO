@@ -139,6 +139,10 @@
                 }
             }
         }
+
+        .post-content {
+            white-space: pre-line;
+        }
     }
 
     .post-tags {
